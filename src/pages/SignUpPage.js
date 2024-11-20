@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { signUp } from '../services/auth';  // Asegúrate de tener la función de signUp en tus servicios
+import { signUp } from '../services/auth/signUp';  // Asegúrate de tener la función de signUp en tus servicios
 
 function SignUpPage() {
   const [username, setUsername] = useState('');

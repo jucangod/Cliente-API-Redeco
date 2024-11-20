@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { login } from '../services/auth';  // Asegúrate de tener la función de login en tus servicios
+import { login } from '../services/auth/login';  // Asegúrate de tener la función de login en tus servicios
 
 function LoginPage() {
   const [username, setUsername] = useState('');

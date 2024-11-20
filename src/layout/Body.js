@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { LoginPage, SignUpPage } from "../pages";
+import { LoginPage } from "../pages/LoginPage";
+import { SignUpPage } from "../pages/SignUpPage"
 import { createComplaint } from "../services/complaints/newComplaint"; // Servicio para crear queja
 import { fetchComplaints } from "../services/complaints/showComplaints"; // Servicio para mostrar quejas
 
