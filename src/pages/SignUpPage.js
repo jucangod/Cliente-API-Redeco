@@ -1,49 +1,66 @@
-import { useState } from 'react';
-import { Input } from '../components/ui/Input';  // Usamos el componente Input
-import { Button } from '../components/ui/Button';  // Usamos el componente Button
-import { signUp } from '../services/auth/signUp';  // Llamamos a la función de signUp desde los servicios
+import React, { useState } from 'react';
+import { signUp } from '../services/auth';  // Asegúrate de tener la función de signUp en tus servicios
 
 function SignUpPage() {
-    const [username, setUsername] = useState('');
-    const [password, setPassword] = useState('');
-    const [confirmPassword, setConfirmPassword] = useState('');
-    const [key, setKey] = useState('');
-    const [error, setError] = useState('');
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [key, setKey] = useState('');
+  const [error, setError] = useState('');
 
-    const handleSignUp = (e) => {
-        e.preventDefault();
-        if (username && password && confirmPassword && key) {
-            if (password === confirmPassword) {
-                signUp(username, password, key)
-                    .then((response) => {
-                        if (response.success) {
-                            alert('Registro exitoso');
-                        } else {
-                            setError(response.message);
-                        }
-                    })
-                    .catch((err) => setError('Hubo un error al intentar registrarse.'));
-            } else {
-                setError('Las contraseñas no coinciden');
-            }
-        } else {
-            setError('Por favor, completa todos los campos');
-        }
-    };
+  const handleSignUp = async (e) => {
+    e.preventDefault();
+    if (password !== confirmPassword) {
+      setError('Las contraseñas no coinciden');
+      return;
+    }
+    try {
+      const user = await signUp(username, password, key);  // Llamada al servicio de sign up
+      if (user) {
+        // Si el registro es exitoso, redirige al login
+        setError('');
+      } else {
+        setError('Hubo un error al crear la cuenta');
+      }
+    } catch (error) {
+      setError('Hubo un error al intentar registrar');
+    }
+  };
 
-    return (
-        <div>
-            <h1>Registrarse</h1>
-            <form onSubmit={handleSignUp}>
-                <Input label="Username" type="text" value={username} onChange={(e) => setUsername(e.target.value)} required />
-                <Input label="Password" type="password" value={password} onChange={(e) => setPassword(e.target.value)} required />
-                <Input label="Confirm Password" type="password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} required />
-                <Input label="Key" type="text" value={key} onChange={(e) => setKey(e.target.value)} required />
-                {error && <p>{error}</p>}
-                <Button text="Registrarse" type="submit" />
-            </form>
-        </div>
-    );
+  return (
+    <form onSubmit={handleSignUp}>
+      <input
+        type="text"
+        placeholder="Username"
+        value={username}
+        onChange={(e) => setUsername(e.target.value)}
+        required
+      />
+      <input
+        type="password"
+        placeholder="Password"
+        value={password}
+        onChange={(e) => setPassword(e.target.value)}
+        required
+      />
+      <input
+        type="password"
+        placeholder="Confirm Password"
+        value={confirmPassword}
+        onChange={(e) => setConfirmPassword(e.target.value)}
+        required
+      />
+      <input
+        type="text"
+        placeholder="Key"
+        value={key}
+        onChange={(e) => setKey(e.target.value)}
+        required
+      />
+      {error && <p>{error}</p>}
+      <button type="submit">Crear cuenta</button>
+    </form>
+  );
 }
 
 export { SignUpPage };
