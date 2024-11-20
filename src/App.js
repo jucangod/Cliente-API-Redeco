@@ -3,7 +3,8 @@ import { BrowserRouter as Router, Route, Routes, useNavigate } from 'react-route
 import { Body } from './layout/Body';
 import { Header } from './layout/Header';
 import { Footer } from './layout/Footer';
-import { LoginPage, SignUpPage } from './pages';   // Importamos las páginas de login y signup
+import { LoginPage } from './pages/LoginPage';
+import { SignUpPage } from './pages/SignUpPage';
 
 function App() {
   // Estado para controlar si el usuario está logueado
