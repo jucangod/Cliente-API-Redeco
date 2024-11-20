@@ -7,32 +7,33 @@ import { LoginPage } from './pages/LoginPage';
 import { SignUpPage } from './pages/SignUpPage';
 
 function App() {
-  // Estado para controlar si el usuario está logueado
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [selectedSection, setSelectedSection] = useState('ver');  // Controla qué sección mostrar en el body
+  const [selectedSection, setSelectedSection] = useState('ver');
   const navigate = useNavigate();
 
-  // Función para cambiar la sección seleccionada
   const changeSection = (section) => {
     setSelectedSection(section);
   };
 
-  // Función para cerrar sesión
   const logout = () => {
     setIsLoggedIn(false);
-    localStorage.removeItem('token');  // Limpiamos el token del localStorage
-    navigate('/');  // Redirigimos al inicio
+    localStorage.removeItem('token');
+    navigate('/');  // Redirige al inicio después de cerrar sesión
   };
 
   return (
     <Router>
-      {/* Componente Header cambia según el estado de isLoggedIn */}
+      {/* Header, Body y Footer se encuentran fuera del Routes */}
       <Header isLoggedIn={isLoggedIn} logout={logout} changeSection={changeSection} />
-
+      
+      {/* Aquí ponemos las rutas específicas de las páginas */}
+      <Routes>
+        <Route path="/" element={<LoginPage />} />
+        <Route path="/signup" element={<SignUpPage />} />
+      </Routes>
+      
       {/* Body se cambia según la selección en el Header */}
       <Body isLoggedIn={isLoggedIn} selectedSection={selectedSection} />
-
-      {/* Footer que es común a todas las páginas */}
       <Footer />
     </Router>
   );
