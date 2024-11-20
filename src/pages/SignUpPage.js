@@ -1,66 +1,45 @@
 import React, { useState } from 'react';
-import { signUp } from '../services/auth/signUp';  // Asegúrate de tener la función de signUp en tus servicios
+import { signUp } from '../services/auth/signUp'; // Importamos la función desde services/auth
 
-function SignUpPage() {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
-  const [key, setKey] = useState('');
-  const [error, setError] = useState('');
+const SignUpPage = () => {
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
+    const [key, setKey] = useState('');
+    const [message, setMessage] = useState('');
 
-  const handleSignUp = async (e) => {
-    e.preventDefault();
-    if (password !== confirmPassword) {
-      setError('Las contraseñas no coinciden');
-      return;
-    }
-    try {
-      const user = await signUp(username, password, key);  // Llamada al servicio de sign up
-      if (user) {
-        // Si el registro es exitoso, redirige al login
-        setError('');
-      } else {
-        setError('Hubo un error al crear la cuenta');
-      }
-    } catch (error) {
-      setError('Hubo un error al intentar registrar');
-    }
-  };
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        const result = await signUp(username, password, key);
+        setMessage(result.message);
+    };
 
-  return (
-    <form onSubmit={handleSignUp}>
-      <input
-        type="text"
-        placeholder="Username"
-        value={username}
-        onChange={(e) => setUsername(e.target.value)}
-        required
-      />
-      <input
-        type="password"
-        placeholder="Password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-        required
-      />
-      <input
-        type="password"
-        placeholder="Confirm Password"
-        value={confirmPassword}
-        onChange={(e) => setConfirmPassword(e.target.value)}
-        required
-      />
-      <input
-        type="text"
-        placeholder="Key"
-        value={key}
-        onChange={(e) => setKey(e.target.value)}
-        required
-      />
-      {error && <p>{error}</p>}
-      <button type="submit">Crear cuenta</button>
-    </form>
-  );
-}
+    return (
+        <div>
+            <h1>Registro</h1>
+            <form onSubmit={handleSubmit}>
+                <input
+                    type="text"
+                    placeholder="Username"
+                    value={username}
+                    onChange={(e) => setUsername(e.target.value)}
+                />
+                <input
+                    type="password"
+                    placeholder="Password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                />
+                <input
+                    type="text"
+                    placeholder="Key"
+                    value={key}
+                    onChange={(e) => setKey(e.target.value)}
+                />
+                <button type="submit">Registrar</button>
+            </form>
+            {message && <p>{message}</p>}
+        </div>
+    );
+};
 
 export { SignUpPage };
