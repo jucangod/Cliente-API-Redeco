@@ -1,16 +1,38 @@
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import { LoginPage } from './pages/LoginPage';  // Importamos la página de Login
-import { SignUpPage } from './pages/SignUpPage';  // Importamos la página de SignUp
+import React, { useState } from 'react';
+import { BrowserRouter as Router, Route, Routes, useNavigate } from 'react-router-dom';
+import { Header, Body, Footer } from './layout';  // Importamos los componentes Header, Body y Footer
+import { LoginPage, SignUpPage } from './pages';   // Importamos las páginas de login y signup
 
 function App() {
-    return (
-        <Router>
-            <Routes>
-                <Route path="/login" element={<LoginPage />} />  {/* Ruta para Login */}
-                <Route path="/signup" element={<SignUpPage />} />  {/* Ruta para SignUp */}
-            </Routes>
-        </Router>
-    );
+  // Estado para controlar si el usuario está logueado
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [selectedSection, setSelectedSection] = useState('ver');  // Controla qué sección mostrar en el body
+  const navigate = useNavigate();
+
+  // Función para cambiar la sección seleccionada
+  const changeSection = (section) => {
+    setSelectedSection(section);
+  };
+
+  // Función para cerrar sesión
+  const logout = () => {
+    setIsLoggedIn(false);
+    localStorage.removeItem('token');  // Limpiamos el token del localStorage
+    navigate('/');  // Redirigimos al inicio
+  };
+
+  return (
+    <Router>
+      {/* Componente Header cambia según el estado de isLoggedIn */}
+      <Header isLoggedIn={isLoggedIn} logout={logout} changeSection={changeSection} />
+
+      {/* Body se cambia según la selección en el Header */}
+      <Body isLoggedIn={isLoggedIn} selectedSection={selectedSection} />
+
+      {/* Footer que es común a todas las páginas */}
+      <Footer />
+    </Router>
+  );
 }
 
 export default App;
