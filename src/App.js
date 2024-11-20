@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { BrowserRouter as Router, Route, Routes, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';  // useNavigate aquí está bien
 import { Body } from './layout/Body';
 import { Header } from './layout/Header';
 import { Footer } from './layout/Footer';
@@ -7,36 +7,28 @@ import { LoginPage } from './pages/LoginPage';
 import { SignUpPage } from './pages/SignUpPage';
 
 function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [selectedSection, setSelectedSection] = useState('ver');
-  const navigate = useNavigate();
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [selectedSection, setSelectedSection] = useState('ver');
+    const navigate = useNavigate();  // El hook useNavigate ahora funciona correctamente
 
-  const changeSection = (section) => {
-    setSelectedSection(section);
-  };
+    const changeSection = (section) => {
+        setSelectedSection(section);
+    };
 
-  const logout = () => {
-    setIsLoggedIn(false);
-    localStorage.removeItem('token');
-    navigate('/');  // Redirige al inicio después de cerrar sesión
-  };
+    const logout = () => {
+        setIsLoggedIn(false);
+        localStorage.removeItem('token');
+        navigate('/');  // Redirige correctamente
+    };
 
-  return (
-    <Router>
-      {/* Header, Body y Footer se encuentran fuera del Routes */}
-      <Header isLoggedIn={isLoggedIn} logout={logout} changeSection={changeSection} />
-      
-      {/* Aquí ponemos las rutas específicas de las páginas */}
-      <Routes>
-        <Route path="/" element={<LoginPage />} />
-        <Route path="/signup" element={<SignUpPage />} />
-      </Routes>
-      
-      {/* Body se cambia según la selección en el Header */}
-      <Body isLoggedIn={isLoggedIn} selectedSection={selectedSection} />
-      <Footer />
-    </Router>
-  );
-}
+    return (
+        <>
+        {/* El Header, Body y Footer se seguirán renderizando normalmente */}
+        <Header isLoggedIn={isLoggedIn} logout={logout} changeSection={changeSection} />
+        <Body isLoggedIn={isLoggedIn} selectedSection={selectedSection} />
+        <Footer />
+        </>
+    );
+    }
 
 export default App;
