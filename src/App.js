@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { BrowserRouter as Router, Route, Routes, useNavigate } from 'react-router-dom';
-import { Header, Body, Footer } from './layout';  // Importamos los componentes Header, Body y Footer
+import { Body } from './layout/Body';
+import { Header } from './layout/Header';
+import { Footer } from './layout/Footer';
 import { LoginPage, SignUpPage } from './pages';   // Importamos las páginas de login y signup
 
 function App() {
