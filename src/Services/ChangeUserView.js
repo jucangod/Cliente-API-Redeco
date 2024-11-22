@@ -16,7 +16,7 @@ function ChangeUserView({ children }) {
     }
 
     const changeComplaints = (view) => {
-        setLogedUserView(view)
+        setLoggedUserView(view)
     }
 
     return (
