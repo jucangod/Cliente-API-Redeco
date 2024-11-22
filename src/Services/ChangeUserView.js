@@ -5,7 +5,7 @@ const AppContext = React.createContext();
 function ChangeUserView({ children }) {
     const [loginPage, setLoginPage] = React.useState(true);
     const [isUserLogged, setIsUserLogged] = React.useState(false);
-    const [logedUserView, setLogedUserView] = React.useState('ver');
+    const [loggedUserView, setLoggedUserView] = React.useState('ver');
 
     const changeView = () => {
         setLoginPage(!loginPage);
@@ -25,7 +25,7 @@ function ChangeUserView({ children }) {
             changeView,
             isUserLogged,
             logUser,
-            logedUserView,
+            loggedUserView,
             changeComplaints
         }}>
             {children}
