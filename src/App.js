@@ -4,6 +4,7 @@ import { AppContext } from './Services/ChangeUserView';
 import { SignUp } from './Pages/SignUp';
 import { Login } from './Pages/Login';
 import { LoggedHeader } from './Pages/LoggedHeader';
+import { LoggedBody } from './Pages/LoggedBody';
 
 const App = () => {
     const {
@@ -17,10 +18,10 @@ const App = () => {
                 {isUserLogged ? <LoggedHeader /> : <p>Header cool</p>}
             </header>
             <body>
-                {isUserLogged ? 
+                {isUserLogged ? <LoggedBody /> : 
 
                 }
-                {loginPage ? <Login /> : <SignUp />}    
+                {loginPage ? <Login /> : <SignUp />} 
             </body>
             <footer>
                 <p>Derechos reservados</p>
