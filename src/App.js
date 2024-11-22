@@ -1,9 +1,9 @@
 import React from 'react'
 import './App.css'
 import { AppContext } from './Services/ChangeUserView';
-
 import { LoggedHeader } from './Pages/LoggedHeader';
 import { LoggedBody } from './Pages/LoggedBody';
+import { OutBody } from './Pages/OutBody';
 
 const App = () => {
     const {
@@ -17,10 +17,7 @@ const App = () => {
                 {isUserLogged ? <LoggedHeader /> : <p>Header cool</p>}
             </header>
             <body>
-                {isUserLogged ? <LoggedBody /> : 
-
-                }
-                 
+                {isUserLogged ? <LoggedBody /> : <OutBody/>}
             </body>
             <footer>
                 <p>Derechos reservados</p>
