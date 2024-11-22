@@ -3,23 +3,23 @@ import './App.css'
 import { AppContext } from './Services/ChangeUserView';
 import { SignUp } from './Pages/SignUp';
 import { Login } from './Pages/Login';
+import { LoggedHeader } from './Pages/LoggedHeader';
 
 const App = () => {
     const {
         loginPage,
-        logUser
+        isUserLogged
     } = React.useContext(AppContext);
     
     return (
         <>
             <header>
-                {/* {logUser ? <p>Header cool</p>
-                    : 
-                    
-                } */}
-                
+                {isUserLogged ? <LoggedHeader /> : <p>Header cool</p>}
             </header>
             <body>
+                {isUserLogged ? 
+
+                }
                 {loginPage ? <Login /> : <SignUp />}    
             </body>
             <footer>
