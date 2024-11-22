@@ -2,8 +2,13 @@ import React from 'react'
 import { CustomText } from '../../Components/Text';
 import { CustomButton } from '../../Components/Button';
 import { CustomInput } from '../../Components/Input';
+import { AppContext } from '../../Services/ChangeUserView';
 
 function Login() {
+    const {
+        changeView
+    } = React.useContext(AppContext);
+
     return (
         <div>
             <div className='login-user'>
@@ -33,7 +38,7 @@ function Login() {
                     Ingresar
                 </CustomButton>
                 <CustomText
-                    onClick=''
+                    onClick={changeView}
                 >
                     ¿Aún no tienes cuenta? Crea una
                 </CustomText>

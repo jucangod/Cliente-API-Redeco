@@ -2,8 +2,13 @@ import React from 'react'
 import { CustomText } from '../../Components/Text';
 import { CustomButton } from '../../Components/Button';
 import { CustomInput } from '../../Components/Input';
+import { AppContext } from '../../Services/ChangeUserView';
 
 function SignUp() {
+    const {
+        changeView
+    } = React.useContext(AppContext);
+
     return (
         <div>
             <div className='login-user'>
@@ -53,7 +58,7 @@ function SignUp() {
                     Registrar
                 </CustomButton>
                 <CustomText
-                    onClick=''
+                    onClick={changeView}
                 >
                     ¿Ya tienes una cuenta? Ingresa
                 </CustomText>

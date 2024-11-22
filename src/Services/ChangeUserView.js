@@ -2,7 +2,7 @@ import React from 'react'
 
 const AppContext = React.createContext();
 
-function changeUserView() {
+function ChangeUserView({ children }) {
     const [loginPage, setLoginPage] = React.useState(true);
 
     const changeView = () => {
@@ -10,10 +10,10 @@ function changeUserView() {
     }
 
     return (
-        <AppContext.Provider value={{changeView}}>
+        <AppContext.Provider value={{loginPage, changeView}}>
             {children}
         </AppContext.Provider>
     );
 };
 
-export { changeUserView };
+export { ChangeUserView, AppContext };
