@@ -3,9 +3,11 @@ import { CustomText } from '../../Components/Text'
 
 function SeeComplaints() {
     return (
-        <CustomText>
-            Hola aqui estan las quejas
-        </CustomText>
+        <>
+            <CustomText>
+                Hola aqui estan las quejas
+            </CustomText>
+        </>
     )
 }
 

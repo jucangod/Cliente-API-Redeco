@@ -5,19 +5,15 @@ import { AppContext } from '../../Services/ChangeUserView';
 
 function LoggedBody() {
     const {
-        loggedUserView
+        logedUserView
     } = React.useContext(AppContext);
 
-    switch (loggedUserView) {
-        case 'ver':
-            return (
-                <SeeComplaints />
-            );
-        case 'crear':
-            return (
-                <CreateComplaints />
-            );
-    }
+    return (
+        <>
+            {logedUserView === 'ver' ? <SeeComplaints /> : 
+            logedUserView === 'crear' ? <CreateComplaints /> : null}
+        </>
+    )
 }
 
 export { LoggedBody }

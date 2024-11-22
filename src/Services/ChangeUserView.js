@@ -16,6 +16,7 @@ function ChangeUserView({ children }) {
     }
 
     const changeComplaints = (view) => {
+        console.log('Se cambio la vista', view)
         setLogedUserView(view)
     }
 

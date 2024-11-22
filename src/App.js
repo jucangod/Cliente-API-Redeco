@@ -7,7 +7,6 @@ import { OutBody } from './Pages/OutBody';
 
 const App = () => {
     const {
-        loginPage,
         isUserLogged
     } = React.useContext(AppContext);
     
