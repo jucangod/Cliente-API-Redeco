@@ -6,7 +6,8 @@ import { AppContext } from '../../Services/ChangeUserView';
 
 function Login() {
     const {
-        changeView
+        changeView,
+        logUser
     } = React.useContext(AppContext);
 
     return (
@@ -34,7 +35,9 @@ function Login() {
                 />
             </div>
             <div className='login-button'>
-                <CustomButton>
+                <CustomButton
+                    onClick={logUser}
+                >
                     Ingresar
                 </CustomButton>
                 <CustomText

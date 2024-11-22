@@ -5,6 +5,7 @@ const AppContext = React.createContext();
 function ChangeUserView({ children }) {
     const [loginPage, setLoginPage] = React.useState(true);
     const [isUserLogged, setIsUserLogged] = React.useState(false);
+    const [logedUserView, setLogedUserView] = React.useState('ver');
 
     const changeView = () => {
         setLoginPage(!loginPage);
@@ -14,12 +15,18 @@ function ChangeUserView({ children }) {
         setIsUserLogged(!isUserLogged)
     }
 
+    const changeComplaints = (view) => {
+        setLogedUserView(view)
+    }
+
     return (
         <AppContext.Provider value={{
             loginPage, 
             changeView,
             isUserLogged,
-            logUser
+            logUser,
+            logedUserView,
+            changeComplaints
         }}>
             {children}
         </AppContext.Provider>

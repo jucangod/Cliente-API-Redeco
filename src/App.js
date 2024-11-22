@@ -6,13 +6,18 @@ import { Login } from './Pages/Login';
 
 const App = () => {
     const {
-        loginPage
+        loginPage,
+        logUser
     } = React.useContext(AppContext);
     
     return (
         <>
             <header>
-                <p>Header cool</p>
+                {/* {logUser ? <p>Header cool</p>
+                    : 
+                    
+                } */}
+                
             </header>
             <body>
                 {loginPage ? <Login /> : <SignUp />}    
