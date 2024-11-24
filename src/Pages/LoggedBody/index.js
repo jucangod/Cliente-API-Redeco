@@ -1,7 +1,7 @@
 import React from 'react'
 import { SeeComplaints } from '../SeeComplaints';
 import { CreateComplaints } from '../CreateComplaints';
-import { AppContext } from '../Services/ChangeUserView';
+import { AppContext } from '../../Services/ChangeUserView';
 
 function LoggedBody() {
     const {

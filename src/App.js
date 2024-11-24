@@ -1,6 +1,6 @@
 import React from 'react'
 import './App.css'
-import { AppContext } from '../Services/ChangeUserView';
+import { AppContext } from './Services/ChangeUserView';
 import { LoggedHeader } from './Pages/LoggedHeader';
 import { LoggedBody } from './Pages/LoggedBody';
 import { OutBody } from './Pages/OutBody';
