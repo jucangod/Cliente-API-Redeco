@@ -3,6 +3,8 @@ body {
     align-items: center;
     justify-content: center;
     min-height: 100vh;
+    background-color: #fff; 
+    color: #000; 
 }
 
 #login-sesion {
@@ -10,6 +12,7 @@ body {
     font-size: 1.37rem;
     font-weight: 600;
     margin-bottom: 1.87rem;
+    color: #611232; 
 }
 
 #root {
@@ -22,12 +25,11 @@ body {
     margin: 0 auto;
     border-radius: 0.5rem;
     padding: 2rem 1.5rem;
-    background: #fff;
+    background: #fff; 
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
 }
 
-
-.login-form .input-wrapper{
+.login-form .input-wrapper {
     height: 54px;
     width: 100%;
     position: relative;
@@ -40,22 +42,22 @@ body {
     outline: none;
     font-size: 1.06rem;
     border-radius: 0.31rem;
-    border: 1px solid #bfb3f2;
+    border: 1px solid #a57f2c; 
     padding: 0 1.25rem 0 3.12rem;
     transition: 0.2 ease;
+    color: #000; 
 }
 
 .login-form .input-wrapper .input-field:focus {
-    border-color: #5f41e4;
+    border-color: #611232; 
 }
 
 .login-form .input-wrapper .input-field::placeholder {
-    color: #a395e0;
-
+    color: #a57f2c;
 }
 
 .login-form .input-wrapper i {
-    color: #a395e0;
+    color: #a57f2c;
     position: absolute;
     top: 50%;
     left: 0.9rem;
@@ -64,8 +66,8 @@ body {
     transition: 0.2 ease;
 }
 
-.login-form .input-wrapper .input-field:focus ~ i{
-    color: #5f41e4;
+.login-form .input-wrapper .input-field:focus ~ i {
+    color: #611232; 
 }
 
 .login-form .login-button {
@@ -75,16 +77,16 @@ body {
     outline: none;
     border: none;
     font-size: 1.25rem;
-    color: #fff;
+    color: #fff; 
     font-weight: 500;
-    background: #5f41e4;
+    background: #a57f2c;
     margin-top: 2.19rem;
     border-radius: 0.31rem;
     transition: 0.2s ease;
 }
 
 .login-form .login-button:hover {
-    background: #4320df;
+    background: #611232; 
 }
 
 .login-container .signup-text {
@@ -92,4 +94,5 @@ body {
     font-weight: 500;
     margin: 1.75rem 0 0.31rem;
     cursor: pointer;
+    color: #611232; 
 }
