@@ -3,6 +3,7 @@ import { CustomText } from '../../Components/Text';
 import { CustomButton } from '../../Components/Button';
 import { CustomInput } from '../../Components/Input';
 import { AppContext } from '../../Services/ChangeUserView';
+import './SignUp.css'
 
 function SignUp() {
     const {
@@ -10,59 +11,65 @@ function SignUp() {
     } = React.useContext(AppContext);
 
     return (
-        <div>
-            <div className='login-user'>
+        <div className='signup-container'>
+            <form action='#' className='signup-form'>
                 <CustomText
-                    className='text-user'
+                    id='signup-sesion'
                 >
-                    Usuario
+                    Registrarse
                 </CustomText>
-                <CustomInput 
-                    type='user'
-                    placeholder='Introduzca su usuario'
-                    className='input-user'
-                />
-                <CustomText
-                    className='text-user'
+                <div className='input-wrapper'>
+                    <CustomInput 
+                        type='user'
+                        placeholder='Introduzca su usuario'
+                        className='input-field'
+                    />
+                    <i class="material-symbols-rounded">
+                        person
+                    </i>
+                </div>
+                <div className='input-wrapper'>
+                    <CustomInput 
+                        type='password'
+                        placeholder='Introduzca su contraseña'
+                        className='input-field'
+                    />
+                    <i class="material-symbols-rounded">
+                        lock
+                    </i>
+                </div>
+                <div className='input-wrapper'>
+                    <CustomInput 
+                        type='confirm-password'
+                        placeholder='Confirme su contraseña'
+                        className='input-field'
+                    />
+                    <i class="material-symbols-rounded">
+                        lock
+                    </i>
+                </div>
+                <div className='input-wrapper'>
+                    <CustomInput 
+                        type='key'
+                        placeholder='Introduzca su key'
+                        className='input-field'
+                    />
+                    <i class="material-symbols-rounded">
+                        key
+                    </i>
+                </div>
+                <CustomButton
+                    className='signup-button'
                 >
-                    Contraseña
-                </CustomText>
-                <CustomInput 
-                    type='password'
-                    placeholder='Introduzca su contraseña'
-                    className='input-user'
-                />
-                <CustomText
-                    className='text-user'
-                >
-                    Confirme su contraseña
-                </CustomText>
-                <CustomInput 
-                    type='password'
-                    placeholder='Confirme su contraseña'
-                    className='input-user'
-                />
-                <CustomText
-                    className='text-user'
-                >
-                    Key
-                </CustomText>
-                <CustomInput 
-                    type='key'
-                    placeholder='Key'
-                    className='input-user'
-                />
-            </div>
-            <div className='signup-button'>
-                <CustomButton>
                     Registrar
                 </CustomButton>
                 <CustomText
                     onClick={changeView}
+                    className='login-text'
                 >
                     ¿Ya tienes una cuenta? Ingresa
                 </CustomText>
-            </div>
+            </form>
         </div>
     );
 };
