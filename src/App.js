@@ -13,7 +13,7 @@ const App = () => {
     return (
         <>
             <div id='div-header'>
-                {isUserLogged ? <LoggedHeader /> : <p>Header cool</p>}
+                {isUserLogged ? <LoggedHeader /> : <p></p>}
             </div>
             <div id='div-body'>
                 {isUserLogged ? <LoggedBody /> : <OutBody/>}
