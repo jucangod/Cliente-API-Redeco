@@ -1,51 +1,48 @@
-/* General styles */
 #header-section {
     display: flex;
-    justify-content: center; /* Centra los botones horizontalmente */
+    justify-content: center; 
     align-items: center;
-    gap: 1rem; /* Espaciado uniforme entre botones */
-    padding: 1rem; /* Espaciado interno */
-    background-color: #611232; /* Fondo del header */
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombras para profundidad */
-    position: sticky; /* Header fijo al hacer scroll */
+    gap: 1rem; 
+    padding: 1rem; 
+    background-color: #611232;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
+    position: sticky; 
     top: 0;
     z-index: 1000;
 }
 
-/* Estilo de los botones */
 .complaint-button {
-    flex: 1; /* Los botones se distribuyen equitativamente */
-    min-width: 160px; /* Asegura suficiente ancho para el texto */
-    max-width: 300px; /* Evita que sean demasiado grandes */
-    text-align: center; /* Centra el texto dentro del botón */
-    font-size: 1rem; /* Tamaño del texto */
-    color: #fff; /* Texto blanco */
-    background-color: #a57f2c; /* Fondo del botón */
+    flex: 1; 
+    min-width: 160px; 
+    max-width: 300px; 
+    text-align: center; 
+    font-size: 1rem; 
+    color: #fff; 
+    background-color: #a57f2c; 
     border: none;
-    border-radius: 0.5rem; /* Bordes redondeados */
-    padding: 0.75rem 1.5rem; /* Espaciado interno */
+    border-radius: 0.5rem; 
+    padding: 0.75rem 1.5rem; 
     cursor: pointer;
     transition: all 0.3s ease-in-out;
     font-weight: 600;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Sombra ligera */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); 
 }
 
 .complaint-button:hover {
-    background-color: #fff; /* Fondo blanco al pasar el mouse */
-    color: #611232; /* Texto en el color principal */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Más sombra en hover */
-    transform: translateY(-2px); /* Animación de hover */
+    background-color: #fff; 
+    color: #611232; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); 
+    transform: translateY(-2px); 
 }
 
-/* Estilo responsivo */
 @media (max-width: 768px) {
     #header-section {
-        flex-direction: column; /* Coloca los botones en columna en pantallas pequeñas */
-        gap: 0.75rem; /* Espaciado ajustado para pantallas pequeñas */
+        flex-direction: column; 
+        gap: 0.75rem; 
     }
 
     .complaint-button {
-        min-width: 200px; /* Ancho mínimo mayor en pantallas pequeñas */
-        width: 90%; /* Ocupa casi todo el ancho disponible */
+        min-width: 200px; 
+        width: 90%; 
     }
 }
