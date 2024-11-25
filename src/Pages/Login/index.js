@@ -3,6 +3,7 @@ import { CustomText } from '../../Components/Text';
 import { CustomButton } from '../../Components/Button';
 import { CustomInput } from '../../Components/Input';
 import { AppContext } from '../../Services/ChangeUserView';
+import './Login.css'
 
 function Login() {
     const {
@@ -11,41 +12,46 @@ function Login() {
     } = React.useContext(AppContext);
 
     return (
-        <div>
-            <div className='login-user'>
+        <div className='login-container'>
+            <form action='#' className='login-form'>
                 <CustomText
-                    className='text-user'
+                    id='login-sesion'
                 >
-                    Usuario
+                    Iniciar Sesión
                 </CustomText>
-                <CustomInput 
-                    type='user'
-                    placeholder='Introduzca su usuario'
-                    className='input-user'
-                />
-                <CustomText
-                    className='text-user'
-                >
-                    Contraseña
-                </CustomText>
-                <CustomInput 
-                    type='password'
-                    placeholder='Introduzca su contraseña'
-                    className='input-user'
-                />
-            </div>
-            <div className='login-button'>
+                <div className='input-wrapper'>
+                    <CustomInput 
+                        type='user'
+                        placeholder='Introduzca su usuario'
+                        className='input-field'
+                    />
+                    <i class="material-symbols-rounded">
+                        person
+                    </i>
+                </div>
+                <div className='input-wrapper'>
+                    <CustomInput 
+                        type='password'
+                        placeholder='Introduzca su contraseña'
+                        className='input-field'
+                    />
+                    <i class="material-symbols-rounded">
+                        lock
+                    </i>
+                </div>    
                 <CustomButton
                     onClick={logUser}
+                    className='login-button'
                 >
                     Ingresar
                 </CustomButton>
                 <CustomText
                     onClick={changeView}
+                    className='signup-text'
                 >
                     ¿Aún no tienes cuenta? Crea una
                 </CustomText>
-            </div>
+            </form>
         </div>
     );
 };

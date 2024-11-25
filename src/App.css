@@ -1,9 +1,19 @@
-header {
+/* Import de la fuente */
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital@0;1&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Montserrat", sans-serif;
+}
+
+#div-header {
     height: 100px;
     background-color: antiquewhite;
 }
 
-footer {
+#div-footer {
     height: 100px;
     background-color: bisque;
 }

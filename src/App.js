@@ -12,15 +12,15 @@ const App = () => {
     
     return (
         <>
-            <header>
+            <div id='div-header'>
                 {isUserLogged ? <LoggedHeader /> : <p>Header cool</p>}
-            </header>
-            <body>
+            </div>
+            <div id='div-body'>
                 {isUserLogged ? <LoggedBody /> : <OutBody/>}
-            </body>
-            <footer>
+            </div>
+            <div id='div-footer'>
                 <p>Derechos reservados</p>
-            </footer>
+            </div>
         </>
     );
 };
