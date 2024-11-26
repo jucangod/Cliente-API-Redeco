@@ -145,6 +145,9 @@ function CreateComplaints() {
                         type="number"
                         className="form-input"
                     />
+                    <CustomText className="form-section-subtitle">
+                        Género:
+                    </CustomText>
                     <div className="radio-group">
                         <CustomRadioButton id="QuejasSexoH" label="Hombre" value="H" />
                         <CustomRadioButton id="QuejasSexoM" label="Mujer" value="M" />
