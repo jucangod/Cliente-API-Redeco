@@ -22,7 +22,7 @@ function CreateComplaints() {
                     <CustomDropdown
                         id="QuejasNoMes"
                         options={[...Array(12).keys()].map((i) => ({
-                            label: `Mes ${i + 1}`, // Uso correcto de backticks para interpolar
+                            label: `Mes ${i + 1}`, 
                             value: i + 1,
                         }))}
                         className="form-dropdown"
