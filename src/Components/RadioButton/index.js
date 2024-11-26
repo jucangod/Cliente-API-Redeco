@@ -1,23 +1,20 @@
 import React from 'react';
 
-function CustomRadioGroup({ id, className, options, name, onChange, selectedValue }) {
+function CustomRadioButton({ id, label, value, name, checked, onChange, className }) {
     return (
-        <div id={id} className={className}>
-            {options.map((option) => (
-                <label key={option.value} className="radio-label">
-                    <input
-                        type="radio"
-                        name={name}
-                        value={option.value}
-                        checked={selectedValue === option.value}
-                        onChange={() => onChange(option.value)}
-                        className="radio-input"
-                    />
-                    {option.label}
-                </label>
-            ))}
-        </div>
+        <label htmlFor={id} className={`custom-radio-button ${className || ''}`}>
+            <input
+                type="radio"
+                id={id}
+                name={name}
+                value={value}
+                checked={checked}
+                onChange={onChange}
+                className="radio-input"
+            />
+            <span className="radio-label">{label}</span>
+        </label>
     );
 }
 
-export { CustomRadioGroup };
+export { CustomRadioButton };
