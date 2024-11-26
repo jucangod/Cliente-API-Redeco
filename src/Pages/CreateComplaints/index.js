@@ -4,7 +4,7 @@ import { CustomInput } from '../../Components/Input';
 import { CustomDropdown } from '../../Components/Dropdown';
 import { CustomRadioButton } from '../../Components/RadioButton';
 import { CustomButton } from '../../Components/Button';
-// import './CreateComplaints.css';
+import './CreateComplaints.css';
 
 function CreateComplaints() {
     return (

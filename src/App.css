@@ -42,4 +42,6 @@
 #div-body {
     padding-top: 10vh; 
     padding-bottom: 10vh; 
+    position: relative;
+    left: 0;
 }
