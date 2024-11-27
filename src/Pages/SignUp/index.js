@@ -2,8 +2,7 @@ import React from 'react'
 import { CustomText } from '../../Components/Text';
 import { CustomButton } from '../../Components/Button';
 import { CustomInput } from '../../Components/Input';
-import { SignUpContext } from '../../Services/SignUp';
-import { AppContext } from '../../Services/ChangeUserView';
+// import { SignUpContext, AppContext } from '../../Services';
 import './SignUp.css'
 
 function SignUp() {
