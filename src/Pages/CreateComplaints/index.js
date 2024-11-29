@@ -27,7 +27,7 @@ function CreateComplaints() {
         setLocalidad,
         setTipoPersona,
         setEdad,
-        setSexo,
+        sexo, setSexo,
         setFecResolucion,
         setFecNotificacion,
         setRespuesta,
@@ -199,18 +199,24 @@ function CreateComplaints() {
                             id="QuejasSexoH"
                             label="Hombre"
                             value="H"
+                            name="sexo"
+                            checked={sexo === 'H'}
                             onChange={() => setSexo('H')}
                         />
                         <CustomRadioButton
                             id="QuejasSexoM"
                             label="Mujer"
                             value="M"
+                            name="sexo"
+                            checked={sexo === 'M'}
                             onChange={() => setSexo('M')}
                         />
                         <CustomRadioButton
                             id="QuejasSexoU"
                             label="Sin especificar"
                             value="U"
+                            name="sexo"
+                            checked={sexo === 'U'}
                             onChange={() => setSexo('U')}
                         />
                     </div>
