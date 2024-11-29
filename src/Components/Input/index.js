@@ -1,14 +1,14 @@
-import React from 'react'
+import React from 'react';
 
-function CustomInput({ type, placeholder, id, className }) {
+const CustomInput = React.forwardRef(({ type, placeholder, className }, ref) => {
     return (
-        <input 
+        <input
             type={type}
             placeholder={placeholder}
-            id={id}
             className={className}
+            ref={ref} 
         />
-    )
-}
+    );
+});
 
-export { CustomInput }
+export { CustomInput };

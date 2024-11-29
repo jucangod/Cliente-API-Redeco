@@ -1,78 +1,81 @@
-import React from 'react'
+import React, { useRef } from 'react';
 import { CustomText } from '../../Components/Text';
 import { CustomButton } from '../../Components/Button';
 import { CustomInput } from '../../Components/Input';
 import { AppContext } from '../../Services/ChangeUserView';
-import './SignUp.css'
+import { handleVerification } from './verification';
+import './SignUp.css';
 
 function SignUpForm() {
-    const {
-        changeView
-    } = React.useContext(AppContext);
+    const userRef = useRef();
+    const passwordRef = useRef();
+    const confirmPasswordRef = useRef();
+    const keyRef = useRef();
+
+    const { changeView } = React.useContext(AppContext);
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+
+        handleVerification(userRef, passwordRef, confirmPasswordRef, keyRef)
+            .then((response) => {
+                alert(response.message); // Mostrar mensaje de éxito
+                changeView(); // Cambiar la vista al login
+            })
+            .catch((error) => {
+                alert(error.message); // Mostrar mensaje de error
+            });
+    };
 
     return (
-        <div className='signup-container'>
-            <form action='#' className='signup-form'>
-                <CustomText
-                    id='signup-sesion'
-                >
-                    Registrarse
-                </CustomText>
-                <div className='input-wrapper'>
-                    <CustomInput 
-                        type='user'
-                        placeholder='Introduzca su usuario'
-                        className='input-field'
+        <div className="signup-container">
+            <form onSubmit={handleSubmit} className="signup-form">
+                <CustomText id="signup-sesion">Registrarse</CustomText>
+                <div className="input-wrapper">
+                    <CustomInput
+                        ref={userRef}
+                        type="text"
+                        placeholder="Introduzca su usuario"
+                        className="input-field"
                     />
-                    <i class="material-symbols-rounded">
-                        person
-                    </i>
+                    <i className="material-symbols-rounded">person</i>
                 </div>
-                <div className='input-wrapper'>
-                    <CustomInput 
-                        type='password'
-                        placeholder='Introduzca su contraseña'
-                        className='input-field'
+                <div className="input-wrapper">
+                    <CustomInput
+                        ref={passwordRef}
+                        type="password"
+                        placeholder="Introduzca su contraseña"
+                        className="input-field"
                     />
-                    <i class="material-symbols-rounded">
-                        lock
-                    </i>
+                    <i className="material-symbols-rounded">lock</i>
                 </div>
-                <div className='input-wrapper'>
-                    <CustomInput 
-                        type='confirm-password'
-                        placeholder='Confirme su contraseña'
-                        className='input-field'
+                <div className="input-wrapper">
+                    <CustomInput
+                        ref={confirmPasswordRef}
+                        type="password"
+                        placeholder="Confirme su contraseña"
+                        className="input-field"
                     />
-                    <i class="material-symbols-rounded">
-                        lock
-                    </i>
+                    <i className="material-symbols-rounded">lock</i>
                 </div>
-                <div className='input-wrapper'>
-                    <CustomInput 
-                        type='key'
-                        placeholder='Introduzca su key'
-                        className='input-field'
+                <div className="input-wrapper">
+                    <CustomInput
+                        ref={keyRef}
+                        type="text"
+                        placeholder="Introduzca su key"
+                        className="input-field"
                     />
-                    <i class="material-symbols-rounded">
-                        key
-                    </i>
+                    <i className="material-symbols-rounded">key</i>
                 </div>
-
-                <CustomButton
-                    className='signup-button'
-                >
+                <CustomButton type="submit" className="signup-button">
                     Registrar
                 </CustomButton>
-                <CustomText
-                    onClick={changeView}
-                    className='login-text'
-                >
+                <CustomText onClick={changeView} className="login-text">
                     ¿Ya tienes una cuenta? Ingresa
                 </CustomText>
             </form>
         </div>
     );
-};
+}
 
 export { SignUpForm };
