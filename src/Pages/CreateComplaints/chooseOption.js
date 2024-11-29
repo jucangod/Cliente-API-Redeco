@@ -23,6 +23,9 @@ export const useChooseOptions = () => {
     const [respuesta, setRespuesta] = useState('');
     const [numPenal, setNumPenal] = useState('');
     const [penalizacion, setPenalizacion] = useState('');
+    const [fecRecepcion, setFecRecepcion] = useState('');
+    const [fecResolucion, setFecResolucion] = useState('');
+    const [fecNotificacion, setFecNotificacion] = useState('');
 
     // Maneja la actualización de los estados de dropdowns
     const handleDropdownChange = (e, setState) => {
@@ -52,6 +55,9 @@ export const useChooseOptions = () => {
         respuesta, setRespuesta,
         numPenal, setNumPenal,
         penalizacion, setPenalizacion,
+        fecRecepcion, setFecRecepcion,
+        fecResolucion, setFecResolucion,
+        fecNotificacion, setFecNotificacion,
         handleDropdownChange,  // Devolver también la función de manejo de cambios
     };
 };
