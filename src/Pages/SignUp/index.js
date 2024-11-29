@@ -2,10 +2,11 @@ import React from 'react'
 import { CustomText } from '../../Components/Text';
 import { CustomButton } from '../../Components/Button';
 import { CustomInput } from '../../Components/Input';
-// import { SignUpContext, AppContext } from '../../Services';
+import { AppContext } from '../../Services/ChangeUserView';
+import { SignUpContext } from '../../Services/signUp';
 import './SignUp.css'
 
-function SignUp() {
+function SignUpForm() {
     const {
         changeView
     } = React.useContext(AppContext);
@@ -92,4 +93,4 @@ function SignUp() {
     );
 };
 
-export { SignUp };
+export { SignUpForm };

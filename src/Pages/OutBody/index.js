@@ -1,6 +1,6 @@
 import React from 'react'
 import { AppContext } from '../../Services/ChangeUserView';
-import { SignUp } from '../SignUp';
+import { SignUpForm } from '../SignUp';
 import { Login } from '../Login';
 
 function OutBody() {
@@ -8,7 +8,7 @@ function OutBody() {
         loginPage
     } = React.useContext(AppContext);
 
-    return loginPage ? <Login /> : <SignUp />
+    return loginPage ? <Login /> : <SignUpForm />
 }
 
 export { OutBody }
