@@ -1,5 +1,4 @@
 import React from 'react';
-import './CustomTable.css';  // Puedes definir los estilos de la tabla aquí
 
 function CustomTable({ headers, data }) {
     return (
