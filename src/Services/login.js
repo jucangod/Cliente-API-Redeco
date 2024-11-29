@@ -1,9 +1,13 @@
-import React from 'react'
+const login = ({ username, password }) => {
+  if (username === 'test' && password === '123') {
+    return {
+      message: 'Autenticación exitosa',
+      user: {
+        username,
+        token_access: 'token',
+      },
+    };
+  } else throw new Error('Contraseña incorrecta.');
+};
 
-const LoginContext = React.createContext();
-
-function Login() {
-    
-}
-
-export { Login }
+export { login };
