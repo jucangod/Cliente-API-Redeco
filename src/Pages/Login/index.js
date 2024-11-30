@@ -1,37 +1,28 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import { CustomText } from '../../Components/Text';
 import { CustomButton } from '../../Components/Button';
 import { CustomInput } from '../../Components/Input';
 import { AppContext } from '../../Services/ChangeUserView';
-import { validateLogin } from './validation'; // Importamos la función de validación
+import { handleSubmit } from './validation'; // Importamos la función de manejo de envío de formulario
+
 import './Login.css';
 
 function Login() {
     const userRef = useRef();
     const passwordRef = useRef();
+    const [errorMessage, setErrorMessage] = useState(''); // Estado para mensajes de error
 
     const { changeView, logUser } = React.useContext(AppContext);
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-
-        // Llamamos a la función de validación
-        validateLogin(userRef, passwordRef)
-            .then((response) => {
-                alert(response.message); // Muestra el mensaje de éxito
-                logUser(); // Cambia el estado de usuario logueado
-            })
-            .catch((error) => {
-                alert(error.message); // Muestra el error si no se loguea correctamente
-            });
-    };
-
     return (
         <div className='login-container'>
-            <form onSubmit={handleSubmit} className='login-form'>
-                <CustomText id='login-sesion'>
-                    Iniciar Sesión
-                </CustomText>
+            <form onSubmit={(e) => handleSubmit(e, userRef, passwordRef, setErrorMessage, logUser)} className='login-form'>
+                <CustomText id='login-sesion'>Iniciar Sesión</CustomText>
+                {errorMessage && (
+                    <div className='error-message'>
+                        {errorMessage} {/* Mostrar mensaje de error */}
+                    </div>
+                )}
                 <div className='input-wrapper'>
                     <CustomInput
                         ref={userRef}
@@ -59,6 +50,6 @@ function Login() {
             </form>
         </div>
     );
-};
+}
 
 export { Login };
