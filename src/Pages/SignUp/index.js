@@ -1,36 +1,33 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import { CustomText } from '../../Components/Text';
 import { CustomButton } from '../../Components/Button';
 import { CustomInput } from '../../Components/Input';
 import { AppContext } from '../../Services/ChangeUserView';
-import { handleVerification } from './verification';
+import { handleSubmit } from './verification'; // Importamos la función de manejo de envío de formulario
+
 import './SignUp.css';
 
-function SignUpForm() {
+function SignUp() {
     const userRef = useRef();
     const passwordRef = useRef();
     const confirmPasswordRef = useRef();
     const keyRef = useRef();
+    const [errorMessage, setErrorMessage] = useState(''); // Estado para mensajes de error
 
     const { changeView } = React.useContext(AppContext);
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-
-        handleVerification(userRef, passwordRef, confirmPasswordRef, keyRef)
-            .then((response) => {
-                alert(response.message); // Mostrar mensaje de éxito
-                changeView(); // Cambiar la vista al login
-            })
-            .catch((error) => {
-                alert(error.message); // Mostrar mensaje de error
-            });
-    };
-
     return (
         <div className="signup-container">
-            <form onSubmit={handleSubmit} className="signup-form">
+            <form 
+                onSubmit={(e) => handleSubmit(e, userRef, passwordRef, confirmPasswordRef, keyRef, setErrorMessage, changeView)} 
+                className="signup-form"
+            >
                 <CustomText id="signup-sesion">Registrarse</CustomText>
+                {errorMessage && (
+                    <div className="error-message">
+                        {errorMessage} {/* Mostrar mensaje de error */}
+                    </div>
+                )}
                 <div className="input-wrapper">
                     <CustomInput
                         ref={userRef}
@@ -78,4 +75,4 @@ function SignUpForm() {
     );
 }
 
-export { SignUpForm };
+export { SignUp };
