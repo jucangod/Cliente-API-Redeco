@@ -14,9 +14,28 @@ function Login() {
 
     const { changeView, logUser } = React.useContext(AppContext);
 
+    const onLoginSuccess = () => {
+        // Aquí puedes cambiar la vista a la vista principal o donde quieras después de un login exitoso
+        changeView(); // Esto puede ser para cambiar a la vista del logueado
+        // Si estás usando react-router, puedes redirigir con history.push('/home') o window.location.href = '/home';
+    };
+
     return (
         <div className='login-container'>
-            <form onSubmit={(e) => handleSubmit(e, userRef, passwordRef, setErrorMessage, logUser)} className='login-form'>
+            <form
+                onSubmit={(e) => {
+                    handleSubmit(e, userRef, passwordRef, setErrorMessage, logUser)
+                        .then(() => {
+                            // Si el login es exitoso, hacer el cambio de vista
+                            onLoginSuccess();
+                        })
+                        .catch((error) => {
+                            // Si el login falla, se muestra el mensaje de error
+                            setErrorMessage(error.message);
+                        });
+                }}
+                className='login-form'
+            >
                 <CustomText id='login-sesion'>Iniciar Sesión</CustomText>
                 {errorMessage && (
                     <div className='error-message'>

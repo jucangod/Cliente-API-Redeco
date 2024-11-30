@@ -33,24 +33,28 @@ const validateLogin = async (username, password) => {
 };
 
 // Función para manejar el envío del formulario
-const handleSubmit = async (e, userRef, passwordRef, setErrorMessage, logUser) => {
-    e.preventDefault();
-    setErrorMessage(''); // Limpiar mensaje de error al intentar enviar el formulario
+// handleSubmit.js
 
-    const username = userRef.current.value.trim(); // Eliminar espacios innecesarios
-    const password = passwordRef.current.value.trim();
+const handleSubmit = (e, userRef, passwordRef, setErrorMessage, logUser) => {
+    e.preventDefault(); // Evita que se recargue la página al enviar el formulario
 
-    try {
-        // Validar datos usando la función de validación de validation.js
-        const response = await validateLogin(username, password);
+    const username = userRef.current.value;
+    const password = passwordRef.current.value;
 
-        // Mostrar mensaje de éxito
-        alert(response.message);
-        logUser(); // Llamar a la función logUser si el login es exitoso
-    } catch (error) {
-        // Mostrar mensaje de error si hay problemas
-        setErrorMessage(error.message);
-    }
+    return new Promise((resolve, reject) => {
+        try {
+            // Llamar a la función logUser (que debes definir para manejar la autenticación)
+            const user = logUser(username, password); // logUser es la función de login
+
+            // Si la autenticación es exitosa
+            if (user) {
+                resolve(user); // Resolvemos la promesa con el usuario
+            }
+        } catch (error) {
+            // Si hay un error, rechazamos la promesa
+            reject(error);
+        }
+    });
 };
 
 export { validateLogin, handleSubmit };
