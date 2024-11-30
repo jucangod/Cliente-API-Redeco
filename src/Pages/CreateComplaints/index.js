@@ -6,6 +6,10 @@ import { CustomRadioButton } from '../../Components/RadioButton';
 import { CustomButton } from '../../Components/Button';
 import './CreateComplaints.css';
 import { useChooseOptions } from './chooseOption';
+import { 
+  MONTHS, MEDIOS, NIVELES_AT, PORI_OPTIONS, ESTATUS_OPTIONS, 
+  TIPOS_PERSONA, RESPUESTA_OPTIONS, PENALIZACION_OPTIONS, ESTADOS_DE_MEXICO, MUNICIPIOS 
+} from './dropdownOption';
 
 function CreateComplaints() {
     const {
@@ -50,10 +54,7 @@ function CreateComplaints() {
                     />
                     <CustomDropdown
                         id="QuejasNoMes"
-                        options={[...Array(12).keys()].map((i) => ({
-                            label: `Mes ${i + 1}`, 
-                            value: i + 1,
-                        }))}
+                        options={MONTHS}  
                         className="form-dropdown"
                         onChange={(value) => setMes(value)}
                     />
@@ -84,22 +85,13 @@ function CreateComplaints() {
                     />
                     <CustomDropdown
                         id="QuejasMedio"
-                        options={[
-                            { label: 'Teléfono', value: 1 },
-                            { label: 'Correo electrónico', value: 2 },
-                            { label: 'Oficina presencial', value: 3 },
-                            { label: 'Sitio web', value: 4 },
-                        ]}
+                        options={MEDIOS}  
                         className="form-dropdown"
                         onChange={(value) => setMedio(value)}
                     />
                     <CustomDropdown
                         id="QuejasNivelAT"
-                        options={[
-                            { label: 'Sucursal', value: 1 },
-                            { label: 'Línea directa', value: 2 },
-                            { label: 'Call center', value: 3 },
-                        ]}
+                        options={NIVELES_AT}  
                         className="form-dropdown"
                         onChange={(value) => setNivelAT(value)}
                     />
@@ -117,19 +109,13 @@ function CreateComplaints() {
                     />
                     <CustomDropdown
                         id="QuejasPORI"
-                        options={[
-                            { label: 'Sí', value: 'SI' },
-                            { label: 'No', value: 'NO' },
-                        ]}
+                        options={PORI_OPTIONS} 
                         className="form-dropdown"
                         onChange={(value) => setPORI(value)}
                     />
                     <CustomDropdown
                         id="QuejasEstatus"
-                        options={[
-                            { label: 'Pendiente', value: 1 },
-                            { label: 'Concluido', value: 2 },
-                        ]}
+                        options={ESTATUS_OPTIONS}  
                         className="form-dropdown"
                         onChange={(value) => setEstatus(value)}
                     />
@@ -141,13 +127,13 @@ function CreateComplaints() {
                 <div className="form-group">
                     <CustomDropdown
                         id="QuejasEstados"
-                        options={[{ label: 'Estado 1', value: 1 }, { label: 'Estado 2', value: 2 }]}
+                        options={ESTADOS_DE_MEXICO} 
                         className="form-dropdown"
                         onChange={(value) => setEstado(value)}
                     />
                     <CustomDropdown
                         id="QuejasMunId"
-                        options={[{ label: 'Municipio 1', value: 1 }, { label: 'Municipio 2', value: 2 }]}
+                        options={MUNICIPIOS} 
                         className="form-dropdown"
                         onChange={(value) => setMunicipio(value)}
                     />
@@ -177,10 +163,7 @@ function CreateComplaints() {
                 <div className="form-group">
                     <CustomDropdown
                         id="QuejasTipoPersona"
-                        options={[
-                            { label: 'Persona física', value: 1 },
-                            { label: 'Persona moral', value: 2 },
-                        ]}
+                        options={TIPOS_PERSONA}  
                         className="form-dropdown"
                         onChange={(value) => setTipoPersona(value)}
                     />
@@ -222,8 +205,8 @@ function CreateComplaints() {
                     </div>
                 </div>
 
-                <CustomText id="resolution-title" className="form-section-title">
-                    Resolución de la Queja
+                <CustomText id="response-data-title" className="form-section-title">
+                    Datos de Respuesta
                 </CustomText>
                 <div className="form-group">
                     <CustomInput
@@ -242,33 +225,28 @@ function CreateComplaints() {
                     />
                     <CustomDropdown
                         id="QuejasRespuesta"
-                        options={[
-                            { label: 'Favorable', value: 1 },
-                            { label: 'Desfavorable', value: 2 },
-                            { label: 'Parcial', value: 3 },
-                        ]}
+                        options={RESPUESTA_OPTIONS}
                         className="form-dropdown"
                         onChange={(value) => setRespuesta(value)}
                     />
                     <CustomInput
                         id="QuejasNumPenal"
                         placeholder="Número de penalización"
+                        type="number"
                         className="form-input"
                         onChange={(e) => setNumPenal(e.target.value)}
                     />
                     <CustomDropdown
                         id="QuejasPenalizacion"
-                        options={[
-                            { label: 'Cancelación de contrato', value: 1 },
-                            { label: 'Reasignación de cartera', value: 2 },
-                            { label: 'Multa', value: 3 },
-                        ]}
+                        options={PENALIZACION_OPTIONS}
                         className="form-dropdown"
                         onChange={(value) => setPenalizacion(value)}
                     />
                 </div>
 
-                <CustomButton className="submit-button">Enviar Queja</CustomButton>
+                <CustomButton type="submit" className="form-submit-button">
+                    Guardar
+                </CustomButton>
             </form>
         </div>
     );
