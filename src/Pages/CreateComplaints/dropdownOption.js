@@ -1,4 +1,5 @@
 export const MONTHS = [
+    { label: "Escoje una opción", value: 0},
     { label: "Enero", value: 1 },
     { label: "Febrero", value: 2 },
     { label: "Marzo", value: 3 },
@@ -14,6 +15,7 @@ export const MONTHS = [
 ];
 
 export const MEDIOS = [
+    { label: "Escoje una opción", value: 0},
     { label: "Teléfono", value: 1 },
     { label: "Correo electrónico", value: 2 },
     { label: "Oficina presencial", value: 3 },
@@ -21,39 +23,46 @@ export const MEDIOS = [
 ];
 
 export const NIVELES_AT = [
+    { label: "Escoje una opción", value: 0},
     { label: "Sucursal", value: 1 },
     { label: "Línea directa", value: 2 },
     { label: "Call center", value: 3 },
 ];
 
 export const PORI_OPTIONS = [
+    { label: "Escoje una opción", value: 0},
     { label: "Sí", value: "SI" },
     { label: "No", value: "NO" },
 ];
 
 export const ESTATUS_OPTIONS = [
+    { label: "Escoje una opción", value: 0},
     { label: "Pendiente", value: 1 },
     { label: "Concluido", value: 2 },
 ];
 
 export const TIPOS_PERSONA = [
+    { label: "Escoje una opción", value: 0},
     { label: "Persona física", value: 1 },
     { label: "Persona moral", value: 2 },
 ];
 
 export const RESPUESTA_OPTIONS = [
+    { label: "Escoje una opción", value: 0},
     { label: "Favorable", value: 1 },
     { label: "Desfavorable", value: 2 },
     { label: "Parcial", value: 3 },
 ];
 
 export const PENALIZACION_OPTIONS = [
+    { label: "Escoje una opción", value: 0},
     { label: "Cancelación de contrato", value: 1 },
     { label: "Reasignación de cartera", value: 2 },
     { label: "Multa", value: 3 },
 ];
 
 export const ESTADOS_DE_MEXICO = [
+    { label: "Escoje una opción", value: 0},
     { label: 'Aguascalientes', value: 1 },
     { label: 'Baja California', value: 2 },
     { label: 'Baja California Sur', value: 3 },
@@ -88,6 +97,7 @@ export const ESTADOS_DE_MEXICO = [
 ];  
 
 export const MUNICIPIOS = [
+    { label: "Escoje una opción", value: 0},
     { label: 'Municipio 1', value: 1 },
     { label: 'Municipio 2', value: 2 },
     { label: 'Municipio 3', value: 3 },

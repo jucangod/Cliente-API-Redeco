@@ -1,7 +1,8 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 
 export const useChooseOptions = () => {
     // Crear los useState dentro de chooseOptions.js
+    const formRef = useRef(null);
     const [folio, setFolio] = useState('');
     const [mes, setMes] = useState('');
     const [denominacion, setDenominacion] = useState('');
@@ -34,12 +35,10 @@ export const useChooseOptions = () => {
     };
 
     const handleClear = () => {
-        console.log(folio)
         setFolio('');
         setMes('');
         setDenominacion('');
         setSector('');
-        setFecRecepcion('');
         setMedio('');
         setNivelAT('');
         setProducto('');
@@ -54,13 +53,14 @@ export const useChooseOptions = () => {
         setTipoPersona('');
         setEdad('');
         setSexo('');
-        setFecResolucion('');
-        setFecNotificacion('');
         setRespuesta('');
         setNumPenal('');
         setPenalizacion('');
-    };    
-
+        setFecRecepcion('');
+        setFecResolucion('');
+        setFecNotificacion('');
+    };
+      
     return {
         folio, setFolio,
         mes, setMes,
@@ -87,6 +87,7 @@ export const useChooseOptions = () => {
         fecResolucion, setFecResolucion,
         fecNotificacion, setFecNotificacion,
         handleDropdownChange,
-        handleClear  // Devolver también la función de manejo de cambios
+        handleClear, 
+        formRef
     };
 };

@@ -37,12 +37,21 @@ function CreateComplaints() {
         setRespuesta,
         setNumPenal,
         setPenalizacion,
-        handleClear
+        handleClear,
+        formRef
     } = useChooseOptions();
-    
+
+    // Función para reiniciar el formulario
+    const handleFormClear = () => {
+        if (formRef.current) {
+            formRef.current.reset(); // Resetea los inputs del formulario
+        }
+        handleClear(); // Limpia el estado del formulario
+    };
+
     return (
         <div className="complaints-container">
-            <form className="complaints-form">
+            <form ref={formRef} className="complaints-form">
                 <CustomText id="general-info-title" className="form-section-title">
                     Información General
                 </CustomText>
@@ -56,7 +65,7 @@ function CreateComplaints() {
                     />
                     <CustomDropdown
                         id="QuejasNoMes"
-                        options={MONTHS}  
+                        options={MONTHS}
                         className="form-dropdown"
                         onChange={(value) => setMes(value)}
                     />
@@ -87,13 +96,13 @@ function CreateComplaints() {
                     />
                     <CustomDropdown
                         id="QuejasMedio"
-                        options={MEDIOS}  
+                        options={MEDIOS}
                         className="form-dropdown"
                         onChange={(value) => setMedio(value)}
                     />
                     <CustomDropdown
                         id="QuejasNivelAT"
-                        options={NIVELES_AT}  
+                        options={NIVELES_AT}
                         className="form-dropdown"
                         onChange={(value) => setNivelAT(value)}
                     />
@@ -111,13 +120,13 @@ function CreateComplaints() {
                     />
                     <CustomDropdown
                         id="QuejasPORI"
-                        options={PORI_OPTIONS} 
+                        options={PORI_OPTIONS}
                         className="form-dropdown"
                         onChange={(value) => setPORI(value)}
                     />
                     <CustomDropdown
                         id="QuejasEstatus"
-                        options={ESTATUS_OPTIONS}  
+                        options={ESTATUS_OPTIONS}
                         className="form-dropdown"
                         onChange={(value) => setEstatus(value)}
                     />
@@ -129,13 +138,13 @@ function CreateComplaints() {
                 <div className="form-group">
                     <CustomDropdown
                         id="QuejasEstados"
-                        options={ESTADOS_DE_MEXICO} 
+                        options={ESTADOS_DE_MEXICO}
                         className="form-dropdown"
                         onChange={(value) => setEstado(value)}
                     />
                     <CustomDropdown
                         id="QuejasMunId"
-                        options={MUNICIPIOS} 
+                        options={MUNICIPIOS}
                         className="form-dropdown"
                         onChange={(value) => setMunicipio(value)}
                     />
@@ -165,7 +174,7 @@ function CreateComplaints() {
                 <div className="form-group">
                     <CustomDropdown
                         id="QuejasTipoPersona"
-                        options={TIPOS_PERSONA}  
+                        options={TIPOS_PERSONA}
                         className="form-dropdown"
                         onChange={(value) => setTipoPersona(value)}
                     />
@@ -248,14 +257,14 @@ function CreateComplaints() {
                 <div className="form-actions">
                     <CustomButton
                         type="submit"
-                        className="form-submit-button"
+                        className="submit-button"
                     >
                         Guardar
                     </CustomButton>
                     <CustomButton
                         type="button"
-                        className="form-clear-button"
-                        onClick={handleClear}
+                        className="clear-button"
+                        onClick={handleFormClear}
                     >
                         Limpiar
                     </CustomButton>
