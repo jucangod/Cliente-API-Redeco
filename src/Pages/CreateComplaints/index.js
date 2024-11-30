@@ -13,7 +13,7 @@ import {
 
 function CreateComplaints() {
     const {
-        setFolio,
+        folio, setFolio,
         setMes,
         setDenominacion,
         setSector,
@@ -36,7 +36,8 @@ function CreateComplaints() {
         setFecNotificacion,
         setRespuesta,
         setNumPenal,
-        setPenalizacion
+        setPenalizacion,
+        handleClear
     } = useChooseOptions();
     
     return (
@@ -50,6 +51,7 @@ function CreateComplaints() {
                         id="QuejasFolio"
                         placeholder="Número de folio"
                         className="form-input"
+                        value={folio}
                         onChange={(e) => setFolio(e.target.value)}
                     />
                     <CustomDropdown
@@ -232,7 +234,6 @@ function CreateComplaints() {
                     <CustomInput
                         id="QuejasNumPenal"
                         placeholder="Número de penalización"
-                        type="number"
                         className="form-input"
                         onChange={(e) => setNumPenal(e.target.value)}
                     />
@@ -244,9 +245,21 @@ function CreateComplaints() {
                     />
                 </div>
 
-                <CustomButton type="submit" className="form-submit-button">
-                    Guardar
-                </CustomButton>
+                <div className="form-actions">
+                    <CustomButton
+                        type="submit"
+                        className="form-submit-button"
+                    >
+                        Guardar
+                    </CustomButton>
+                    <CustomButton
+                        type="button"
+                        className="form-clear-button"
+                        onClick={handleClear}
+                    >
+                        Limpiar
+                    </CustomButton>
+                </div>
             </form>
         </div>
     );

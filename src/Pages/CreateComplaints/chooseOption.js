@@ -33,6 +33,34 @@ export const useChooseOptions = () => {
         setState(value);
     };
 
+    const handleClear = () => {
+        console.log(folio)
+        setFolio('');
+        setMes('');
+        setDenominacion('');
+        setSector('');
+        setFecRecepcion('');
+        setMedio('');
+        setNivelAT('');
+        setProducto('');
+        setCausa('');
+        setPORI('');
+        setEstatus('');
+        setEstado('');
+        setMunicipio('');
+        setColonia('');
+        setCP('');
+        setLocalidad('');
+        setTipoPersona('');
+        setEdad('');
+        setSexo('');
+        setFecResolucion('');
+        setFecNotificacion('');
+        setRespuesta('');
+        setNumPenal('');
+        setPenalizacion('');
+    };    
+
     return {
         folio, setFolio,
         mes, setMes,
@@ -58,6 +86,7 @@ export const useChooseOptions = () => {
         fecRecepcion, setFecRecepcion,
         fecResolucion, setFecResolucion,
         fecNotificacion, setFecNotificacion,
-        handleDropdownChange,  // Devolver también la función de manejo de cambios
+        handleDropdownChange,
+        handleClear  // Devolver también la función de manejo de cambios
     };
 };
