@@ -4,16 +4,16 @@ import { CustomInput } from '../../Components/Input';
 import { CustomDropdown } from '../../Components/Dropdown';
 import { CustomRadioButton } from '../../Components/RadioButton';
 import { CustomButton } from '../../Components/Button';
-import './CreateComplaints.css';
-import { useChooseOptions } from './chooseOption';
+import { useChooseOptions } from './formManipulation';
 import { 
   MONTHS, MEDIOS, NIVELES_AT, PORI_OPTIONS, ESTATUS_OPTIONS, 
   TIPOS_PERSONA, RESPUESTA_OPTIONS, PENALIZACION_OPTIONS, ESTADOS_DE_MEXICO, MUNICIPIOS 
 } from './dropdownOption';
+import './CreateComplaints.css';
 
 function CreateComplaints() {
     const {
-        folio, setFolio,
+        setFolio,
         setMes,
         setDenominacion,
         setSector,
@@ -60,7 +60,6 @@ function CreateComplaints() {
                         id="QuejasFolio"
                         placeholder="Número de folio"
                         className="form-input"
-                        value={folio}
                         onChange={(e) => setFolio(e.target.value)}
                     />
                     <CustomDropdown
