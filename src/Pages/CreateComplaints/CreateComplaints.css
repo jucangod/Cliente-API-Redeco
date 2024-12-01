@@ -77,7 +77,6 @@
     justify-content: center; 
     align-items: center; 
     gap: 1rem; 
-    margin-top: 2rem; 
 }
 
 .submit-button {
@@ -127,6 +126,14 @@
     background-color: #4b0f28; 
     border-color: #4b0f28; 
     color: #fff; 
+}
+
+.form-text {
+    flex: 1 1 calc(50% - 1rem);
+}
+
+#text-alone {
+    flex: 1 1 calc(100% - 1rem);
 }
 
 @media (max-width: 600px) {
