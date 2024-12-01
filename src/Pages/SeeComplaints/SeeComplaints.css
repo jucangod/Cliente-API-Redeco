@@ -111,6 +111,10 @@ tr:hover {
     background-color: #f1f1f1;
 }
 
+.form-text {
+    flex: 1 1 calc(50% - 1rem);
+}
+
 @media (max-width: 600px) {
     .filter-input,
     .filter-dropdown {
