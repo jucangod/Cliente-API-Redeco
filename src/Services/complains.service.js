@@ -1,4 +1,4 @@
-const postComplains = (complaint) => {
+const postComplains = async (complaint) => {
   const random = Math.random();
 
   if (random < 0.5) {
@@ -15,9 +15,11 @@ const postComplains = (complaint) => {
       })
     );
   }
+
+  return;
 };
 
-const getAllComplains = () => {
+const getAllComplains = async () => {
   return [
     {
       QuejasDenominacion: 'Queja sobre el servicio',
@@ -76,7 +78,7 @@ const getAllComplains = () => {
   ];
 };
 
-const getComplaint = (complaintId) => {
+const getComplaint = async (complaintId) => {
   return [
     {
       QuejasDenominacion: 'Queja sobre el servicio',
@@ -135,7 +137,7 @@ const getComplaint = (complaintId) => {
   ];
 };
 
-const deleteComplaint = (complaintId) => {
+const deleteComplaint = async (complaintId) => {
   const random = Math.random();
 
   if (random < 0.5) {
@@ -145,6 +147,8 @@ const deleteComplaint = (complaintId) => {
       })
     );
   }
+
+  return;
 };
 
 export { postComplains, getAllComplains, getComplaint, deleteComplaint };
