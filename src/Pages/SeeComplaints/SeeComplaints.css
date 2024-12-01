@@ -40,6 +40,15 @@
     box-shadow: 0 0 0.25rem rgba(97, 18, 50, 0.5);
 }
 
+
+#filter-buttons-section {
+    width: 100%;
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+    gap: 1rem; 
+}
+
 .apply-filters-button {
     width: 15%;
     height: 50px;
@@ -61,6 +70,32 @@
 
 .apply-filters-button:active {
     background-color: #4b0f28;
+}
+
+.clear-button {
+    width: 15%;
+    height: 50px;
+    font-size: 1.25rem;
+    font-weight: bold;
+    color: #611232; 
+    background-color: transparent; 
+    border: 2px solid #611232; 
+    border-radius: 0.31rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    align-self: center;
+    margin-top: 2rem;
+}
+
+.clear-button:hover {
+    background-color: #611232; 
+    color: #fff; 
+}
+
+.clear-button:active {
+    background-color: #4b0f28; 
+    border-color: #4b0f28; 
+    color: #fff; 
 }
 
 .table-section {

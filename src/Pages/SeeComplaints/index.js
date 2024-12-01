@@ -20,7 +20,7 @@ function SeeComplaints() {
             entidad: 'Entidad 1',
         },
         {
-            folio: '560',
+            folio: '124',
             razonSocial: 'Empresa B',
             fecha: '2024-10-02',
             medio: 'Correo electrónico',
@@ -31,17 +31,23 @@ function SeeComplaints() {
     ];
 
     const {
-        folio,
-        estadoQueja,
-        fechaDesde,
-        fechaHasta,
         filteredComplaints,
         setFolio,
         setEstadoQueja,
         setFechaDesde,
         setFechaHasta,
         handleApplyFilters,
+        handleClear,
+        formRef
     } = useFilteredComplaints(complaints);
+
+    // Función para reiniciar el formulario
+    const handleFormClear = () => {
+        if (formRef.current) {
+            formRef.current.reset(); // Resetea los inputs del formulario
+        }
+        handleClear(); // Limpia el estado del formulario
+    };
 
     return (
         <div className="complaints-container">
@@ -49,20 +55,18 @@ function SeeComplaints() {
                 <CustomText id="filters-title" className="section-title">
                     Filtros de Búsqueda
                 </CustomText>
-                <div className="filters-group">
+                <form ref={formRef} className="filters-group">
                     <CustomText className="form-text">Número de folio</CustomText>
                     <CustomText className="form-text">Estado de la queja</CustomText>
                     <CustomInput
                         id="folio"
                         placeholder="Número de folio"
-                        value={folio} // Asegúrate de que el valor esté vinculado al estado
-                        onChange={(event) => setFolio(event.target.value)} // Actualiza el estado del folio directamente
+                        onChange={e => setFolio(e.target.value)} // Actualiza el estado del folio directamente
                         className="filter-input"
                     />
                     <CustomDropdown
                         id="estadoQueja"
                         options={ESTATUS_OPTIONS}
-                        value={estadoQueja} // El valor debe estar vinculado al estado
                         onChange={(value) => setEstadoQueja(value)} // Actualiza el estado directamente
                         className="filter-dropdown"
                     />
@@ -72,7 +76,6 @@ function SeeComplaints() {
                         id="fechaDesde"
                         placeholder="Desde (Fecha)"
                         type="date"
-                        value={fechaDesde} // Asegúrate de que el valor esté vinculado al estado
                         onChange={(e) => setFechaDesde(e.target.value)} // Actualiza el estado directamente
                         className="filter-input"
                     />
@@ -80,17 +83,26 @@ function SeeComplaints() {
                         id="fechaHasta"
                         placeholder="Hasta (Fecha)"
                         type="date"
-                        value={fechaHasta} // El valor debe estar vinculado al estado
                         onChange={(e) => setFechaHasta(e.target.value)} // Actualiza el estado directamente
                         className="filter-input"
                     />
-                    <CustomButton
-                        className="apply-filters-button"
-                        onClick={handleApplyFilters} // Filtra solo al hacer clic
-                    >
-                        Aplicar Filtros
-                    </CustomButton>
-                </div>
+                    <div id='filter-buttons-section'>
+                        <CustomButton
+                            className="apply-filters-button"
+                            type='button'
+                            onClick={handleApplyFilters} // Filtra solo al hacer clic
+                        >
+                            Aplicar Filtros
+                        </CustomButton>
+                        <CustomButton
+                            className="clear-button"
+                            type='button'
+                            onClick={handleFormClear} // Filtra solo al hacer clic
+                        >
+                            Limpiar campos
+                        </CustomButton>
+                    </div>
+                </form>
             </div>
 
             <div className="table-section">

@@ -1,6 +1,7 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 
 export const useFilteredComplaints = (complaints) => {
+    const formRef = useRef(null);
     const [folio, setFolio] = useState('');
     const [estadoQueja, setEstadoQueja] = useState('');
     const [fechaDesde, setFechaDesde] = useState('');
@@ -11,9 +12,6 @@ export const useFilteredComplaints = (complaints) => {
     // Manejador para actualizar los filtros
     const handleFilterChange = (event) => {
         const { id, value } = event.target;
-
-        // Depurar para ver qué campo está cambiando y su valor
-        console.log('Cambio en el campo: ${id}, Nuevo valor: ${value})');
 
         // Usar los setters correspondientes según el id
         if (id === 'folio') {
@@ -29,8 +27,6 @@ export const useFilteredComplaints = (complaints) => {
 
     // Aplicar los filtros solo al hacer clic
     const handleApplyFilters = () => {
-        // Depurar los valores actuales de los filtros antes de aplicarlos
-        console.log('Filtros actuales:', { folio, estadoQueja, fechaDesde, fechaHasta });
 
         const result = complaints.filter((complaint) => {
             const matchesFolio = !folio || complaint.folio.includes(folio);
@@ -41,15 +37,6 @@ export const useFilteredComplaints = (complaints) => {
             // matchesAll es verdadero si todos los filtros no vacíos coinciden
             const matchesAll = matchesFolio && matchesEstado && matchesFechaDesde && matchesFechaHasta;
 
-            // Log para depurar cada queja
-            console.log(`Chequeando queja con folio ${complaint.folio}:`, {
-                matchesFolio,
-                matchesEstado,
-                matchesFechaDesde,
-                matchesFechaHasta,
-                matchesAll,
-            });
-
             return matchesAll;
         });
 
@@ -58,13 +45,23 @@ export const useFilteredComplaints = (complaints) => {
         setFilteredComplaints(result);
     };
 
+    const handleClear = () => {
+        setFolio('');
+        setEstadoQueja('');
+        setFechaDesde('');
+        setFechaHasta('');
+        setFilteredComplaints(complaints);
+    }
+
     return {
-        folio, setFolio,
-        estadoQueja, setEstadoQueja,
-        fechaDesde, setFechaDesde,
-        fechaHasta, setFechaHasta,
+        setFolio,
+        setEstadoQueja,
+        setFechaDesde,
+        setFechaHasta,
         filteredComplaints,
         handleFilterChange,
-        handleApplyFilters, // Devuelve la función para aplicarla al hacer clic
+        handleApplyFilters,
+        formRef,
+        handleClear // Devuelve la función para aplicarla al hacer clic
     };
 };
