@@ -9,37 +9,19 @@ import { ESTATUS_OPTIONS } from './dropdownOption';
 import './SeeComplaints.css';
 
 function SeeComplaints() {
-    const complaints = [
-        {
-            folio: '123',
-            razonSocial: 'Empresa A',
-            fecha: '2024-11-01',
-            medio: 'Teléfono',
-            estado: 'Pendiente',
-            causa: 'Mala atención',
-            entidad: 'Entidad 1',
-        },
-        {
-            folio: '124',
-            razonSocial: 'Empresa B',
-            fecha: '2024-10-02',
-            medio: 'Correo electrónico',
-            estado: 'Concluido',
-            causa: 'Producto defectuoso',
-            entidad: 'Entidad 2',
-        },
-    ];
-
     const {
+        complaints,
         filteredComplaints,
+        loading,
         setFolio,
         setEstadoQueja,
         setFechaDesde,
         setFechaHasta,
         handleApplyFilters,
         handleClear,
-        formRef
-    } = useFilteredComplaints(complaints);
+        formRef,
+        filtersApplied
+    } = useFilteredComplaints();
 
     // Función para reiniciar el formulario
     const handleFormClear = () => {
@@ -48,6 +30,16 @@ function SeeComplaints() {
         }
         handleClear(); // Limpia el estado del formulario
     };
+
+    // Mostrar un mensaje si no hay quejas o si no coinciden los filtros
+    const noDataMessage = filteredComplaints.length === 0 && !loading && filtersApplied ? (
+        <CustomText className="no-data-message">No se ha encontrado ninguna queja.</CustomText>
+    ) : null;
+
+    // Mostrar mensaje de carga si aún estamos esperando los datos
+    const loadingMessage = loading ? (
+        <CustomText className="loading-message">Cargando quejas...</CustomText>
+    ) : null;
 
     return (
         <div className="complaints-container">
@@ -109,18 +101,24 @@ function SeeComplaints() {
                 <CustomText id="complaints-table-title" className="section-title">
                     Quejas Registradas
                 </CustomText>
-                <CustomTable
-                    headers={[
-                        'Folio',
-                        'Razón Social',
-                        'Fecha',
-                        'Medio',
-                        'Estado',
-                        'Causa',
-                        'Entidad',
-                    ]}
-                    data={filteredComplaints.length > 0 ? filteredComplaints : complaints}
-                />
+                {loadingMessage}
+                {noDataMessage}
+                
+                {/* Mostrar la tabla solo si hay datos filtrados o si los filtros no se han aplicado aún */}
+                {!loading && (filteredComplaints.length > 0 || !filtersApplied) && (
+                    <CustomTable
+                        headers={[
+                            'Folio',
+                            'Razón Social',
+                            'Fecha',
+                            'Medio',
+                            'Estado',
+                            'Causa',
+                            'Entidad',
+                        ]}
+                        data={filteredComplaints}
+                    />
+                )}
             </div>
         </div>
     );
