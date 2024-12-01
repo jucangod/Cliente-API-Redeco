@@ -3,7 +3,7 @@ import { CustomText } from '../../Components/Text';
 import { CustomButton } from '../../Components/Button';
 import { CustomInput } from '../../Components/Input';
 import { AppContext } from '../../Services/ChangeUserView';
-import { handleSubmit } from './validation'; // Importamos la función de manejo de envío de formulario
+import { login } from '../../Services/login'; // Importamos la función de autenticación
 
 import './Login.css';
 
@@ -17,25 +17,30 @@ function Login() {
     const onLoginSuccess = () => {
         // Aquí puedes cambiar la vista a la vista principal o donde quieras después de un login exitoso
         changeView(); // Esto puede ser para cambiar a la vista del logueado
-        // Si estás usando react-router, puedes redirigir con history.push('/home') o window.location.href = '/home';
+    };
+
+    const handleFormSubmit = (e) => {
+        e.preventDefault(); // Prevenir el envío por defecto del formulario
+
+        // Intentamos hacer login con los valores de los inputs
+        try {
+            const response = login({
+                username: userRef.current.value,
+                password: passwordRef.current.value,
+            });
+
+            // Si la autenticación es exitosa
+            logUser(response.user); // Llamar al método para guardar el usuario autenticado
+            onLoginSuccess(); // Cambiar la vista si el login es exitoso
+        } catch (error) {
+            // Si ocurre algún error (campo vacío, usuario o contraseña incorrectos)
+            setErrorMessage(error.message);
+        }
     };
 
     return (
         <div className='login-container'>
-            <form
-                onSubmit={(e) => {
-                    handleSubmit(e, userRef, passwordRef, setErrorMessage, logUser)
-                        .then(() => {
-                            // Si el login es exitoso, hacer el cambio de vista
-                            onLoginSuccess();
-                        })
-                        .catch((error) => {
-                            // Si el login falla, se muestra el mensaje de error
-                            setErrorMessage(error.message);
-                        });
-                }}
-                className='login-form'
-            >
+            <form onSubmit={handleFormSubmit} className='login-form'>
                 <CustomText id='login-sesion'>Iniciar Sesión</CustomText>
                 {errorMessage && (
                     <div className='error-message'>

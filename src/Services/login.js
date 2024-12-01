@@ -1,4 +1,9 @@
 const login = ({ username, password }) => {
+    // Verificación de campos vacíos
+    if (!username || !password) {
+        throw new Error('Por favor, ingrese todos los campos.');
+    }
+
     // Simulamos la autenticación
     if (username !== 'test') {
         // Si el usuario no es correcto, lanzamos un error específico para el usuario
