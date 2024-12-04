@@ -3,8 +3,8 @@ import { CustomText } from '../../Components/Text';
 import { CustomInput } from '../../Components/Input';
 import { CustomDropdown } from '../../Components/Dropdown';
 import { CustomButton } from '../../Components/Button';
-import { CustomTable } from '../../Components/Table';  
-import { useFilteredComplaints } from './filterComplaints';  
+import { CustomTable } from '../../Components/Table';
+import { useFilteredComplaints } from './filterComplaints';
 import { ESTATUS_OPTIONS } from './dropdownOption';
 import './SeeComplaints.css';
 
@@ -20,23 +20,27 @@ function SeeComplaints() {
         handleApplyFilters,
         handleClear,
         formRef,
-        filtersApplied
+        filtersApplied,
     } = useFilteredComplaints();
 
-    // Función para reiniciar el formulario
-    const handleFormClear = () => {
-        if (formRef.current) {
-            formRef.current.reset(); // Resetea los inputs del formulario
-        }
-        handleClear(); // Limpia el estado del formulario
-    };
+    // Mapeo de datos para que coincidan con los headers de la tabla
+    const tableData = filteredComplaints.map((complaint) => ({
+        Folio: complaint.QuejasFolio,
+        'Razón Social': complaint.QuejasDenominacion,
+        Fecha: complaint.QuejasFecRecepcion,
+        Medio: complaint.QuejasMedio,
+        Estado: complaint.QuejasEstados,
+        Causa: complaint.QuejasCausa,
+        Entidad: complaint.QuejasMunId,
+    }));
 
-    // Mostrar un mensaje si no hay quejas o si no coinciden los filtros
-    const noDataMessage = filteredComplaints.length === 0 && !loading && filtersApplied ? (
-        <CustomText className="no-data-message">No se ha encontrado ninguna queja.</CustomText>
-    ) : null;
+    const noDataMessage =
+        !loading && filtersApplied && filteredComplaints.length === 0 ? (
+            <CustomText className="no-data-message">
+                No se ha encontrado ninguna queja.
+            </CustomText>
+        ) : null;
 
-    // Mostrar mensaje de carga si aún estamos esperando los datos
     const loadingMessage = loading ? (
         <CustomText className="loading-message">Cargando quejas...</CustomText>
     ) : null;
@@ -49,47 +53,47 @@ function SeeComplaints() {
                 </CustomText>
                 <form ref={formRef} className="filters-group">
                     <CustomText className="form-text">Número de folio</CustomText>
-                    <CustomText className="form-text">Estado de la queja</CustomText>
                     <CustomInput
                         id="folio"
                         placeholder="Número de folio"
-                        onChange={e => setFolio(e.target.value)} // Actualiza el estado del folio directamente
+                        onChange={(e) => setFolio(e.target.value)}
                         className="filter-input"
                     />
+                    <CustomText className="form-text">Estado de la queja</CustomText>
                     <CustomDropdown
                         id="estadoQueja"
                         options={ESTATUS_OPTIONS}
-                        onChange={(value) => setEstadoQueja(value)} // Actualiza el estado directamente
+                        onChange={(value) => setEstadoQueja(value)}
                         className="filter-dropdown"
                     />
                     <CustomText className="form-text">Desde (fecha)</CustomText>
-                    <CustomText className="form-text">Hasta (fecha)</CustomText>
                     <CustomInput
                         id="fechaDesde"
                         placeholder="Desde (Fecha)"
                         type="date"
-                        onChange={(e) => setFechaDesde(e.target.value)} // Actualiza el estado directamente
+                        onChange={(e) => setFechaDesde(e.target.value)}
                         className="filter-input"
                     />
+                    <CustomText className="form-text">Hasta (fecha)</CustomText>
                     <CustomInput
                         id="fechaHasta"
                         placeholder="Hasta (Fecha)"
                         type="date"
-                        onChange={(e) => setFechaHasta(e.target.value)} // Actualiza el estado directamente
+                        onChange={(e) => setFechaHasta(e.target.value)}
                         className="filter-input"
                     />
-                    <div id='filter-buttons-section'>
+                    <div id="filter-buttons-section">
                         <CustomButton
                             className="apply-filters-button"
-                            type='button'
-                            onClick={handleApplyFilters} // Filtra solo al hacer clic
+                            type="button"
+                            onClick={handleApplyFilters}
                         >
                             Aplicar Filtros
                         </CustomButton>
                         <CustomButton
                             className="clear-button"
-                            type='button'
-                            onClick={handleFormClear} // Filtra solo al hacer clic
+                            type="button"
+                            onClick={handleClear}
                         >
                             Limpiar campos
                         </CustomButton>
@@ -103,9 +107,7 @@ function SeeComplaints() {
                 </CustomText>
                 {loadingMessage}
                 {noDataMessage}
-                
-                {/* Mostrar la tabla solo si hay datos filtrados o si los filtros no se han aplicado aún */}
-                {!loading && (filteredComplaints.length > 0 || !filtersApplied) && (
+                {!loading && (tableData.length > 0 || !filtersApplied) && (
                     <CustomTable
                         headers={[
                             'Folio',
@@ -116,7 +118,7 @@ function SeeComplaints() {
                             'Causa',
                             'Entidad',
                         ]}
-                        data={filteredComplaints}
+                        data={tableData}
                     />
                 )}
             </div>
