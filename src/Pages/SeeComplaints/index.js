@@ -5,38 +5,60 @@ import { CustomDropdown } from '../../Components/Dropdown';
 import { CustomButton } from '../../Components/Button';
 import { CustomTable } from '../../Components/Table';
 import { useFilteredComplaints } from './filterComplaints';
-import { ESTATUS_OPTIONS } from './dropdownOption';
+import { ESTATUS_OPTIONS, MEDIOS, ESTADOS_DE_MEXICO } from '../CreateComplaints/dropdownOption';
 import './SeeComplaints.css';
+
+// Función para crear un mapeo dinámico
+const createMapping = (options) => {
+    return options.reduce((acc, option) => {
+        acc[option.value] = option.label;
+        return acc;
+    }, {});
+};
+
+// Crear mapeos de las opciones
+const estatusMapping = createMapping(ESTATUS_OPTIONS);
+const medioMapping = createMapping(MEDIOS);
+const estadosMapping = createMapping(ESTADOS_DE_MEXICO);
 
 function SeeComplaints() {
     const {
-        complaints,
         filteredComplaints,
         loading,
         setFolio,
         setEstadoQueja,
         setFechaDesde,
         setFechaHasta,
-        // handleApplyFilters, // Comentado temporalmente
+        handleApplyFilters,
         handleClear,
         formRef,
-        // filtersApplied, // Comentado porque no estamos usando `handleApplyFilters`
     } = useFilteredComplaints();
 
+    // Mapeo de datos para que coincidan con los headers originales y traducir valores numéricos
     const tableData = filteredComplaints.map((complaint) => ({
         Folio: complaint.QuejasFolio,
         'Razón Social': complaint.QuejasDenominacion,
         Fecha: complaint.QuejasFecRecepcion,
-        Medio: complaint.QuejasMedio,
-        Estatus: complaint.QuejasEstatus,
+        Medio: medioMapping[complaint.QuejasMedio] || 'Desconocido',
+        Estatus: estatusMapping[complaint.QuejasEstatus] || 'Desconocido',
+        Estado: estadosMapping[complaint.QuejasEstados] || 'Desconocido',
         Causa: complaint.QuejasCausa,
-        Estado: complaint.QuejasEstados,
     }));
-    
+
     console.log('Datos que llegan a la tabla:', tableData);
 
+    const headers = [
+        'Folio',
+        'Razón Social',
+        'Fecha',
+        'Medio',
+        'Estatus',
+        'Causa',
+        'Estado',
+    ];
+
     const noDataMessage =
-        !loading && filteredComplaints.length < 1 ? ( // Eliminado `filtersApplied`
+        !loading && filteredComplaints.length < 1 ? (
             <CustomText className="no-data-message">
                 No se ha encontrado ninguna queja.
             </CustomText>
@@ -84,11 +106,10 @@ function SeeComplaints() {
                         className="filter-input"
                     />
                     <div id="filter-buttons-section">
-                        {/* handleApplyFilters desactivado temporalmente */}
                         <CustomButton
                             className="apply-filters-button"
                             type="button"
-                            // onClick={handleApplyFilters}
+                            onClick={handleApplyFilters}
                         >
                             Aplicar Filtros
                         </CustomButton>
@@ -109,19 +130,8 @@ function SeeComplaints() {
                 </CustomText>
                 {loadingMessage}
                 {noDataMessage}
-                {!loading && tableData.length > 0 && ( // Eliminado `filtersApplied`
-                    <CustomTable
-                        headers={[
-                            'Folio',
-                            'Razón Social',
-                            'Fecha',
-                            'Medio',
-                            'Estatus',
-                            'Causa',
-                            'Estado',
-                        ]}
-                        data={tableData}
-                    />
+                {!loading && filteredComplaints.length > 0 && (
+                    <CustomTable headers={headers} data={tableData} />
                 )}
             </div>
         </div>
