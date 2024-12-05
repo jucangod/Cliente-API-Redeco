@@ -29,6 +29,7 @@ function SeeComplaints() {
         setEstadoQueja,
         setFechaDesde,
         setFechaHasta,
+        handleDelete,  // Eliminación
         handleApplyFilters,
         handleClear,
         formRef,
@@ -43,9 +44,12 @@ function SeeComplaints() {
         Estatus: estatusMapping[complaint.QuejasEstatus] || 'Desconocido',
         Estado: estadosMapping[complaint.QuejasEstados] || 'Desconocido',
         Causa: complaint.QuejasCausa,
+        Eliminar: (
+            <button onClick={() => confirmDelete(complaint.QuejasFolio)} className="delete-button">
+                Eliminar
+            </button>
+        ),
     }));
-
-    console.log('Datos que llegan a la tabla:', tableData);
 
     const headers = [
         'Folio',
@@ -55,6 +59,7 @@ function SeeComplaints() {
         'Estatus',
         'Causa',
         'Estado',
+        'Eliminar',
     ];
 
     const noDataMessage =
@@ -67,6 +72,17 @@ function SeeComplaints() {
     const loadingMessage = loading ? (
         <CustomText className="loading-message">Cargando quejas...</CustomText>
     ) : null;
+
+    // Función para confirmar la eliminación
+    const confirmDelete = (folio) => {
+        const isConfirmed = window.confirm('¿Estás seguro de que deseas eliminar esta queja?');
+        if (isConfirmed) {
+            handleDelete(folio);
+            console.log(`Queja con folio ${folio} eliminada.`);
+        } else {
+            console.log('Eliminación cancelada.');
+        }
+    };
 
     return (
         <div className="complaints-container">
