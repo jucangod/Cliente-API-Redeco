@@ -25,8 +25,8 @@ function CustomTable({ headers, data }) {
                             <tr key={rowIndex}>
                                 {headers.map((header, colIndex) => (
                                     <td key={colIndex} className="table-cell">
-                                        {row[header.toLowerCase().replace(' ', '')] || '-'}
-                                    </td>
+                                        {row[header] || '-'}
+                                    </td>                                
                                 ))}
                             </tr>
                         ))

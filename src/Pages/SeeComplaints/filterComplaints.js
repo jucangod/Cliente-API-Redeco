@@ -27,29 +27,34 @@ export const useFilteredComplaints = () => {
         fetchComplaints();
     }, []);
 
-    const filtersApplied = folio || estadoQueja || fechaDesde || fechaHasta;
+    // Comentado porque aún no estamos aplicando los filtros
+    // const filtersApplied = folio || estadoQueja || fechaDesde || fechaHasta;
 
-    const handleApplyFilters = () => {
-        const result = complaints.filter((complaint) => {
-            const matchesFolio =
-                !folio || (complaint.QuejasFolio && complaint.QuejasFolio.includes(folio));
-            const matchesEstado =
-                !estadoQueja || estadoQueja === '0' || complaint.QuejasEstatus.toString() === estadoQueja;
-            const matchesFechaDesde =
-                !fechaDesde ||
-                (complaint.QuejasFecRecepcion &&
-                    new Date(complaint.QuejasFecRecepcion) >= new Date(fechaDesde));
-            const matchesFechaHasta =
-                !fechaHasta ||
-                (complaint.QuejasFecRecepcion &&
-                    new Date(complaint.QuejasFecRecepcion) <= new Date(fechaHasta));
-    
-            return matchesFolio && matchesEstado && matchesFechaDesde && matchesFechaHasta;
-        });
-    
-        setFilteredComplaints(result);
-        console.log(filteredComplaints)
-    };    
+    // const handleApplyFilters = () => {
+    //     console.log('Aplicando filtros con los siguientes valores:', {
+    //         folio,
+    //         estadoQueja,
+    //         fechaDesde,
+    //         fechaHasta,
+    //     });
+
+    //     const result = complaints.filter((complaint) => {
+    //         console.log('Analizando queja:', complaint);
+
+    //         const matchesFolio = !folio || complaint.folio?.includes(folio);
+    //         const matchesEstado =
+    //             !estadoQueja || estadoQueja === '0' || complaint.estado === estadoQueja;
+    //         const matchesFechaDesde =
+    //             !fechaDesde || (complaint.fecha && new Date(complaint.fecha) >= new Date(fechaDesde));
+    //         const matchesFechaHasta =
+    //             !fechaHasta || (complaint.fecha && new Date(complaint.fecha) <= new Date(fechaHasta));
+
+    //         return matchesFolio && matchesEstado && matchesFechaDesde && matchesFechaHasta;
+    //     });
+
+    //     console.log('Resultados filtrados:', result);
+    //     setFilteredComplaints(result);
+    // };
 
     const handleClear = () => {
         setFolio('');
@@ -70,9 +75,9 @@ export const useFilteredComplaints = () => {
         setEstadoQueja,
         setFechaDesde,
         setFechaHasta,
-        handleApplyFilters,
+        // handleApplyFilters, // Comentado temporalmente
         handleClear,
         formRef,
-        filtersApplied,
+        // filtersApplied, // Comentado porque depende de `handleApplyFilters`
     };
 };

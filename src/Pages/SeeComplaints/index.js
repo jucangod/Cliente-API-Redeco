@@ -17,25 +17,26 @@ function SeeComplaints() {
         setEstadoQueja,
         setFechaDesde,
         setFechaHasta,
-        handleApplyFilters,
+        // handleApplyFilters, // Comentado temporalmente
         handleClear,
         formRef,
-        filtersApplied,
+        // filtersApplied, // Comentado porque no estamos usando `handleApplyFilters`
     } = useFilteredComplaints();
 
-    // Mapeo de datos para que coincidan con los headers de la tabla
     const tableData = filteredComplaints.map((complaint) => ({
         Folio: complaint.QuejasFolio,
         'Razón Social': complaint.QuejasDenominacion,
         Fecha: complaint.QuejasFecRecepcion,
         Medio: complaint.QuejasMedio,
-        Estado: complaint.QuejasEstados,
+        Estatus: complaint.QuejasEstatus,
         Causa: complaint.QuejasCausa,
-        Entidad: complaint.QuejasMunId,
+        Estado: complaint.QuejasEstados,
     }));
+    
+    console.log('Datos que llegan a la tabla:', tableData);
 
     const noDataMessage =
-        !loading && filtersApplied && filteredComplaints.length === 0 ? (
+        !loading && filteredComplaints.length < 1 ? ( // Eliminado `filtersApplied`
             <CustomText className="no-data-message">
                 No se ha encontrado ninguna queja.
             </CustomText>
@@ -83,10 +84,11 @@ function SeeComplaints() {
                         className="filter-input"
                     />
                     <div id="filter-buttons-section">
+                        {/* handleApplyFilters desactivado temporalmente */}
                         <CustomButton
                             className="apply-filters-button"
                             type="button"
-                            onClick={handleApplyFilters}
+                            // onClick={handleApplyFilters}
                         >
                             Aplicar Filtros
                         </CustomButton>
@@ -107,16 +109,16 @@ function SeeComplaints() {
                 </CustomText>
                 {loadingMessage}
                 {noDataMessage}
-                {!loading && (tableData.length > 0 || !filtersApplied) && (
+                {!loading && tableData.length > 0 && ( // Eliminado `filtersApplied`
                     <CustomTable
                         headers={[
                             'Folio',
                             'Razón Social',
                             'Fecha',
                             'Medio',
-                            'Estado',
+                            'Estatus',
                             'Causa',
-                            'Entidad',
+                            'Estado',
                         ]}
                         data={tableData}
                     />
