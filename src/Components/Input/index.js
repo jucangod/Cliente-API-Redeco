@@ -1,6 +1,6 @@
 import React from 'react';
 
-const CustomInput = React.forwardRef(({ type, placeholder, className, onChange, maxLength }, ref) => {
+const CustomInput = React.forwardRef(({ type, placeholder, className, onChange, maxLength, value }, ref) => {
     return (
         <input
             type={type}
@@ -8,6 +8,7 @@ const CustomInput = React.forwardRef(({ type, placeholder, className, onChange, 
             className={className}
             onChange={onChange}
             ref={ref}
+            value={value}
             maxLength={maxLength} 
         />
     );

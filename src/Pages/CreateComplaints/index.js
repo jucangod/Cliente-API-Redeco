@@ -22,54 +22,9 @@ function CreateComplaints() {
         setPenalizacion, handleClear, formRef
     } = useChooseOptions();
 
-    const [errorMessage, setErrorMessage] = useState('');
-
-    const validateForm = () => {
-        const requiredFields = [
-            setFolio, setMes, setDenominacion, setSector, setFecRecepcion,
-            setMedio, setNivelAT, setProducto, setCausa, setPORI, setEstatus,
-            setEstado, setMunicipio, setColonia, setCP, setLocalidad,
-            setTipoPersona, setEdad, sexo, setFecResolucion, setFecNotificacion,
-            setRespuesta, setNumPenal, setPenalizacion
-        ];
-
-        for (let i = 0; i < requiredFields.length; i++) {
-            if (!requiredFields[i]) {
-                setErrorMessage('Por favor, complete todos los campos obligatorios.');
-                return false;
-            }
-        }
-        setErrorMessage('');
-        return true;
-    };
-
-    // Define la función changeComplaints aquí
-    const changeComplaints = (view) => {
-        // Suponiendo que haces algo para cambiar la vista
-        console.log('Cambiar vista a:', view);
-        // Lógica de redirección o cambio de vista
-    };
-
-    const handleSubmit = (e) => {
-        e.preventDefault();
-
-        if (validateForm()) {
-            // Redirigir a la sección 'ver' si todo está correcto
-            changeComplaints('ver');
-        }
-    };
-
-    // Función para limpiar el formulario
-    const handleFormClear = () => {
-        if (formRef.current) {
-            formRef.current.reset();
-        }
-        handleClear();
-    };
-
     return (
         <div className="complaints-container">
-            <form ref={formRef} className="complaints-form" onSubmit={handleSubmit}>
+            <form ref={formRef} className="complaints-form">
                 <CustomText id="general-info-title" className="form-section-title">
                     Información General
                 </CustomText>
@@ -364,11 +319,11 @@ function CreateComplaints() {
                         onChange={(value) => setPenalizacion(value)}
                     />
                 </div>
-                {errorMessage && <CustomText className="error-message">{errorMessage}</CustomText>}
+                {/* {errorMessage && <CustomText className="error-message">{errorMessage}</CustomText>} */}
 
                 <div className="form-actions">
                     <CustomButton type="submit" className='submit-button'>Enviar</CustomButton>
-                    <CustomButton type="button" className='clear-button' onClick={handleFormClear}>Limpiar</CustomButton>
+                    <CustomButton type="button" className='clear-button'>Limpiar</CustomButton>
                 </div>
             </form>
         </div>

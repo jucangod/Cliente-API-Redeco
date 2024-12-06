@@ -25,11 +25,15 @@ function SeeComplaints() {
     const {
         filteredComplaints,
         loading,
+        folio,
         setFolio,
+        estadoQueja,
         setEstadoQueja,
+        fechaDesde,
         setFechaDesde,
+        fechaHasta,
         setFechaHasta,
-        handleDelete,  // Eliminación
+        handleDelete, 
         handleApplyFilters,
         handleClear,
         formRef,
@@ -44,11 +48,11 @@ function SeeComplaints() {
         Estatus: estatusMapping[complaint.QuejasEstatus] || 'Desconocido',
         Estado: estadosMapping[complaint.QuejasEstados] || 'Desconocido',
         Causa: complaint.QuejasCausa,
-        Eliminar: (
-            <button onClick={() => confirmDelete(complaint.QuejasFolio)} className="delete-button">
-                Eliminar
-            </button>
-        ),
+        // Eliminar: (
+        //     <button onClick={() => confirmDelete(complaint.QuejasFolio)} className="delete-button">
+        //         Eliminar
+        //     </button>
+        // ),
     }));
 
     const headers = [
@@ -74,15 +78,15 @@ function SeeComplaints() {
     ) : null;
 
     // Función para confirmar la eliminación
-    const confirmDelete = (folio) => {
-        const isConfirmed = window.confirm('¿Estás seguro de que deseas eliminar esta queja?');
-        if (isConfirmed) {
-            handleDelete(folio);
-            console.log(`Queja con folio ${folio} eliminada.`);
-        } else {
-            console.log('Eliminación cancelada.');
-        }
-    };
+    // const confirmDelete = (folio) => {
+    //     const isConfirmed = window.confirm('¿Estás seguro de que deseas eliminar esta queja?');
+    //     if (isConfirmed) {
+    //         handleDelete(folio);
+    //         console.log(`Queja con folio ${folio} eliminada.`);
+    //     } else {
+    //         console.log('Eliminación cancelada.');
+    //     }
+    // };
 
     return (
         <div className="complaints-container">
@@ -92,32 +96,36 @@ function SeeComplaints() {
                 </CustomText>
                 <form ref={formRef} className="filters-group">
                     <CustomText className="form-text">Número de folio</CustomText>
+                    <CustomText className="form-text">Estado de la queja</CustomText>
                     <CustomInput
                         id="folio"
                         placeholder="Número de folio"
+                        value={folio}
                         onChange={(e) => setFolio(e.target.value)}
                         className="filter-input"
                     />
-                    <CustomText className="form-text">Estado de la queja</CustomText>
                     <CustomDropdown
                         id="estadoQueja"
                         options={ESTATUS_OPTIONS}
+                        value={estadoQueja}
                         onChange={(value) => setEstadoQueja(value)}
                         className="filter-dropdown"
                     />
                     <CustomText className="form-text">Desde (fecha)</CustomText>
+                    <CustomText className="form-text">Hasta (fecha)</CustomText>
                     <CustomInput
                         id="fechaDesde"
                         placeholder="Desde (Fecha)"
                         type="date"
+                        value={fechaDesde}
                         onChange={(e) => setFechaDesde(e.target.value)}
                         className="filter-input"
                     />
-                    <CustomText className="form-text">Hasta (fecha)</CustomText>
                     <CustomInput
                         id="fechaHasta"
                         placeholder="Hasta (Fecha)"
                         type="date"
+                        value={fechaHasta}
                         onChange={(e) => setFechaHasta(e.target.value)}
                         className="filter-input"
                     />
