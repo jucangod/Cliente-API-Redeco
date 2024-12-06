@@ -1,4 +1,4 @@
-const signUp = ({ user, password, key }) => {
+const signUp = async ({ user, password, key }) => {
   // Simulamos la autenticación
   if (user !== 'test') {
     // Si el usuario no es correcto, lanzamos un error específico para el usuario
