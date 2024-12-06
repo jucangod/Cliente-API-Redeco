@@ -26,7 +26,19 @@ const useFilteredComplaints = () => {
     };
 
     useEffect(() => {
-        loadComplaints();
+        const fetchComplaints = async () => {
+          try {
+            const { data } = await getAllComplains();
+            setComplaints(data);
+            setFilteredComplaints(data);
+          } catch (error) {
+            console.error('Error al cargar quejas:', error);
+          } finally {
+            setLoading(false);
+          }
+        };
+    
+        fetchComplaints();
     }, []);
 
     // Función para aplicar filtros
