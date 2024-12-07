@@ -6,21 +6,9 @@ import { CustomButton } from '../../Components/Button';
 import { CustomTable } from '../../Components/Table';
 import { useFilteredComplaints } from './filterComplaints';
 import { useDeleteComplaints } from './deleteComplaints'; // Importamos el hook personalizado
-import { ESTATUS_OPTIONS, MEDIOS, ESTADOS_DE_MEXICO } from '../CreateComplaints/dropdownOption';
+import { useTableComplaints } from './tableComplaints';
+import { ESTATUS_OPTIONS } from '../CreateComplaints/dropdownOption';
 import './SeeComplaints.css';
-
-// Función para crear un mapeo dinámico
-const createMapping = (options) => {
-    return options.reduce((acc, option) => {
-        acc[option.value] = option.label;
-        return acc;
-    }, {});
-};
-
-// Crear mapeos de las opciones
-const estatusMapping = createMapping(ESTATUS_OPTIONS);
-const medioMapping = createMapping(MEDIOS);
-const estadosMapping = createMapping(ESTADOS_DE_MEXICO);
 
 function SeeComplaints() {
     const { handleDelete, loading: loadingDelete, error } = useDeleteComplaints(); // Usamos el hook
@@ -40,47 +28,12 @@ function SeeComplaints() {
         formRef,
     } = useFilteredComplaints();
 
-    // Mapeo de datos para que coincidan con los headers originales y traducir valores numéricos
-    const tableData = filteredComplaints.map((complaint) => ({
-        Folio: complaint.QuejasFolio,
-        'Razón Social': complaint.QuejasDenominacion,
-        Fecha: complaint.QuejasFecRecepcion,
-        Medio: medioMapping[complaint.QuejasMedio] || 'Desconocido',
-        Estatus: estatusMapping[complaint.QuejasEstatus] || 'Desconocido',
-        Estado: estadosMapping[complaint.QuejasEstados] || 'Desconocido',
-        Causa: complaint.QuejasCausa,
-        Eliminar: (
-            <button
-                onClick={() => handleDelete(complaint.QuejasFolio)}
-                className="delete-button"
-                disabled={loadingDelete}
-            >
-                {loadingDelete ? 'Eliminando...' : 'Eliminar'}
-            </button>
-        ),
-    }));
-
-    const headers = [
-        'Folio',
-        'Razón Social',
-        'Fecha',
-        'Medio',
-        'Estatus',
-        'Causa',
-        'Estado',
-        'Eliminar',
-    ];
-
-    const noDataMessage =
-        !loading && filteredComplaints.length < 1 ? (
-            <CustomText className="no-data-message">
-                No se ha encontrado ninguna queja.
-            </CustomText>
-        ) : null;
-
-    const loadingMessage = loading ? (
-        <CustomText className="loading-message">Cargando quejas...</CustomText>
-    ) : null;
+    // Usar el hook personalizado para la tabla
+    const { tableData, headers, noDataMessage, loadingMessage } = useTableComplaints(
+        filteredComplaints,
+        handleDelete,
+        loadingDelete
+    );
 
     return (
         <div className="complaints-container">
@@ -143,18 +96,16 @@ function SeeComplaints() {
             </div>
 
             <div className="table-section">
-                <CustomText id="complaints-table-title" className="section-title">
-                    Quejas Registradas
+                <CustomText className="section-title">
+                    Listado de Quejas
                 </CustomText>
-                {loadingMessage}
-                {noDataMessage}
+                {loading && loadingMessage}
+                {!loading && noDataMessage}
                 {!loading && filteredComplaints.length > 0 && (
                     <CustomTable headers={headers} data={tableData} />
                 )}
                 {error && (
-                    <CustomText className="error-message" style={{ color: 'red' }}>
-                        {error}
-                    </CustomText>
+                    <p style={{ color: 'red' }}>Error: {error}</p>
                 )}
             </div>
         </div>
