@@ -19,7 +19,7 @@ function CreateComplaints() {
         setEstado, setMunicipio, setColonia, setCP, setLocalidad,
         setTipoPersona, setEdad, sexo, setSexo,
         setFecResolucion, setFecNotificacion, setRespuesta, setNumPenal,
-        setPenalizacion, handleClear, formRef
+        setPenalizacion, setNum, handleClear, formRef
     } = useChooseOptions();
 
     return (
@@ -29,40 +29,41 @@ function CreateComplaints() {
                     Información General
                 </CustomText>
                 <div className="form-group">
-                    <CustomText className="form-text">Número de folio</CustomText>
-                    <CustomText className="form-text">Mes</CustomText>
-                    <CustomInput
-                        id="QuejasFolio"
-                        placeholder="Número de folio"
-                        className="form-input"
-                        onChange={(e) => setFolio(e.target.value)}
-                        maxLength={50}
-                        required
-                    />
-                    <CustomDropdown
-                        id="QuejasNoMes"
-                        options={MONTHS}
-                        className="form-dropdown"
-                        onChange={(value) => setMes(value)}
-                        required
-                    />
-                    <CustomText className="form-text">Denominación o razón social</CustomText>
+                    
+                <CustomText className="form-text">Denominación o razón social</CustomText>
                     <CustomText className="form-text">Sector al que pertenece la IF</CustomText>
                     <CustomInput
                         id="QuejasDenominacion"
                         placeholder="Denominación o razón social"
                         className="form-input"
                         onChange={(e) => setDenominacion(e.target.value)}
-                        maxLength={400}
-                        required
                     />
                     <CustomInput
                         id="QuejasSector"
                         placeholder="Sector al que pertenece la IF"
                         className="form-input"
                         onChange={(e) => setSector(e.target.value)}
-                        maxLength={200}
-                        required
+                    />
+                    <CustomText className="form-text">Mes a informar</CustomText>
+                    <CustomText className="form-text">Número de quejas</CustomText>
+                    <CustomDropdown
+                        id="QuejasNoMes"
+                        options={MONTHS}
+                        className="form-dropdown"
+                        onChange={(value) => setMes(value)}
+                    />
+                    <CustomInput
+                        id="QuejasNum"
+                        placeholder="Número de quejas"
+                        className="form-input"
+                        onChange={(e) => setNum(e.target.value)}
+                    />
+                    <CustomText className="form-text" id="text-alone">Número de folio</CustomText>
+                    <CustomInput
+                        id="QuejasFolio"
+                        placeholder="Número de folio"
+                        className="form-input"
+                        onChange={(e) => setFolio(e.target.value)}
                     />
                 </div>
 
@@ -70,38 +71,34 @@ function CreateComplaints() {
                     Datos de la Queja
                 </CustomText>
                 <div className="form-group">
-                    <CustomText className="form-text">Fecha de recepción de la queja</CustomText>
-                    <CustomText className="form-text">Medio de recepción</CustomText>
+                    <CustomText className="form-text">Fecha de la queja</CustomText>
+                    <CustomText className="form-text">Medio de recepción o canal</CustomText>
                     <CustomInput
                         id="QuejasFecRecepcion"
                         placeholder="Fecha de la queja"
                         type="date"
                         className="form-input"
                         onChange={(e) => setFecRecepcion(e.target.value)}
-                        required
                     />
                     <CustomDropdown
                         id="QuejasMedio"
                         options={MEDIOS}
                         className="form-dropdown"
                         onChange={(value) => setMedio(value)}
-                        required
                     />
-                    <CustomText className="form-text">Nivel de atención</CustomText>
+                    <CustomText className="form-text">Nivel de atención o contacto</CustomText>
                     <CustomText className="form-text">Producto y/o servicio</CustomText>
                     <CustomDropdown
                         id="QuejasNivelAT"
                         options={NIVELES_AT}
                         className="form-dropdown"
                         onChange={(value) => setNivelAT(value)}
-                        required
                     />
                     <CustomInput
                         id="QuejasProducto"
                         placeholder="Producto y/o servicio"
                         className="form-input"
                         onChange={(e) => setProducto(e.target.value)}
-                        maxLength={12}
                         required
                     />
                     <CustomText className="form-text">Causa de la queja</CustomText>
@@ -111,23 +108,19 @@ function CreateComplaints() {
                         placeholder="Causa de la queja"
                         className="form-input"
                         onChange={(e) => setCausa(e.target.value)}
-                        maxLength={4}
-                        required
                     />
                     <CustomDropdown
                         id="QuejasPORI"
                         options={PORI_OPTIONS}
                         className="form-dropdown"
                         onChange={(value) => setPORI(value)}
-                        required
                     />
-                    <CustomText className="form-text" id="text-alone">Estatus</CustomText>
+                    <CustomText className="form-text" id="text-alone">Estado</CustomText>
                     <CustomDropdown
                         id="QuejasEstatus"
                         options={ESTATUS_OPTIONS}
                         className="form-dropdown"
                         onChange={(value) => setEstatus(value)}
-                        required
                     />
                 </div>
 
@@ -135,47 +128,41 @@ function CreateComplaints() {
                     Ubicación
                 </CustomText>
                 <div className="form-group">
-                    <CustomText className="form-text">Estado</CustomText>
+                    <CustomText className="form-text">Entidad Federativa</CustomText>
                     <CustomText className="form-text">Municipio</CustomText>
                     <CustomDropdown
                         id="QuejasEstados"
                         options={ESTADOS_DE_MEXICO}
                         className="form-dropdown"
                         onChange={(value) => setEstado(value)}
-                        required
                     />
                     <CustomDropdown
                         id="QuejasMunId"
                         options={MUNICIPIOS}
                         className="form-dropdown"
                         onChange={(value) => setMunicipio(value)}
-                        required
                     />
+                    <CustomText className="form-text">Localidad</CustomText>
                     <CustomText className="form-text">Colonia</CustomText>
-                    <CustomText className="form-text">Código Postal</CustomText>
+                    <CustomInput
+                        id="QuejasLocId"
+                        placeholder="Localidad"
+                        className="form-input"
+                        onChange={(e) => setLocalidad(e.target.value)}
+                    />
                     <CustomInput
                         id="QuejasColId"
                         placeholder="Colonia"
                         className="form-input"
                         onChange={(e) => setColonia(e.target.value)}
-                        maxLength={8}
-                        required
                     />
+                    <CustomText className="form-text" id="text-alone">Código Postal</CustomText>
                     <CustomInput
                         id="QuejasCP"
                         placeholder="Código Postal"
                         className="form-input"
                         onChange={(e) => setCP(e.target.value)}
                         maxLength={10}
-                        required
-                    />
-                    <CustomText className="form-text" id="text-alone">Localidad</CustomText>
-                    <CustomInput
-                        id="QuejasLocId"
-                        placeholder="Localidad"
-                        className="form-input"
-                        onChange={(e) => setLocalidad(e.target.value)}
-                        maxLength={8}
                     />
                 </div>
 
@@ -190,15 +177,13 @@ function CreateComplaints() {
                         options={TIPOS_PERSONA}
                         className="form-dropdown"
                         onChange={(value) => setTipoPersona(value)}
-                        required
                     />
                     <CustomInput
                         id="QuejasEdad"
                         placeholder="Edad"
-                        type="number"
+                        type="text"
                         className="form-input"
                         onChange={(e) => setEdad(e.target.value)}
-                        maxLength={3}
                     />
                     <CustomText className="form-section-subtitle">
                         Género
@@ -232,11 +217,11 @@ function CreateComplaints() {
                 </div>
 
                 <CustomText id="response-data-title" className="form-section-title">
-                    Datos de Respuesta
+                    Resolución de la queja
                 </CustomText>
                 <div className="form-group">
-                    <CustomText className="form-text">Fecha de Resolucion</CustomText>
-                    <CustomText className="form-text">Fecha de Notificación</CustomText>
+                    <CustomText className="form-text">Fecha de resolucion</CustomText>
+                    <CustomText className="form-text">Fecha de notificación</CustomText>
                     <CustomInput
                         id="QuejasFecResolucion"
                         placeholder="Fecha de resolución"
@@ -252,7 +237,7 @@ function CreateComplaints() {
                         className="form-input"
                         onChange={(e) => setFecNotificacion(e.target.value)}
                     />
-                    <CustomText className="form-text">Respuesta</CustomText>
+                    <CustomText className="form-text">Sentido de resolución</CustomText>
                     <CustomText className="form-text">Número de Penalización</CustomText>
                     <CustomDropdown
                         id="QuejasRespuesta"
@@ -267,7 +252,7 @@ function CreateComplaints() {
                         onChange={(e) => setNumPenal(e.target.value)}
                         maxLength={4}
                     />
-                    <CustomText className="form-text" id="text-alone">Penalizacion</CustomText>
+                    <CustomText className="form-text" id="text-alone">Tipo de penalización</CustomText>
                     <CustomDropdown
                         id="QuejasPenalizacion"
                         options={PENALIZACION_OPTIONS}
@@ -275,51 +260,6 @@ function CreateComplaints() {
                         onChange={(value) => setPenalizacion(value)}
                     />
                 </div>
-
-                <CustomText id="response-data-title" className="form-section-title">
-                    Datos de Respuesta
-                </CustomText>
-                <div className="form-group">
-                    <CustomText className="form-text">Fecha de Resolucion</CustomText>
-                    <CustomText className="form-text">Fecha de Notificación</CustomText>
-                    <CustomInput
-                        id="QuejasFecResolucion"
-                        placeholder="Fecha de resolución"
-                        type="date"
-                        className="form-input"
-                        onChange={(e) => setFecResolucion(e.target.value)}
-                    >
-                    </CustomInput>
-                    <CustomInput
-                        id="QuejasFecNotificacion"
-                        placeholder="Fecha de notificación"
-                        type="date"
-                        className="form-input"
-                        onChange={(e) => setFecNotificacion(e.target.value)}
-                    />
-                    <CustomText className="form-text">Respuesta</CustomText>
-                    <CustomText className="form-text">Número de Penalización</CustomText>
-                    <CustomDropdown
-                        id="QuejasRespuesta"
-                        options={RESPUESTA_OPTIONS}
-                        className="form-dropdown"
-                        onChange={(value) => setRespuesta(value)}
-                    />
-                    <CustomInput
-                        id="QuejasNumPenal"
-                        placeholder="Número de penalización"
-                        className="form-input"
-                        onChange={(e) => setNumPenal(e.target.value)}
-                    />
-                    <CustomText className="form-text" id="text-alone">Penalizacion</CustomText>
-                    <CustomDropdown
-                        id="QuejasPenalizacion"
-                        options={PENALIZACION_OPTIONS}
-                        className="form-dropdown"
-                        onChange={(value) => setPenalizacion(value)}
-                    />
-                </div>
-                {/* {errorMessage && <CustomText className="error-message">{errorMessage}</CustomText>} */}
 
                 <div className="form-actions">
                     <CustomButton type="submit" className='submit-button'>Enviar</CustomButton>

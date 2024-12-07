@@ -6,6 +6,7 @@ export const useChooseOptions = () => {
     const [folio, setFolio] = useState('');
     const [mes, setMes] = useState('');
     const [denominacion, setDenominacion] = useState('');
+    const [num, setNum] = useState('');
     const [sector, setSector] = useState('');
     const [medio, setMedio] = useState('');
     const [nivelAT, setNivelAT] = useState('');
@@ -86,6 +87,7 @@ export const useChooseOptions = () => {
         fecRecepcion, setFecRecepcion,
         fecResolucion, setFecResolucion,
         fecNotificacion, setFecNotificacion,
+        num, setNum,
         handleDropdownChange,
         handleClear, 
         formRef

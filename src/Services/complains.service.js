@@ -1,5 +1,5 @@
 const postComplaints = async (complaint) => {
-  const random = Math.random();
+    const random = Math.random();
 
     if (random < 0.5) {
         throw new Error(
