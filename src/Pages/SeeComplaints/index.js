@@ -5,6 +5,7 @@ import { CustomDropdown } from '../../Components/Dropdown';
 import { CustomButton } from '../../Components/Button';
 import { CustomTable } from '../../Components/Table';
 import { useFilteredComplaints } from './filterComplaints';
+import { useDeleteComplaints } from './deleteComplaints'; // Importamos el hook personalizado
 import { ESTATUS_OPTIONS, MEDIOS, ESTADOS_DE_MEXICO } from '../CreateComplaints/dropdownOption';
 import './SeeComplaints.css';
 
@@ -22,6 +23,7 @@ const medioMapping = createMapping(MEDIOS);
 const estadosMapping = createMapping(ESTADOS_DE_MEXICO);
 
 function SeeComplaints() {
+    const { handleDelete, loading: loadingDelete, error } = useDeleteComplaints(); // Usamos el hook
     const {
         filteredComplaints,
         loading,
@@ -33,7 +35,6 @@ function SeeComplaints() {
         setFechaDesde,
         fechaHasta,
         setFechaHasta,
-        handleDelete, 
         handleApplyFilters,
         handleClear,
         formRef,
@@ -48,11 +49,15 @@ function SeeComplaints() {
         Estatus: estatusMapping[complaint.QuejasEstatus] || 'Desconocido',
         Estado: estadosMapping[complaint.QuejasEstados] || 'Desconocido',
         Causa: complaint.QuejasCausa,
-        // Eliminar: (
-        //     <button onClick={() => confirmDelete(complaint.QuejasFolio)} className="delete-button">
-        //         Eliminar
-        //     </button>
-        // ),
+        Eliminar: (
+            <button
+                onClick={() => handleDelete(complaint.QuejasFolio)}
+                className="delete-button"
+                disabled={loadingDelete}
+            >
+                {loadingDelete ? 'Eliminando...' : 'Eliminar'}
+            </button>
+        ),
     }));
 
     const headers = [
@@ -76,17 +81,6 @@ function SeeComplaints() {
     const loadingMessage = loading ? (
         <CustomText className="loading-message">Cargando quejas...</CustomText>
     ) : null;
-
-    // Función para confirmar la eliminación
-    // const confirmDelete = (folio) => {
-    //     const isConfirmed = window.confirm('¿Estás seguro de que deseas eliminar esta queja?');
-    //     if (isConfirmed) {
-    //         handleDelete(folio);
-    //         console.log(`Queja con folio ${folio} eliminada.`);
-    //     } else {
-    //         console.log('Eliminación cancelada.');
-    //     }
-    // };
 
     return (
         <div className="complaints-container">
@@ -156,6 +150,11 @@ function SeeComplaints() {
                 {noDataMessage}
                 {!loading && filteredComplaints.length > 0 && (
                     <CustomTable headers={headers} data={tableData} />
+                )}
+                {error && (
+                    <CustomText className="error-message" style={{ color: 'red' }}>
+                        {error}
+                    </CustomText>
                 )}
             </div>
         </div>
