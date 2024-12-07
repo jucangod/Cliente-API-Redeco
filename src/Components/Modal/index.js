@@ -1,4 +1,5 @@
 import React from 'react';
+import { CustomButton } from '../Button';
 
 const CustomModal = ({ isOpen, title, message, onConfirm, onCancel, onClose, isSuccess }) => {
     if (!isOpen) return null;
@@ -12,9 +13,9 @@ const CustomModal = ({ isOpen, title, message, onConfirm, onCancel, onClose, isS
                 <p className="modal-message">{message}</p>
                 <div className={`modal-buttons ${isSuccess ? 'center' : ''}`}>
                     {isSuccess ? (
-                        <button className="modal-button confirm" onClick={onClose}>
+                        <CustomButton type='button' className="modal-button confirm" onClick={onClose}>
                             Cerrar
-                        </button>
+                        </CustomButton>
                     ) : (
                         <>
                             <button className="modal-button confirm" onClick={onConfirm}>
