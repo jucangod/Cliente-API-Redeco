@@ -13,6 +13,7 @@ function ChangeUserView({ children }) {
 
     const logUser = () => {
         setIsUserLogged(!isUserLogged)
+        setLoginPage(true)
     }
 
     const changeComplaints = (view) => {
