@@ -3,7 +3,7 @@ import { CustomText } from '../../Components/Text';
 import { CustomButton } from '../../Components/Button';
 import { CustomInput } from '../../Components/Input';
 import { AppContext } from '../../Services/ChangeUserView';
-import { login } from '../../Services/login'; // Importamos la función de autenticación
+import { validateLogin } from './validation'; // Importamos la función de validación
 
 import './Login.css';
 
@@ -14,26 +14,28 @@ function Login() {
 
     const { changeView, logUser } = React.useContext(AppContext);
 
-    const onLoginSuccess = () => {
-        // Aquí puedes cambiar la vista a la vista principal o donde quieras después de un login exitoso
-        changeView(); // Esto puede ser para cambiar a la vista del logueado
+    const onLoginSuccess = (user) => {
+        // Llamar a logUser para almacenar al usuario autenticado
+        logUser(user);
+
+        // Cambiar la vista
+        changeView();
     };
 
-    const handleFormSubmit = (e) => {
+    const handleFormSubmit = async (e) => {
         e.preventDefault(); // Prevenir el envío por defecto del formulario
 
-        // Intentamos hacer login con los valores de los inputs
+        const username = userRef.current.value;
+        const password = passwordRef.current.value;
+
         try {
-            const response = login({
-                username: userRef.current.value,
-                password: passwordRef.current.value,
-            });
+            // Validar y autenticar
+            const response = await validateLogin(username, password);
 
             // Si la autenticación es exitosa
-            logUser(response.user); // Llamar al método para guardar el usuario autenticado
-            onLoginSuccess(); // Cambiar la vista si el login es exitoso
+            onLoginSuccess(response.user);
         } catch (error) {
-            // Si ocurre algún error (campo vacío, usuario o contraseña incorrectos)
+            // Si ocurre un error, actualizamos el estado del mensaje
             setErrorMessage(error.message);
         }
     };

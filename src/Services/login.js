@@ -1,26 +1,29 @@
 const login = async ({ username, password }) => {
-    // Verificación de campos vacíos
     if (!username || !password) {
         throw new Error('Por favor, ingrese todos los campos.');
     }
 
-    // Simulamos la autenticación
     if (username !== 'test') {
-        // Si el usuario no es correcto, lanzamos un error específico para el usuario
-        throw new Error('Usuario o contraseña incorrecto.');
+        throw new Error('USER_ERROR: Usuario incorrecto.');
     } else if (password !== '123') {
-        // Si la contraseña es incorrecta, lanzamos un error específico para la contraseña
-        throw new Error('Usuario o contraseña incorrecto.');
+        throw new Error('PASSWORD_ERROR: Contraseña incorrecta.');
     } else {
-        // Si ambos son correctos, retornamos el mensaje de autenticación exitosa
+        const token_access = generateToken();
+
+        if (!token_access) {
+            throw new Error('TOKEN_ERROR: No se pudo generar el token. Intente de nuevo.');
+        }
+
         return {
             message: 'Autenticación exitosa',
             user: {
                 username,
-                token_access: 'token',
+                token_access,
             },
         };
     }
 };
+
+const generateToken = () => 'token'; // Simulación
 
 export { login };

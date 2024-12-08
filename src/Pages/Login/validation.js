@@ -3,7 +3,6 @@ import { login } from '../../Services/login'; // Importa la función de login
 
 // Función de validación
 const validateLogin = async (username, password) => {
-    // Verificación local de campos vacíos
     if (!username.trim()) {
         throw new Error('Por favor, introduzca su usuario.');
     }
@@ -12,28 +11,22 @@ const validateLogin = async (username, password) => {
         throw new Error('Por favor, introduzca su contraseña.');
     }
 
-    // Verificar en el servidor
     try {
         const result = await login({ username, password });
-        return result; // Retorna mensaje de éxito si las credenciales son válidas
+        return result;
     } catch (error) {
-        // Verificar que el error contiene la palabra 'usuario'
-        if (error.message.toLowerCase().includes('usuario')) {
+        // Analiza las etiquetas en los mensajes de error
+        if (error.message.includes('USER_ERROR')) {
             throw new Error('El usuario no es correcto.');
-        } 
-        // Verificar que el error contiene la palabra 'contraseña'
-        else if (error.message.toLowerCase().includes('contraseña')) {
+        } else if (error.message.includes('PASSWORD_ERROR')) {
             throw new Error('La contraseña no es correcta.');
-        } 
-        // Si no es ni usuario ni contraseña, lanzar error genérico
-        else {
-            throw new Error('Error inesperado en el login.');
+        } else if (error.message.includes('TOKEN_ERROR')) {
+            throw new Error('Error al generar el token. Intente de nuevo más tarde.');
+        } else {
+            throw new Error('Error inesperado. Intente de nuevo.');
         }
-    }        
+    }
 };
-
-// Función para manejar el envío del formulario
-// handleSubmit.js
 
 const handleSubmit = (e, userRef, passwordRef, setErrorMessage, logUser) => {
     e.preventDefault(); // Evita que se recargue la página al enviar el formulario
