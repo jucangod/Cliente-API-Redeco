@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { deleteComplaint } from '../../Services/complains.service';
+import { deleteComplaint } from '../../Services/complaints.service';
 
 const useDeleteComplaints = () => {
     const [loadingDelete, setLoadingDelete] = useState(false);

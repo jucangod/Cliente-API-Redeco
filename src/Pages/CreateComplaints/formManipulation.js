@@ -1,6 +1,6 @@
 import { useState, useRef } from 'react';
 import React from 'react';
-import { postComplaints } from '../../Services/complains.service';
+import { postComplaints } from '../../Services/complaints.service';
 import { AppContext } from '../../Services/ChangeUserView';
 
 export const useChooseOptions = () => {

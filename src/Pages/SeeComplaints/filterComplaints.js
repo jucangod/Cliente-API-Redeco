@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { getAllComplaints } from '../../Services/complains.service'; // Importa tu servicio
+import { getAllComplaints } from '../../Services/complaints.service'; // Importa tu servicio
 
 const useFilteredComplaints = () => {
     const [filteredComplaints, setFilteredComplaints] = useState([]);
