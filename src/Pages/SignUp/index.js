@@ -3,7 +3,7 @@ import { CustomText } from '../../Components/Text';
 import { CustomButton } from '../../Components/Button';
 import { CustomInput } from '../../Components/Input';
 import { AppContext } from '../../Services/ChangeUserView';
-import { handleSubmit } from './verification'; // Importamos la función de manejo de envío de formulario
+import { handleSubmit } from './verification'; // Importamos la función de manejo de envío
 
 import './SignUp.css';
 
@@ -14,12 +14,14 @@ function SignUp() {
     const keyRef = useRef();
     const [errorMessage, setErrorMessage] = useState(''); // Estado para mensajes de error
 
-    const { changeView } = React.useContext(AppContext);
+    const { logUser, changeView } = React.useContext(AppContext);
 
     return (
         <div className="signup-container">
             <form 
-                onSubmit={(e) => handleSubmit(e, userRef, passwordRef, confirmPasswordRef, keyRef, setErrorMessage, changeView)} 
+                onSubmit={(e) => 
+                    handleSubmit(e, userRef, passwordRef, confirmPasswordRef, keyRef, setErrorMessage, logUser, changeView)
+                } 
                 className="signup-form"
             >
                 <CustomText id="signup-sesion">Registrarse</CustomText>

@@ -14,6 +14,9 @@ const login = async ({ username, password }) => {
             throw new Error('TOKEN_ERROR: No se pudo generar el token. Intente de nuevo.');
         }
 
+        // Guardar el token en localStorage
+        localStorage.setItem('token_access', token_access);
+
         return {
             message: 'Autenticación exitosa',
             user: {
@@ -24,6 +27,6 @@ const login = async ({ username, password }) => {
     }
 };
 
-const generateToken = () => 'token'; // Simulación
+const generateToken = () => 'token';
 
 export { login };

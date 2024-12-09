@@ -63,8 +63,7 @@ function CreateComplaints() {
                     Información General
                 </CustomText>
                 <div className="form-group">
-                    
-                <CustomText className="form-text">Denominación o razón social</CustomText>
+                    <CustomText className="form-text">Denominación o razón social</CustomText>
                     <CustomText className="form-text">Sector al que pertenece la IF</CustomText>
                     <CustomInput
                         id="QuejasDenominacion"

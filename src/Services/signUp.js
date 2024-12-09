@@ -1,24 +1,37 @@
 const signUp = async ({ user, password, key }) => {
-    // Simulamos la autenticación
-    if (user !== 'test') {
-        // Si el usuario no es correcto, lanzamos un error específico para el usuario
-        throw new Error('Usuario o contraseña incorrecto.');
-    } else if (password !== '123') {
-        // Si la contraseña es incorrecta, lanzamos un error específico para la contraseña
-        throw new Error('Usuario o contraseña incorrecto.');
-    } else if (key !== '123') {
-        // Si la "key" es incorrecta, lanzamos un error específico para la key
-        throw new Error('Key incorrecta.');
-    } else {
-        // Si todos los campos son correctos, retornamos el mensaje de autenticación exitosa
-        return {
-            message: 'Registro exitoso',
-            user: {
-                username: user,
-                token_access: 'token',
-            },
-        };
+    if (!user || !password || !key) {
+        throw new Error('Por favor, ingrese todos los campos.');
     }
+
+    // Validaciones básicas
+    if (user !== 'test') {
+        throw new Error('USER_ERROR: Usuario no permitido.');
+    } else if (password !== '123') {
+        throw new Error('PASSWORD_ERROR: Contraseña no válida.');
+    } else if (key !== '123') {
+        throw new Error('KEY_ERROR: Key incorrecta.');
+    }
+
+    // Generar token de autenticación
+    const token_access = generateToken();
+
+    if (!token_access) {
+        throw new Error('TOKEN_ERROR: No se pudo generar el token. Intente de nuevo.');
+    }
+
+    // Guardar el token en localStorage
+    localStorage.setItem('token_access', token_access);
+
+    // Devolver datos del usuario y el token
+    return {
+        message: 'Registro exitoso y autenticación completa.',
+        user: {
+            username: user,
+            token_access,
+        },
+    };
 };
+
+const generateToken = () => 'token';
 
 export { signUp };

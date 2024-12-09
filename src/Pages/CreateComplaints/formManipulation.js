@@ -98,12 +98,12 @@ export const useChooseOptions = () => {
     const saveComplaint = async () => {
         try {
             setLoadingSave(true);
-
-            // Limpiar los errores antes de la validación
+    
+            // Limpiar errores antes de la validación
             setErrors({});
             setErrorSave('');
     
-            // Construimos el objeto con los datos del formulario.
+            // Construir los datos del formulario
             const complaintData = {
                 folio,
                 mes,
@@ -132,34 +132,30 @@ export const useChooseOptions = () => {
                 fecNotificacion,
             };
     
-            // Validamos los datos antes de enviarlos.
+            // Validar usando el esquema
             const { error } = quejasSchema.validate(complaintData, { abortEarly: false });
-
+    
             if (error) {
-                // Mapear los errores para mostrarlos en el estado
-                const validationErrors = error.details.map((detail) => ({
-                    field: detail.path[0],
-                    message: detail.message,
-                }));
-
-                const errorMap = validationErrors.reduce((acc, { field, message }) => {
-                    acc[field] = message;
+                // Mapeo detallado de errores
+                const validationErrors = error.details.reduce((acc, detail) => {
+                    const field = detail.path.join('.'); // Asegura compatibilidad con campos anidados
+                    acc[field] = detail.message; // Usa los mensajes personalizados de Joi
                     return acc;
                 }, {});
-
-                setErrors(errorMap);
-                setErrorSave(validationErrors.map(err => `${err.field}: ${err.message}`).join('\n'));
+    
+                // Establecer errores en el estado
+                setErrors(validationErrors);
+    
+                // Opción para mostrar todos los errores concatenados
+                setErrorSave(Object.values(validationErrors).join('\n'));
                 return;
             }
     
-            // Enviamos la queja mediante la función postComplaints.
+            // Enviar los datos si no hay errores
             await postComplaints(complaintData);
     
-            // Establecemos el estado de éxito.
             setSuccess(true);
             setSuccessMessage(`Queja con folio ${folio} registrada exitosamente.`);
-    
-            // Limpiamos los campos del formulario.
             handleClear();
         } catch (error) {
             console.error('Error al registrar la queja:', error);
@@ -167,8 +163,8 @@ export const useChooseOptions = () => {
         } finally {
             setLoadingSave(false);
         }
-    };    
-
+    };
+    
     const closeModal = () => {
         setModalOpen(false);
         setSuccess(false);

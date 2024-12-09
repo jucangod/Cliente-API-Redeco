@@ -50,7 +50,7 @@ const validateSignUp = async (user, password, confirmPassword, key) => {
 };
 
 // Función para manejar el envío del formulario
-const handleSubmit = async (e, userRef, passwordRef, confirmPasswordRef, keyRef, setErrorMessage, changeView) => {
+const handleSubmit = async (e, userRef, passwordRef, confirmPasswordRef, keyRef, setErrorMessage, logUser, changeView) => {
     e.preventDefault();
     setErrorMessage(''); // Limpiar mensaje de error al intentar enviar el formulario
 
@@ -63,9 +63,16 @@ const handleSubmit = async (e, userRef, passwordRef, confirmPasswordRef, keyRef,
         // Validar datos usando la función de validación de verification.js
         const response = await validateSignUp(user, password, confirmPassword, key);
 
-        // Mostrar mensaje de éxito
-        alert(response.message);
-        changeView(); // Cambiar la vista al login después del registro exitoso
+        // Verificar que el token esté guardado en localStorage
+        const storedToken = localStorage.getItem('token_access');
+        if (!storedToken) {
+            throw new Error('Error al guardar el token de sesión.');
+        }
+
+        // Autenticar al usuario después de registrarse
+        const userData = { username: user }; // Ajusta según cómo quieras manejar la sesión
+        logUser(userData); // Llama a la función de login y almacena al usuario
+        changeView(); // Cambiar la vista después del registro exitoso
     } catch (error) {
         // Mostrar mensaje de error si hay problemas
         setErrorMessage(error.message);
