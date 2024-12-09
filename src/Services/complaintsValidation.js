@@ -1,21 +1,18 @@
 const Joi = require("joi");
 
-// Función para validar que la fecha de recepción esté dentro del mes y año reportados
 const validateFecRecepcion = (value, helpers) => {
-    const monthToReport = helpers.state.ancestors[0].QuejasNoMes; // Mes que se reporta
-    const yearToReport = new Date().getFullYear(); // Suponiendo que el año es el actual
+    const monthToReport = helpers.state.ancestors[0].QuejasNoMes;
+    const yearToReport = new Date().getFullYear();
 
-    const [day, month, year] = value.split("/").map(Number); // Descomponemos la fecha
-    const dateToValidate = new Date(year, month - 1, day); // Creamos la fecha
+    const [day, month, year] = value.split("/").map(Number); 
+    const dateToValidate = new Date(year, month - 1, day); 
 
-    // Verificamos que la fecha sea válida
     if (isNaN(dateToValidate.getTime())) {
         return helpers.error("date.base", {
         message: "La fecha de recepción debe ser válida.",
         });
     }
 
-    // Verificamos que el mes y año coincidan
     if (
         dateToValidate.getMonth() + 1 !== monthToReport ||
         dateToValidate.getFullYear() !== yearToReport
@@ -26,7 +23,7 @@ const validateFecRecepcion = (value, helpers) => {
         });
     }
 
-    return value; // Si todo está bien, retornamos el valor
+    return value;
     };
 
     const quejaSchema = Joi.object({

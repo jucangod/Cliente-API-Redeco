@@ -98,6 +98,10 @@ export const useChooseOptions = () => {
     const saveComplaint = async () => {
         try {
             setLoadingSave(true);
+
+            // Limpiar los errores antes de la validación
+            setErrors({});
+            setErrorSave('');
     
             // Construimos el objeto con los datos del formulario.
             const complaintData = {

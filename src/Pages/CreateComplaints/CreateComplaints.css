@@ -136,6 +136,12 @@
     flex: 1 1 calc(100% - 1rem);
 }
 
+.form-text-error {
+    flex: 1 1 calc(50% - 1rem);
+    font-size: .80rem;
+    color: #b13f51
+}
+
 @media (max-width: 600px) {
     .form-input,
     .form-dropdown {

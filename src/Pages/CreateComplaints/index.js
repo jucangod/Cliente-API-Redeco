@@ -48,7 +48,7 @@ function CreateComplaints() {
         successMessage,
         errorSave,
         closeModal,
-        errors
+        errors, setErrors
     } = useChooseOptions();
 
     const handleSubmit = async (e) => {
@@ -73,7 +73,6 @@ function CreateComplaints() {
                         onChange={(e) => setDenominacion(e.target.value)}
                         value={denominacion}
                     />
-                    {errors.folio && <span className="error">{errors.folio}</span>}
                     <CustomInput
                         id="QuejasSector"
                         placeholder="Sector al que pertenece la IF"
@@ -81,6 +80,8 @@ function CreateComplaints() {
                         onChange={(e) => setSector(e.target.value)}
                         value={sector}
                     />
+                    {errors.QuejasDenominacion && <CustomText className="form-text-error">{errors.QuejasDenominacion}</CustomText>}
+                    {errors.QuejasSector && <CustomText className="form-text-error">{errors.QuejasSector}</CustomText>}
                     <CustomText className="form-text">Mes a informar</CustomText>
                     <CustomText className="form-text">Número de quejas</CustomText>
                     <CustomDropdown
@@ -97,6 +98,8 @@ function CreateComplaints() {
                         onChange={(e) => setNum(e.target.value)}
                         value={num}
                     />
+                    {errors.QuejasNoMes && <CustomText className="form-text-error">{errors.QuejasNoMes}</CustomText>}
+                    {errors.QuejasNum && <CustomText className="form-text-error">{errors.QuejasNum}</CustomText>}
                     <CustomText className="form-text" id="text-alone">Número de folio</CustomText>
                     <CustomInput
                         id="QuejasFolio"
@@ -105,6 +108,7 @@ function CreateComplaints() {
                         onChange={(e) => setFolio(e.target.value)}
                         value={folio}
                     />
+                    {errors.QuejasFolio && <CustomText className="form-text-error" id="text-alone">{errors.QuejasFolio}</CustomText>}
                 </div>
 
                 <CustomText id="complaint-data-title" className="form-section-title">
@@ -128,6 +132,8 @@ function CreateComplaints() {
                         onChange={(value) => setMedio(value)}
                         value={medio}
                     />
+                    {errors.QuejasFecRecepcion && <CustomText className="form-text-error">{errors.QuejasFecRecepcion}</CustomText>}
+                    {errors.QuejasMedio && <CustomText className="form-text-error">{errors.QuejasMedio}</CustomText>}
                     <CustomText className="form-text">Nivel de atención o contacto</CustomText>
                     <CustomText className="form-text">Producto y/o servicio</CustomText>
                     <CustomDropdown
@@ -144,6 +150,8 @@ function CreateComplaints() {
                         onChange={(e) => setProducto(e.target.value)}
                         value={producto}
                     />
+                    {errors.QuejasNivelAT && <CustomText className="form-text-error">{errors.QuejasNivelAT}</CustomText>}
+                    {errors.QuejasProducto && <CustomText className="form-text-error">{errors.QuejasProducto}</CustomText>}
                     <CustomText className="form-text">Causa de la queja</CustomText>
                     <CustomText className="form-text">PORI</CustomText>
                     <CustomInput
@@ -160,6 +168,8 @@ function CreateComplaints() {
                         onChange={(value) => setPORI(value)}
                         value={PORI}
                     />
+                    {errors.QuejasCausa && <CustomText className="form-text-error">{errors.QuejasCausa}</CustomText>}
+                    {errors.QuejasPORI && <CustomText className="form-text-error">{errors.QuejasPORI}</CustomText>}
                     <CustomText className="form-text" id="text-alone">Estado</CustomText>
                     <CustomDropdown
                         id="QuejasEstatus"
@@ -168,6 +178,7 @@ function CreateComplaints() {
                         onChange={(value) => setEstatus(value)}
                         value={estatus}
                     />
+                    {errors.QuejasEstatus && <CustomText className="form-text-error" id='text-alone'>{errors.QuejasEstatus}</CustomText>}
                 </div>
 
                 <CustomText id="location-title" className="form-section-title">
@@ -190,6 +201,8 @@ function CreateComplaints() {
                         onChange={(value) => setMunicipio(value)}
                         value={municipio}
                     />
+                    {errors.QuejasEstados && <CustomText className="form-text-error">{errors.QuejasEstados}</CustomText>}
+                    {errors.QuejasMunId && <CustomText className="form-text-error">{errors.QuejasMunId}</CustomText>}
                     <CustomText className="form-text">Localidad</CustomText>
                     <CustomText className="form-text">Colonia</CustomText>
                     <CustomInput
@@ -206,6 +219,8 @@ function CreateComplaints() {
                         onChange={(e) => setColonia(e.target.value)}
                         value={colonia}
                     />
+                    {errors.QuejasLocId && <CustomText className="form-text-error">{errors.QuejasLocId}</CustomText>}
+                    {errors.QuejasColId && <CustomText className="form-text-error">{errors.QuejasColId}</CustomText>}
                     <CustomText className="form-text" id="text-alone">Código Postal</CustomText>
                     <CustomInput
                         id="QuejasCP"
@@ -215,6 +230,7 @@ function CreateComplaints() {
                         maxLength={10}
                         value={cp}
                     />
+                    {errors.QuejasCP && <CustomText className="form-text-error" id='text-alone'>{errors.QuejasCP}</CustomText>}
                 </div>
 
                 <CustomText id="user-data-title" className="form-section-title">
@@ -238,6 +254,8 @@ function CreateComplaints() {
                         onChange={(e) => setEdad(e.target.value)}
                         value={edad}
                     />
+                    {errors.QuejasTipoPersona && <CustomText className="form-text-error">{errors.QuejasTipoPersona}</CustomText>}
+                    {errors.QuejasEdad && <CustomText className="form-text-error">{errors.QuejasEdad}</CustomText>}
                     <CustomText className="form-section-subtitle">
                         Género
                     </CustomText>
@@ -267,6 +285,7 @@ function CreateComplaints() {
                             onChange={() => setSexo('U')}
                         />
                     </div>
+                    {errors.sexo && <CustomText className="form-text-error" id='text-alone'>{errors.sexo}</CustomText>}
                 </div>
 
                 <CustomText id="response-data-title" className="form-section-title">
@@ -282,8 +301,7 @@ function CreateComplaints() {
                         className="form-input"
                         onChange={(e) => setFecResolucion(e.target.value)}
                         value={fecResolucion}
-                    >
-                    </CustomInput>
+                    />
                     <CustomInput
                         id="QuejasFecNotificacion"
                         placeholder="Fecha de notificación"
@@ -292,6 +310,8 @@ function CreateComplaints() {
                         onChange={(e) => setFecNotificacion(e.target.value)}
                         value={fecNotificacion}
                     />
+                    {errors.QuejasFecResolucion && <CustomText className="form-text-error">{errors.QuejasFecResolucion}</CustomText>}
+                    {errors.QuejasFecNotificacion && <CustomText className="form-text-error">{errors.QuejasFecNotificacion}</CustomText>}
                     <CustomText className="form-text">Sentido de resolución</CustomText>
                     <CustomText className="form-text">Número de Penalización</CustomText>
                     <CustomDropdown
@@ -309,6 +329,8 @@ function CreateComplaints() {
                         maxLength={4}
                         value={numPenal}
                     />
+                    {errors.QuejasRespuesta && <CustomText className="form-text-error">{errors.QuejasRespuesta}</CustomText>}
+                    {errors.QuejasNumPenal && <CustomText className="form-text-error">{errors.QuejasNumPenal}</CustomText>}
                     <CustomText className="form-text" id="text-alone">Tipo de penalización</CustomText>
                     <CustomDropdown
                         id="QuejasPenalizacion"
@@ -317,7 +339,7 @@ function CreateComplaints() {
                         onChange={(value) => setPenalizacion(value)}
                         value={penalizacion}
                     />
-                    {errors.penalizacion && <CustomText className="error-text">{errors.penalizacion}</CustomText>}
+                    {errors.QuejasPenalizacion && <CustomText className="form-text-error">{errors.QuejasPenalizacion}</CustomText>}
                 </div>
 
                 <CustomModal
