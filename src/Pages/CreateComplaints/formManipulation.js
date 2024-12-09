@@ -2,13 +2,11 @@ import { useState, useRef } from 'react';
 import React from 'react';
 import { postComplaints } from '../../Services/complaints.service';
 import { AppContext } from '../../Services/ChangeUserView';
+import quejasSchema from '../../Services/complaintsValidation';
 
 export const useChooseOptions = () => {
-    const {
-        changeComplaints
-    } = React.useContext(AppContext);
+    const { changeComplaints } = React.useContext(AppContext);
 
-    // Crear los useState dentro de chooseOptions.js
     const formRef = useRef(null);
     const [folio, setFolio] = useState('');
     const [mes, setMes] = useState('');
@@ -35,18 +33,39 @@ export const useChooseOptions = () => {
     const [fecRecepcion, setFecRecepcion] = useState('');
     const [fecResolucion, setFecResolucion] = useState('');
     const [fecNotificacion, setFecNotificacion] = useState('');
-    const [loadingSave, setLoadingSave] = useState(false); // Estado para mostrar un indicador de carga.
-    const [success, setSuccess] = useState(false); // Estado para determinar si la operación fue exitosa.
-    const [successMessage, setSuccessMessage] = useState(''); // Mensaje de éxito.
-    const [errorSave, setErrorSave] = useState(''); // Mensaje de error.
+    const [loadingSave, setLoadingSave] = useState(false);
+    const [success, setSuccess] = useState(false);
+    const [successMessage, setSuccessMessage] = useState('');
+    const [errorSave, setErrorSave] = useState('');
     const [isModalOpen, setModalOpen] = useState(false);
 
-
-    // Maneja la actualización de los estados de dropdowns
-    const handleDropdownChange = (e, setState) => {
-        const { value } = e.target;
-        setState(value);
-    };
+    const [errors, setErrors] = useState({
+        folio: '',
+        mes: '',
+        denominacion: '',
+        sector: '',
+        num: '',
+        fecRecepcion: '',
+        medio: '',
+        nivelAT: '',
+        producto: '',
+        causa: '',
+        PORI: '',
+        estatus: '',
+        estado: '',
+        municipio: '',
+        colonia: '',
+        cp: '',
+        localidad: '',
+        tipoPersona: '',
+        edad: '',
+        sexo: '',
+        respuesta: '',
+        numPenal: '',
+        penalizacion: '',
+        fecResolucion: '',
+        fecNotificacion: '',
+    });
 
     const handleClear = () => {
         setFolio('');
@@ -79,8 +98,8 @@ export const useChooseOptions = () => {
     const saveComplaint = async () => {
         try {
             setLoadingSave(true);
-            
-            // Construimos un objeto con los datos del formulario.
+    
+            // Construimos el objeto con los datos del formulario.
             const complaintData = {
                 folio,
                 mes,
@@ -109,13 +128,32 @@ export const useChooseOptions = () => {
                 fecNotificacion,
             };
     
-            // Enviamos la queja mediante la función postComplaint (debes implementarla).
+            // Validamos los datos antes de enviarlos.
+            const { error } = quejasSchema.validate(complaintData, { abortEarly: false });
+
+            if (error) {
+                // Mapear los errores para mostrarlos en el estado
+                const validationErrors = error.details.map((detail) => ({
+                    field: detail.path[0],
+                    message: detail.message,
+                }));
+
+                const errorMap = validationErrors.reduce((acc, { field, message }) => {
+                    acc[field] = message;
+                    return acc;
+                }, {});
+
+                setErrors(errorMap);
+                setErrorSave(validationErrors.map(err => `${err.field}: ${err.message}`).join('\n'));
+                return;
+            }
+    
+            // Enviamos la queja mediante la función postComplaints.
             await postComplaints(complaintData);
     
-            // Establecemos el estado de éxito y mostramos el mensaje.
+            // Establecemos el estado de éxito.
             setSuccess(true);
             setSuccessMessage(`Queja con folio ${folio} registrada exitosamente.`);
-            console.log(successMessage);
     
             // Limpiamos los campos del formulario.
             handleClear();
@@ -123,16 +161,16 @@ export const useChooseOptions = () => {
             console.error('Error al registrar la queja:', error);
             setErrorSave('Hubo un error al registrar la queja.');
         } finally {
-            setLoadingSave(false); // Terminamos el proceso de carga.
+            setLoadingSave(false);
         }
-    };
+    };    
 
     const closeModal = () => {
         setModalOpen(false);
         setSuccess(false);
         setSuccessMessage('');
-        changeComplaints('ver')
-    };    
+        changeComplaints('ver');
+    };
 
     return {
         setFolio, folio,
@@ -167,6 +205,7 @@ export const useChooseOptions = () => {
         success,
         successMessage,
         errorSave,
-        closeModal
-    };    
+        closeModal,
+        errors
+    };
 };

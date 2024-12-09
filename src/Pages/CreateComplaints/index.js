@@ -47,12 +47,18 @@ function CreateComplaints() {
         success,
         successMessage,
         errorSave,
-        closeModal
+        closeModal,
+        errors
     } = useChooseOptions();
+
+    const handleSubmit = async (e) => {
+        e.preventDefault(); // Prevenir el comportamiento predeterminado del formulario
+        await saveComplaint(); // Llamar a la función que maneja la validación y el guardado
+    };
 
     return (
         <div className="complaints-container">
-            <form ref={formRef} className="complaints-form">
+            <form ref={formRef} className="complaints-form" onSubmit={handleSubmit}>
                 <CustomText id="general-info-title" className="form-section-title">
                     Información General
                 </CustomText>
@@ -67,6 +73,7 @@ function CreateComplaints() {
                         onChange={(e) => setDenominacion(e.target.value)}
                         value={denominacion}
                     />
+                    {errors.folio && <span className="error">{errors.folio}</span>}
                     <CustomInput
                         id="QuejasSector"
                         placeholder="Sector al que pertenece la IF"
@@ -310,6 +317,7 @@ function CreateComplaints() {
                         onChange={(value) => setPenalizacion(value)}
                         value={penalizacion}
                     />
+                    {errors.penalizacion && <CustomText className="error-text">{errors.penalizacion}</CustomText>}
                 </div>
 
                 <CustomModal
