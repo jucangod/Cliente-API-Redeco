@@ -30,12 +30,17 @@ const useTableComplaints = (filteredComplaints, handleDelete, loadingDelete) => 
             Eliminar: (
                 <button
                     onClick={() => handleDelete(complaint.QuejasFolio)}
-                    className="delete-button"
+                    className="delete-icon-button"
                     disabled={loadingDelete}
+                    aria-label="Eliminar"
                 >
-                    {loadingDelete ? 'Eliminando...' : 'Eliminar'}
+                    {loadingDelete ? (
+                        <span className="loading-spinner"></span>
+                    ) : (
+                        <i className="material-symbols-rounded">close</i>
+                    )}
                 </button>
-            ),
+            ),            
         }));
     }, [filteredComplaints, handleDelete, loadingDelete]);
 

@@ -21,6 +21,7 @@ const useDeleteComplaints = () => {
             console.log(`Queja con folio ${selectedFolio} eliminada exitosamente.`);
             setSuccess(true); // Establecemos isSuccess en true
             setSuccessMessage(`Queja con folio ${selectedFolio} eliminada exitosamente.`); // Establecemos el mensaje de éxito
+            setErrorDelete('');
             console.log(successMessage)
         } catch (error) {
             console.error('Error al eliminar la queja:', error);

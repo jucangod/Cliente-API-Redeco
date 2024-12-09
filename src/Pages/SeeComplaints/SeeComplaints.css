@@ -238,6 +238,44 @@ tr:hover {
     color: white;
 }
 
+.delete-icon-button {
+    background: none;
+    border: none;
+    color: #611232; 
+    font-size: 1.5rem; 
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: color 0.3s ease, transform 0.2s ease;
+    padding: 0.5rem;
+    border-radius: 50%;
+}
+
+.delete-icon-button:hover {
+    color: #a57f2c;
+    transform: scale(1.2);
+}
+
+.delete-icon-button:active {
+    color: #4b0f28;
+    transform: scale(1);
+}
+
+.delete-icon-button:disabled {
+    color: #ccc;
+    cursor: not-allowed;
+}
+
+.loading-spinner {
+    border: 2px solid #ccc; 
+    border-top: 2px solid #611232;
+    border-radius: 50%;
+    width: 1rem;
+    height: 1rem;
+    animation: spin 1s linear infinite;
+}
+
 @media (max-width: 600px) {
     .filter-input,
     .filter-dropdown {
@@ -246,5 +284,14 @@ tr:hover {
 
     .apply-filters-button {
         width: 100%;
+    }
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
     }
 }
