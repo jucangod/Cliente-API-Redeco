@@ -40,8 +40,6 @@ function SeeComplaints() {
         formRef,
     } = useFilteredComplaints();
 
-    const { fetchComplaints } = useFilteredComplaints();
-
     // Usar el hook personalizado para la tabla
     const { tableData, headers, noDataMessage, loadingMessage } = useTableComplaints(
         filteredComplaints,

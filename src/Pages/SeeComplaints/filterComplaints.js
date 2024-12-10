@@ -1,6 +1,23 @@
 import { useState, useEffect } from 'react';
 import { getAllComplaints } from '../../Services/complaints.service'; // Importa tu servicio
 
+// Función para cargar las quejas
+const applyComplaints = async (setComplaints, setFilteredComplaints, setLoading) => {
+    setLoading(true);  // Establecemos loading como true al inicio de la carga
+    try {
+        // Simulamos el retraso de la carga de datos
+        setTimeout(async () => {
+            const { data } = await getAllComplaints(); // Obtener quejas desde el servicio
+            setComplaints(data);
+            setFilteredComplaints(data);
+            setLoading(false); // Finalmente cambiamos el estado de loading a false
+        }, 2000); // Simula un retraso de 2 segundos
+    } catch (error) {
+        console.error('Error al cargar quejas:', error);
+        setLoading(false);
+    }
+};
+
 const useFilteredComplaints = () => {
     const [filteredComplaints, setFilteredComplaints] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -12,25 +29,8 @@ const useFilteredComplaints = () => {
     const [complaints, setComplaints] = useState('');
 
     useEffect(() => {
-        const fetchComplaints = async () => {
-            setLoading(true);  // Establecemos loading como true al inicio de la carga
-
-            try {
-                // Simulamos el retraso de la carga de datos
-                setTimeout(async () => {
-                    const { data } = await getAllComplaints();
-                    setComplaints(data);
-                    setFilteredComplaints(data);
-                    setLoading(false); // Finalmente cambiamos el estado de loading a false
-                }, 2000); // Simula un retraso de 2 segundos
-            } catch (error) {
-                console.error('Error al cargar quejas:', error);
-                setLoading(false);
-            }
-        };
-
-        fetchComplaints();
-    }, []); // Solo se ejecuta al montar el componente
+        applyComplaints(setComplaints, setFilteredComplaints, setLoading); // Llamar a applyComplaints al montar el componente
+    }, []);
 
     const convertToDate = (dateString) => {
         if (!dateString) return null; // Manejo de casos nulos o vacíos
@@ -87,7 +87,9 @@ const useFilteredComplaints = () => {
 
     return {
         filteredComplaints,
+        setFilteredComplaints,
         loading,
+        setLoading,
         folio,
         setFolio,
         estadoQueja,
@@ -98,8 +100,9 @@ const useFilteredComplaints = () => {
         setFechaHasta,
         handleApplyFilters,
         handleClear,
-        formRef
+        formRef,
+        setComplaints
     };
 };
 
-export { useFilteredComplaints };
+export { useFilteredComplaints, applyComplaints };
