@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { deleteComplaint } from '../../Services/complaints.service';
+import { useFilteredComplaints } from './filterComplaints';  // Importar el hook de quejas filtradas
 
 const useDeleteComplaints = () => {
     const [loadingDelete, setLoadingDelete] = useState(false);
@@ -8,7 +9,7 @@ const useDeleteComplaints = () => {
     const [selectedFolio, setSelectedFolio] = useState(null);
     const [isSuccess, setSuccess] = useState(false);
     const [successMessage, setSuccessMessage] = useState('');
-
+    
     const handleDelete = (folio) => {
         setSelectedFolio(folio);
         setModalOpen(true);
@@ -22,7 +23,7 @@ const useDeleteComplaints = () => {
             setSuccess(true); // Establecemos isSuccess en true
             setSuccessMessage(`Queja con folio ${selectedFolio} eliminada exitosamente.`); // Establecemos el mensaje de éxito
             setErrorDelete('');
-            console.log(successMessage)
+
         } catch (error) {
             console.error('Error al eliminar la queja:', error);
             setErrorDelete('Hubo un error al eliminar la queja.');

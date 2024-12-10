@@ -6,7 +6,7 @@ import { CustomButton } from '../../Components/Button';
 import { CustomTable } from '../../Components/Table';
 import { CustomModal } from '../../Components/Modal';
 import { useFilteredComplaints } from './filterComplaints';
-import { useDeleteComplaints } from './deleteComplaints'; // Importamos el hook personalizado
+import { useDeleteComplaints } from './deleteComplaints';
 import { useTableComplaints } from './tableComplaints';
 import { ESTATUS_OPTIONS } from '../CreateComplaints/dropdownOption';
 import './SeeComplaints.css';
@@ -26,7 +26,7 @@ function SeeComplaints() {
 
     const {
         filteredComplaints,
-        loading,
+        loading,  // Estado de carga
         folio,
         setFolio,
         estadoQueja,
@@ -40,12 +40,19 @@ function SeeComplaints() {
         formRef,
     } = useFilteredComplaints();
 
+    const { fetchComplaints } = useFilteredComplaints();
+
     // Usar el hook personalizado para la tabla
     const { tableData, headers, noDataMessage, loadingMessage } = useTableComplaints(
         filteredComplaints,
         handleDelete,
         loadingDelete
     );
+
+    // Modificación en closeModal para recargar las quejas cuando se cierra el modal de éxito
+    const handleCloseModal = () => {
+        closeModal();  // Cierra el modal de éxito
+    };
 
     return (
         <div className="complaints-container">
@@ -118,7 +125,7 @@ function SeeComplaints() {
             <CustomModal
                 isOpen={isSuccess} // Mostrar modal solo si isSuccess es true
                 message={successMessage} // Pasamos el mensaje con el folio eliminado
-                onClose={closeModal} // Cierra el modal de éxito
+                onClose={handleCloseModal} // Llamamos a handleCloseModal en lugar de closeModal directamente
                 isSuccess={true} // Solo muestra el botón de "Cerrar"
             />
 
@@ -126,13 +133,20 @@ function SeeComplaints() {
                 <CustomText className="section-title">
                     Listado de Quejas
                 </CustomText>
-                {loadingDelete && loadingMessage}
-                {!loadingDelete && noDataMessage}
-                {!loadingDelete && filteredComplaints.length > 0 && (
-                    <CustomTable headers={headers} data={tableData} />
-                )}
-                {errorDelete && (
-                    <p style={{ color: 'red' }}>Error: {errorDelete}</p>
+
+                {loading ? (
+                    <CustomText className="loading-message">Cargando quejas...</CustomText>
+                ) : (
+                    <>
+                        {loadingDelete && loadingMessage}
+                        {!loadingDelete && noDataMessage}
+                        {!loadingDelete && filteredComplaints.length > 0 && (
+                            <CustomTable headers={headers} data={tableData} />
+                        )}
+                        {errorDelete && (
+                            <CustomText className='error-text'>Error: {errorDelete}</CustomText>
+                        )}
+                    </>
                 )}
             </div>
         </div>

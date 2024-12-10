@@ -13,19 +13,24 @@ const useFilteredComplaints = () => {
 
     useEffect(() => {
         const fetchComplaints = async () => {
+            setLoading(true);  // Establecemos loading como true al inicio de la carga
+
             try {
-                const { data } = await getAllComplaints();
-                setComplaints(data);
-                setFilteredComplaints(data);
+                // Simulamos el retraso de la carga de datos
+                setTimeout(async () => {
+                    const { data } = await getAllComplaints();
+                    setComplaints(data);
+                    setFilteredComplaints(data);
+                    setLoading(false); // Finalmente cambiamos el estado de loading a false
+                }, 2000); // Simula un retraso de 2 segundos
             } catch (error) {
                 console.error('Error al cargar quejas:', error);
-            } finally {
                 setLoading(false);
             }
         };
-    
+
         fetchComplaints();
-    }, []);
+    }, []); // Solo se ejecuta al montar el componente
 
     const convertToDate = (dateString) => {
         if (!dateString) return null; // Manejo de casos nulos o vacíos
@@ -46,7 +51,7 @@ const useFilteredComplaints = () => {
         const [day, month, year] = parts;
         // Reorganizar la fecha en formato YYYY-MM-DD
         return `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`;
-    };    
+    };
 
     // Función para aplicar filtros
     const handleApplyFilters = () => {
@@ -60,10 +65,6 @@ const useFilteredComplaints = () => {
             const fechaDesdeDate = fechaDesde ? convertToDate(fechaDesde) : null;
             const fechaHastaDate = fechaHasta ? convertToDate(fechaHasta) : null;
 
-            console.log("Fecha complaint: ", fechaComplaint);
-            console.log("Fecha desde: ", fechaDesdeDate);
-            console.log("Fecha hasta: ", fechaHastaDate);
-
             const fechaDesdeMatch = !fechaDesdeDate || fechaComplaint >= fechaDesdeDate;
             const fechaHastaMatch = !fechaHastaDate || fechaComplaint <= fechaHastaDate;
 
@@ -71,7 +72,7 @@ const useFilteredComplaints = () => {
         });
     
         setFilteredComplaints(filtered);
-    };    
+    };
 
     const handleClear = () => {
         setFolio('');
@@ -82,8 +83,8 @@ const useFilteredComplaints = () => {
         if (formRef?.current) {
             formRef.current.reset(); // Si usas un formulario con referencia, lo resetea
         }
-    };    
-    
+    };
+
     return {
         filteredComplaints,
         loading,
@@ -97,7 +98,7 @@ const useFilteredComplaints = () => {
         setFechaHasta,
         handleApplyFilters,
         handleClear,
-        formRef,
+        formRef
     };
 };
 
