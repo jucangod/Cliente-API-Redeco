@@ -16,7 +16,7 @@ const signUp = async ({ user, password, key }) => {
     const token_access = generateToken();
 
     if (!token_access) {
-        throw new Error('TOKEN_ERROR: No se pudo generar el token. Intente de nuevo.');
+        throw Error
     }
 
     // Guardar el token en localStorage

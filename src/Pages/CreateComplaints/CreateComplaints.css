@@ -137,9 +137,11 @@
 }
 
 .form-text-error {
+    display: flex; /* Cambia el comportamiento para que el gap funcione */
+    margin-top: -0.75rem;
     flex: 1 1 calc(50% - 1rem);
-    font-size: .80rem;
-    color: #b13f51
+    font-size: 0.8rem;
+    color: #b13f51;
 }
 
 @media (max-width: 600px) {

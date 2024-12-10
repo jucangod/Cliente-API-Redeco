@@ -40,32 +40,32 @@ export const useChooseOptions = () => {
     const [isModalOpen, setModalOpen] = useState(false);
 
     const [errors, setErrors] = useState({
-        folio: '',
-        mes: '',
-        denominacion: '',
-        sector: '',
-        num: '',
-        fecRecepcion: '',
-        medio: '',
-        nivelAT: '',
-        producto: '',
-        causa: '',
-        PORI: '',
-        estatus: '',
-        estado: '',
-        municipio: '',
-        colonia: '',
-        cp: '',
-        localidad: '',
-        tipoPersona: '',
-        edad: '',
-        sexo: '',
-        respuesta: '',
-        numPenal: '',
-        penalizacion: '',
-        fecResolucion: '',
-        fecNotificacion: '',
-    });
+        QuejasFolio: '',
+        QuejasNoMes: '',
+        QuejasDenominacion: '',
+        QuejasNum: '',
+        QuejasSector: '',
+        QuejasMedio: '',
+        QuejasNivelAT: '',
+        QuejasProducto: '',
+        QuejasCausa: '',
+        QuejasPORI: '',
+        QuejasEstatus: '',
+        QuejasEstados: '',
+        QuejasMunId: '',
+        QuejasColId: '',
+        QuejasCP: '',
+        QuejasLocId: '',
+        QuejasTipoPersona: '',
+        QuejasEdad: '',
+        QuejasSexo: '',
+        QuejasRespuesta: '',
+        QuejasNumPenal: '',
+        QuejasPenalizacion: '',
+        QuejasFecRecepcion: '',
+        QuejasFecResolucion: '',
+        QuejasFecNotificacion: '',
+    });    
 
     const handleClear = () => {
         setFolio('');
@@ -93,6 +93,8 @@ export const useChooseOptions = () => {
         setFecRecepcion('');
         setFecResolucion('');
         setFecNotificacion('');
+        setErrors({});
+        setErrorSave('');
     };
 
     const saveComplaint = async () => {
@@ -105,31 +107,31 @@ export const useChooseOptions = () => {
     
             // Construir los datos del formulario
             const complaintData = {
-                folio,
-                mes,
-                denominacion,
-                num,
-                sector,
-                medio,
-                nivelAT,
-                producto,
-                causa,
-                PORI,
-                estatus,
-                estado,
-                municipio,
-                colonia,
-                cp,
-                localidad,
-                tipoPersona,
-                edad,
-                sexo,
-                respuesta,
-                numPenal,
-                penalizacion,
-                fecRecepcion,
-                fecResolucion,
-                fecNotificacion,
+                QuejasFolio: folio,
+                QuejasNoMes: mes,
+                QuejasDenominacion: denominacion,
+                QuejasNum: num,
+                QuejasSector: sector,
+                QuejasMedio: medio,
+                QuejasNivelAT: nivelAT,
+                QuejasProducto: producto,
+                QuejasCausa: causa,
+                QuejasPORI: PORI,
+                QuejasEstatus: estatus,
+                QuejasEstados: estado,
+                QuejasMunId: municipio,
+                QuejasColId: colonia,
+                QuejasCP: cp,
+                QuejasLocId: localidad,
+                QuejasTipoPersona: tipoPersona,
+                QuejasEdad: edad,
+                QuejasSexo: sexo,
+                QuejasRespuesta: respuesta,
+                QuejasNumPenal: numPenal,
+                QuejasPenalizacion: penalizacion,
+                QuejasFecRecepcion: fecRecepcion,
+                QuejasFecResolucion: fecResolucion,
+                QuejasFecNotificacion: fecNotificacion,
             };
     
             // Validar usando el esquema
