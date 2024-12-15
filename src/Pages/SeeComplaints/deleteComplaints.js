@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { deleteComplaint } from '../../Services/complaints.service';
-import { applyComplaints, useFilteredComplaints } from './filterComplaints';  // Asegúrate de importar applyComplaints
+import { useFilteredComplaints } from './filterComplaints'; 
 
 const useDeleteComplaints = () => {
     const [loadingDelete, setLoadingDelete] = useState(false);
@@ -11,11 +11,9 @@ const useDeleteComplaints = () => {
     const [successMessage, setSuccessMessage] = useState('');
 
     const {
-        setComplaints,
-        setFilteredComplaints,
-        setLoading
+        
     } = useFilteredComplaints();
-    
+
     const handleDelete = (folio) => {
         setSelectedFolio(folio);
         setModalOpen(true);
@@ -26,19 +24,17 @@ const useDeleteComplaints = () => {
             setLoadingDelete(true);
             await deleteComplaint(selectedFolio);
             console.log(`Queja con folio ${selectedFolio} eliminada exitosamente.`);
-            
-            // Llamar a applyComplaints después de eliminar la queja
-            applyComplaints(setComplaints, setFilteredComplaints, setLoading);
 
-            setSuccess(true); // Establecer isSuccess a true
-            setSuccessMessage(`Queja con folio ${selectedFolio} eliminada exitosamente.`); // Establecer el mensaje de éxito
-            setErrorDelete(''); // Limpiar cualquier error previo
+            setSuccess(true);
+            setSuccessMessage(`Queja con folio ${selectedFolio} eliminada exitosamente.`);
+            setErrorDelete('');
+
         } catch (error) {
             console.error('Error al eliminar la queja:', error);
             setErrorDelete('Hubo un error al eliminar la queja.');
         } finally {
             setLoadingDelete(false);
-            setModalOpen(false); // Cerrar el modal de confirmación
+            setModalOpen(false);
             setSelectedFolio(null);
         }
     };

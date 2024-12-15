@@ -47,11 +47,6 @@ function SeeComplaints() {
         loadingDelete
     );
 
-    // Modificación en closeModal para recargar las quejas cuando se cierra el modal de éxito
-    const handleCloseModal = () => {
-        closeModal();  // Cierra el modal de éxito
-    };
-
     return (
         <div className="complaints-container">
             <div className="filters-section">
@@ -123,7 +118,7 @@ function SeeComplaints() {
             <CustomModal
                 isOpen={isSuccess} // Mostrar modal solo si isSuccess es true
                 message={successMessage} // Pasamos el mensaje con el folio eliminado
-                onClose={handleCloseModal} // Llamamos a handleCloseModal en lugar de closeModal directamente
+                onClose={closeModal} // Llamamos a handleCloseModal en lugar de closeModal directamente
                 isSuccess={true} // Solo muestra el botón de "Cerrar"
             />
 

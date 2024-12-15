@@ -26,7 +26,7 @@ const useFilteredComplaints = () => {
     const [fechaDesde, setFechaDesde] = useState('');
     const [fechaHasta, setFechaHasta] = useState('');
     const [formRef, setFormRef] = useState(null);
-    const [complaints, setComplaints] = useState('');
+    const [complaints, setComplaints] = useState([]);
 
     useEffect(() => {
         applyComplaints(setComplaints, setFilteredComplaints, setLoading); // Llamar a applyComplaints al montar el componente
@@ -83,7 +83,16 @@ const useFilteredComplaints = () => {
         if (formRef?.current) {
             formRef.current.reset(); // Si usas un formulario con referencia, lo resetea
         }
+
+        // Recargar las quejas luego de limpiar los filtros
+        applyComplaints(setComplaints, setFilteredComplaints, setLoading);
     };
+
+    // Para que applyComplaints se ejecute cuando las quejas cambien
+    useEffect(() => {
+        if (complaints.length === 0) return;
+        setFilteredComplaints(complaints);
+    }, [complaints]);
 
     return {
         filteredComplaints,
@@ -101,7 +110,7 @@ const useFilteredComplaints = () => {
         handleApplyFilters,
         handleClear,
         formRef,
-        setComplaints
+        setComplaints,
     };
 };
 
