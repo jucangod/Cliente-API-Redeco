@@ -127,7 +127,7 @@ function CreateComplaints() {
                     <CustomInput
                         id="QuejasFecRecepcion"
                         placeholder="Fecha de la queja"
-                        type="date"
+                        // type="date"
                         className="form-input"
                         onChange={(e) => setFecRecepcion(e.target.value)}
                         value={fecRecepcion}

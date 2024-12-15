@@ -98,8 +98,10 @@ export const useChooseOptions = () => {
     };
 
     const saveComplaint = async () => {
+        console.log('saveComplaint llamado');
         try {
             setLoadingSave(true);
+            console.log('Cargando...');
     
             // Limpiar errores antes de la validación
             setErrors({});
@@ -122,13 +124,13 @@ export const useChooseOptions = () => {
                 QuejasMunId: municipio,
                 QuejasColId: colonia,
                 QuejasCP: cp,
-                QuejasLocId: localidad,
+                // QuejasLocId: localidad,
                 QuejasTipoPersona: tipoPersona,
                 QuejasEdad: edad,
                 QuejasSexo: sexo,
                 QuejasRespuesta: respuesta,
                 QuejasNumPenal: numPenal,
-                QuejasPenalizacion: penalizacion,
+                // QuejasPenalizacion: penalizacion,
                 QuejasFecRecepcion: fecRecepcion,
                 QuejasFecResolucion: fecResolucion,
                 QuejasFecNotificacion: fecNotificacion,
@@ -136,6 +138,7 @@ export const useChooseOptions = () => {
     
             // Validar usando el esquema
             const { error } = quejasSchema.validate(complaintData, { abortEarly: false });
+            console.log('Validando datos...', complaintData);
     
             if (error) {
                 // Mapeo detallado de errores
@@ -144,17 +147,17 @@ export const useChooseOptions = () => {
                     acc[field] = detail.message; // Usa los mensajes personalizados de Joi
                     return acc;
                 }, {});
-    
+                console.log('Errores de validación:', validationErrors);
+                
                 // Establecer errores en el estado
                 setErrors(validationErrors);
-    
-                // Opción para mostrar todos los errores concatenados
                 setErrorSave(Object.values(validationErrors).join('\n'));
                 return;
             }
     
             // Enviar los datos si no hay errores
             await postComplaints(complaintData);
+            console.log('Queja registrada exitosamente');
     
             setSuccess(true);
             setSuccessMessage(`Queja con folio ${folio} registrada exitosamente.`);
@@ -165,7 +168,7 @@ export const useChooseOptions = () => {
         } finally {
             setLoadingSave(false);
         }
-    };
+    };    
     
     const closeModal = () => {
         setModalOpen(false);
