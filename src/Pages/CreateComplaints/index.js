@@ -245,7 +245,7 @@ function CreateComplaints() {
                         value={colonia}
                     />
                     <CustomText className="form-text-error">
-                        {errors.QuejasLocId ? errors.QuejasLocId : " "}
+                        
                     </CustomText>
                     <CustomText className="form-text-error">
                         {errors.QuejasColId ? errors.QuejasColId : " "}
@@ -385,7 +385,7 @@ function CreateComplaints() {
                         value={penalizacion}
                     />
                     <CustomText className="form-text-error" id='text-alone'>
-                        {errors.QuejasPenalizacion ? errors.QuejasPenalizacion : " "}
+                        
                     </CustomText>
                 </div>
 
