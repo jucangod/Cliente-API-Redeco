@@ -48,7 +48,6 @@ function SeeComplaints() {
         loadingDelete
     );
 
-
     // Función para generar PDF de la queja con estilos
     const handlePreviewPDF = (complaint) => {
         console.log('Complaint data:', complaint); // Verificar los datos
@@ -168,7 +167,7 @@ function SeeComplaints() {
         // Guardar el PDF con el nombre del folio
         doc.save(`Queja_${complaint.Folio || 'Unknown'}.pdf`);
     };
-    
+
     return (
         <div className="complaints-container">
             <div className="filters-section">
