@@ -1,6 +1,6 @@
 import React from 'react';
 import { CustomText } from '../../Components/Text';
-import { ESTATUS_OPTIONS, MEDIOS, ESTADOS_DE_MEXICO } from '../CreateComplaints/dropdownOption';
+import { ESTATUS_OPTIONS, MEDIOS, ESTADOS_DE_MEXICO, NIVELES_AT, PORI_OPTIONS, TIPOS_PERSONA, RESPUESTA_OPTIONS, PENALIZACION_OPTIONS, MONTHS } from '../CreateComplaints/dropdownOption';
 
 // Función para crear un mapeo dinámico
 const createMapping = (options) => {
@@ -14,6 +14,11 @@ const createMapping = (options) => {
 const estatusMapping = createMapping(ESTATUS_OPTIONS);
 const medioMapping = createMapping(MEDIOS);
 const estadosMapping = createMapping(ESTADOS_DE_MEXICO);
+const nivelesAtMapping = createMapping(NIVELES_AT);
+const poriMapping = createMapping(PORI_OPTIONS);
+const tipoPersonaMapping = createMapping(TIPOS_PERSONA);
+const respuestaMapping = createMapping(RESPUESTA_OPTIONS);
+const penalizacionMapping = createMapping(PENALIZACION_OPTIONS);
 
 // Hook personalizado para manejar datos y lógica de la tabla
 const useTableComplaints = (filteredComplaints, handleDelete, loadingDelete) => {
@@ -27,6 +32,24 @@ const useTableComplaints = (filteredComplaints, handleDelete, loadingDelete) => 
             Estatus: estatusMapping[complaint.QuejasEstatus] || 'Desconocido',
             Estado: estadosMapping[complaint.QuejasEstados] || 'Desconocido',
             Causa: complaint.QuejasCausa,
+            Sector: complaint.QuejasSector || 'N/A',
+            NoMes: MONTHS[complaint.QuejasNoMes]?.label || 'N/A', // Mapeo de mes
+            Num: complaint.QuejasNum || 'N/A',
+            NivelAT: nivelesAtMapping[complaint.QuejasNivelAT] || 'N/A', // Mapeo de nivel AT
+            Producto: complaint.QuejasProducto || 'N/A',
+            Pori: poriMapping[complaint.QuejasPORI] || 'N/A', // Mapeo de Pori
+            MunId: complaint.QuejasMunId || 'N/A',
+            LocId: complaint.QuejasLocId || 'N/A',
+            ColId: complaint.QuejasColId || 'N/A',
+            CP: complaint.QuejasCP || 'N/A',
+            TipoPersona: tipoPersonaMapping[complaint.QuejasTipoPersona] || 'N/A', // Mapeo de tipo persona
+            Sexo: complaint.QuejasSexo || 'N/A',
+            Edad: complaint.QuejasEdad || 'N/A',
+            FecResolucion: complaint.QuejasFecResolucion || 'N/A',
+            FecNotificacion: complaint.QuejasFecNotificacion || 'N/A',
+            Respuesta: respuestaMapping[complaint.QuejasRespuesta] || 'N/A', // Mapeo de respuesta
+            NumPenal: complaint.QuejasNumPenal || 'N/A',
+            Penalizacion: penalizacionMapping[complaint.QuejasPenalizacion] || 'N/A', // Mapeo de penalización
             Eliminar: (
                 <button
                     onClick={() => handleDelete(complaint.QuejasFolio)}
@@ -40,9 +63,9 @@ const useTableComplaints = (filteredComplaints, handleDelete, loadingDelete) => 
                         <i className="material-symbols-rounded">close</i>
                     )}
                 </button>
-            ),            
+            ),
         }));
-    }, [filteredComplaints, handleDelete, loadingDelete]);
+    }, [filteredComplaints, handleDelete, loadingDelete]);    
 
     // Headers de la tabla
     const headers = React.useMemo(
