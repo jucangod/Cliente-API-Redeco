@@ -1,35 +1,35 @@
 const signUp = async ({ user, password, key }) => {
-    if (!user || !password || !key) {
-        throw new Error('Por favor, ingrese todos los campos.');
-    }
+  if (!user || !password || !key) {
+    throw new Error('Por favor, ingrese todos los campos.');
+  }
 
-    // Validaciones básicas
-    if (user !== 'test') {
-        throw new Error('USER_ERROR: Usuario no permitido.');
-    } else if (password !== '123') {
-        throw new Error('PASSWORD_ERROR: Contraseña no válida.');
-    } else if (key !== '123') {
-        throw new Error('KEY_ERROR: Key incorrecta.');
-    }
+  // Validaciones básicas
+  if (user !== 'test') {
+    throw new Error('USER_ERROR: Usuario no permitido.');
+  } else if (password !== '123') {
+    throw new Error('PASSWORD_ERROR: Contraseña no válida.');
+  } else if (key !== '123') {
+    throw new Error('KEY_ERROR: Key incorrecta.');
+  }
 
-    // Generar token de autenticación
-    const token_access = generateToken();
+  // Generar token de autenticación
+  const token_access = generateToken();
 
-    if (!token_access) {
-        throw Error
-    }
+  if (!token_access) {
+    throw Error;
+  }
 
-    // Guardar el token en localStorage
-    localStorage.setItem('token_access', token_access);
+  // Guardar el token en localStorage
+  localStorage.setItem('token_access', token_access);
 
-    // Devolver datos del usuario y el token
-    return {
-        message: 'Registro exitoso y autenticación completa.',
-        user: {
-            username: user,
-            token_access,
-        },
-    };
+  // Devolver datos del usuario y el token
+  return {
+    message: 'Registro exitoso y autenticación completa.',
+    data: {
+      username: user,
+      token_access,
+    },
+  };
 };
 
 const generateToken = () => 'token';
