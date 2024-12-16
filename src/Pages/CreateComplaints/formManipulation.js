@@ -124,16 +124,16 @@ export const useChooseOptions = () => {
                 QuejasMunId: municipio,
                 QuejasColId: colonia,
                 QuejasCP: cp,
-                // QuejasLocId: localidad,
+                QuejasLocId: localidad || null,
                 QuejasTipoPersona: tipoPersona,
-                QuejasEdad: edad,
-                QuejasSexo: sexo,
+                QuejasEdad: edad || null,
+                QuejasSexo: sexo || null,
                 QuejasRespuesta: respuesta,
-                QuejasNumPenal: numPenal,
-                // QuejasPenalizacion: penalizacion,
+                QuejasNumPenal: numPenal || null,
+                QuejasPenalizacion: penalizacion || null,
                 QuejasFecRecepcion: fecRecepcion,
-                QuejasFecResolucion: fecResolucion,
-                QuejasFecNotificacion: fecNotificacion,
+                QuejasFecResolucion: fecResolucion || null,
+                QuejasFecNotificacion: fecNotificacion || null,
             };
     
             // Validar usando el esquema
