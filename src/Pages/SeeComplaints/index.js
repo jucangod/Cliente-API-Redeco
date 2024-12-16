@@ -9,6 +9,7 @@ import { useFilteredComplaints } from './filterComplaints';
 import { useDeleteComplaints } from './deleteComplaints';
 import { useTableComplaints } from './tableComplaints';
 import { ESTATUS_OPTIONS } from '../CreateComplaints/dropdownOption';
+import { jsPDF } from 'jspdf'; // Importar jsPDF
 import './SeeComplaints.css';
 
 function SeeComplaints() {
@@ -46,6 +47,22 @@ function SeeComplaints() {
         handleDelete,
         loadingDelete
     );
+
+    // Función para generar PDF de la queja
+    const handlePreviewPDF = (complaint) => {
+        console.log('Complaint data:', complaint); // Verificar los datos
+        const doc = new jsPDF();
+    
+        doc.text(`Folio: ${complaint.QuejasFolio || 'N/A'}`, 10, 10);
+        doc.text(`Razón Social: ${complaint.QuejasDenominacion || 'N/A'}`, 10, 20);
+        doc.text(`Fecha: ${complaint.QuejasFecRecepcion || 'N/A'}`, 10, 30);
+        doc.text(`Medio: ${complaint.QuejasMedio || 'N/A'}`, 10, 40);
+        doc.text(`Estatus: ${complaint.QuejasEstatus || 'N/A'}`, 10, 50);
+        doc.text(`Estado: ${complaint.QuejasEstados || 'N/A'}`, 10, 60);
+        doc.text(`Causa: ${complaint.QuejasCausa || 'N/A'}`, 10, 70);
+    
+        doc.save(`Queja_${complaint.QuejasFolio || 'Unknown'}.pdf`);
+    };    
 
     return (
         <div className="complaints-container">
@@ -134,7 +151,20 @@ function SeeComplaints() {
                         {loadingDelete && loadingMessage}
                         {!loadingDelete && noDataMessage}
                         {!loadingDelete && filteredComplaints.length > 0 && (
-                            <CustomTable headers={headers} data={tableData} />
+                            <CustomTable 
+                                headers={headers} 
+                                data={tableData.map(complaint => ({
+                                    ...complaint,
+                                    Folio: (
+                                        <button 
+                                            onClick={() => handlePreviewPDF(complaint)}
+                                            className="preview-pdf-button"
+                                        >
+                                            {complaint.Folio}
+                                        </button>
+                                    ),
+                                }))} 
+                            />
                         )}
                         {errorDelete && (
                             <CustomText className='error-text'>Error: {errorDelete}</CustomText>
