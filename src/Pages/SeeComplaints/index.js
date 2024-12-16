@@ -48,38 +48,87 @@ function SeeComplaints() {
         loadingDelete
     );
 
-    // Función para generar PDF de la queja
+
+    // Función para generar PDF de la queja con estilos
     const handlePreviewPDF = (complaint) => {
         console.log('Complaint data:', complaint); // Verificar los datos
         const doc = new jsPDF();
-    
-        // Asegúrate de usar los nombres correctos de las propiedades
-        doc.text(`Folio: ${complaint.Folio || 'N/A'}`, 10, 10);
-        doc.text(`Razón Social: ${complaint['Razón Social'] || 'N/A'}`, 10, 20);
-        doc.text(`Fecha: ${complaint.Fecha || 'N/A'}`, 10, 30);
-        doc.text(`Medio: ${complaint.Medio || 'N/A'}`, 10, 40);
-        doc.text(`Estatus: ${complaint.Estatus || 'N/A'}`, 10, 50);
-        doc.text(`Estado: ${complaint.Estado || 'N/A'}`, 10, 60);
-        doc.text(`Causa: ${complaint.Causa || 'N/A'}`, 10, 70);
-        doc.text(`Sector: ${complaint.Sector || 'N/A'}`, 10, 80);
-        doc.text(`Número de mes: ${complaint.NoMes || 'N/A'}`, 10, 90);
-        doc.text(`Número: ${complaint.Num || 'N/A'}`, 10, 100);
-        doc.text(`Nivel AT: ${complaint.NivelAT || 'N/A'}`, 10, 110);
-        doc.text(`Producto: ${complaint.Producto || 'N/A'}`, 10, 120);
-        doc.text(`PORI: ${complaint.PORI || 'N/A'}`, 10, 130);
-        doc.text(`Municipio ID: ${complaint.MunId || 'N/A'}`, 10, 140);
-        doc.text(`Localidad ID: ${complaint.LocId || 'N/A'}`, 10, 150);
-        doc.text(`Colonia ID: ${complaint.ColId || 'N/A'}`, 10, 160);
-        doc.text(`Código Postal: ${complaint.CP || 'N/A'}`, 10, 170);
-        doc.text(`Tipo Persona: ${complaint.TipoPersona || 'N/A'}`, 10, 180);
-        doc.text(`Sexo: ${complaint.Sexo || 'N/A'}`, 10, 190);
-        doc.text(`Edad: ${complaint.Edad || 'N/A'}`, 10, 200);
-        doc.text(`Fecha Resolución: ${complaint.FecResolucion || 'N/A'}`, 10, 210);
-        doc.text(`Fecha Notificación: ${complaint.FecNotificacion || 'N/A'}`, 10, 220);
-        doc.text(`Respuesta: ${complaint.Respuesta || 'N/A'}`, 10, 230);
-        doc.text(`Número Penal: ${complaint.NumPenal || 'N/A'}`, 10, 240);
-        doc.text(`Penalización: ${complaint.Penalizacion || 'N/A'}`, 10, 250);
-    
+
+        // Configuración de estilos generales
+        const primaryColor = [97, 18, 50]; // Rojo oscuro
+        const secondaryColor = [165, 127, 44]; // Dorado
+        const fontRegular = 'Helvetica';
+        const fontBold = 'Helvetica';
+
+        // Título del documento
+        doc.setFont(fontBold, 'bold');
+        doc.setFontSize(16);
+        doc.setTextColor(...primaryColor);
+        doc.text('Reporte de Queja', doc.internal.pageSize.getWidth() / 2, 10, { align: 'center' });
+
+        // Línea separadora
+        doc.setDrawColor(...primaryColor);
+        doc.setLineWidth(0.5);
+        doc.line(10, 15, doc.internal.pageSize.getWidth() - 10, 15);
+
+        // Configuración de estilo para campos
+        doc.setFont(fontRegular, 'normal');
+        doc.setFontSize(12);
+        doc.setTextColor(0, 0, 0); // Negro para texto general
+
+        // Configuración de estilo para etiquetas
+        const labelStyle = () => {
+            doc.setFont(fontBold, 'bold');
+            doc.setTextColor(...secondaryColor);
+        };
+
+        const valueStyle = () => {
+            doc.setFont(fontRegular, 'normal');
+            doc.setTextColor(0, 0, 0);
+        };
+
+        // Datos de la queja
+        let cursorY = 20;
+        const marginX = 10;
+        const lineSpacing = 8;
+
+        const fields = [
+            { label: 'Folio', value: complaint.Folio },
+            { label: 'Razón Social', value: complaint['Razón Social'] },
+            { label: 'Fecha', value: complaint.Fecha },
+            { label: 'Medio', value: complaint.Medio },
+            { label: 'Estatus', value: complaint.Estatus },
+            { label: 'Estado', value: complaint.Estado },
+            { label: 'Causa', value: complaint.Causa },
+            { label: 'Sector', value: complaint.Sector },
+            { label: 'Número de mes', value: complaint.NoMes },
+            { label: 'Número', value: complaint.Num },
+            { label: 'Nivel AT', value: complaint.NivelAT },
+            { label: 'Producto', value: complaint.Producto },
+            { label: 'PORI', value: complaint.PORI },
+            { label: 'Municipio ID', value: complaint.MunId },
+            { label: 'Localidad ID', value: complaint.LocId },
+            { label: 'Colonia ID', value: complaint.ColId },
+            { label: 'Código Postal', value: complaint.CP },
+            { label: 'Tipo Persona', value: complaint.TipoPersona },
+            { label: 'Sexo', value: complaint.Sexo },
+            { label: 'Edad', value: complaint.Edad },
+            { label: 'Fecha Resolución', value: complaint.FecResolucion },
+            { label: 'Fecha Notificación', value: complaint.FecNotificacion },
+            { label: 'Respuesta', value: complaint.Respuesta },
+            { label: 'Número Penal', value: complaint.NumPenal },
+            { label: 'Penalización', value: complaint.Penalizacion },
+        ];
+
+        fields.forEach((field) => {
+            labelStyle();
+            doc.text(`${field.label}:`, marginX, cursorY);
+            valueStyle();
+            // Convertir el valor a string para evitar errores
+            doc.text(String(field.value || 'N/A'), marginX + 50, cursorY);
+            cursorY += lineSpacing;
+        });
+
         // Guardar el PDF con el nombre del folio
         doc.save(`Queja_${complaint.Folio || 'Unknown'}.pdf`);
     };
