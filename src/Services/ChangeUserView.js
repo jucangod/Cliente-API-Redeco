@@ -6,6 +6,15 @@ function ChangeUserView({ children }) {
     const [loginPage, setLoginPage] = React.useState(true);
     const [isUserLogged, setIsUserLogged] = React.useState(false);
     const [loggedUserView, setLoggedUserView] = React.useState('ver');
+    const [isModalOpen, setModalOpen] = React.useState(false);
+
+    const handleClose = () => {
+        setModalOpen(true)
+    }
+
+    const cancelClose = () => {
+        setModalOpen(false)
+    }
 
     const changeView = () => {
         setLoginPage(!loginPage);
@@ -14,7 +23,9 @@ function ChangeUserView({ children }) {
     const logUser = () => {
         setIsUserLogged(!isUserLogged)
         setLoginPage(true)
-        localStorage.removeItem('token_access')
+        if (loginPage) {
+            localStorage.removeItem('token_access');
+        }
     }
 
     const changeComplaints = (view) => {
@@ -28,7 +39,10 @@ function ChangeUserView({ children }) {
             isUserLogged,
             logUser,
             loggedUserView,
-            changeComplaints
+            changeComplaints,
+            handleClose,
+            isModalOpen,
+            cancelClose
         }}>
             {children}
         </AppContext.Provider>

@@ -1,12 +1,16 @@
 import React from 'react'
 import { CustomButton } from '../../Components/Button';
 import { AppContext } from '../../Services/ChangeUserView';
+import { CustomModal } from '../../Components/Modal';
 import './LoggedHeader.css'
 
 function LoggedHeader() {
     const {
         logUser,
-        changeComplaints
+        changeComplaints,
+        handleClose,
+        isModalOpen,
+        cancelClose
     } = React.useContext(AppContext);
 
     return (
@@ -25,10 +29,16 @@ function LoggedHeader() {
             </CustomButton>
             <CustomButton
                 className='complaint-button'
-                onClick={logUser}
+                onClick={handleClose}
             >
                 Cerrar Sesión
             </CustomButton>
+            <CustomModal
+                isOpen={isModalOpen}
+                message="¿Estás seguro de que deseas cerrar sesión?"
+                onConfirm={logUser}
+                onCancel={cancelClose}
+            />
         </div>
     )
 }

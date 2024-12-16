@@ -286,6 +286,7 @@ tr:hover {
     background-color: transparent;
     border: none;
     cursor: pointer;
+    text-decoration: underline;
 }
 
 @media (max-width: 600px) {
