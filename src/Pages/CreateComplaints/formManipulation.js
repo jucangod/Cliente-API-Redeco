@@ -128,7 +128,7 @@ export const useChooseOptions = () => {
                 QuejasTipoPersona: tipoPersona,
                 QuejasEdad: edad || null,
                 QuejasSexo: sexo || null,
-                QuejasRespuesta: respuesta,
+                QuejasRespuesta: respuesta || null,
                 QuejasNumPenal: numPenal || null,
                 QuejasPenalizacion: penalizacion || null,
                 QuejasFecRecepcion: fecRecepcion,

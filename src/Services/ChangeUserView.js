@@ -14,6 +14,7 @@ function ChangeUserView({ children }) {
     const logUser = () => {
         setIsUserLogged(!isUserLogged)
         setLoginPage(true)
+        localStorage.removeItem('token_access')
     }
 
     const changeComplaints = (view) => {
