@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { deleteComplaint } from '../../Services/complaints.service';
+import { deleteComplaint, getAllComplaints } from '../../Services/complaints.service';
 import { useFilteredComplaints } from './filterComplaints'; 
 
 const useDeleteComplaints = () => {
@@ -10,28 +10,42 @@ const useDeleteComplaints = () => {
     const [isSuccess, setSuccess] = useState(false);
     const [successMessage, setSuccessMessage] = useState('');
 
-    const {
-        
-    } = useFilteredComplaints();
-
     const handleDelete = (folio) => {
         setSelectedFolio(folio);
         setModalOpen(true);
     };
 
+    const {
+        setComplaints,
+        setFilteredComplaints,
+        filteredComplaints
+    } = useFilteredComplaints();
+
     const confirmDelete = async () => {
         try {
             setLoadingDelete(true);
-            await deleteComplaint(selectedFolio);
-            console.log(`Queja con folio ${selectedFolio} eliminada exitosamente.`);
+            console.log(`Eliminando la queja con folio: ${selectedFolio}`);
+            console.log('Quejas antes de eliminarse ', filteredComplaints);
+            
+            // Llamar a la función de eliminación
+            await deleteComplaint(selectedFolio); // Simula la eliminación
+    
+            // Actualiza filteredComplaints eliminando la queja
+            setFilteredComplaints((prevFilteredComplaints) => {
+                const setFilteredComplaints = prevFilteredComplaints.filter(
+                    (complaint) => complaint.QuejasFolio !== selectedFolio
+                );
+                console.log('Lista de quejas después de la eliminación (Filtered Complaints):', setFilteredComplaints);
+                return setFilteredComplaints;
+            });
 
             setSuccess(true);
             setSuccessMessage(`Queja con folio ${selectedFolio} eliminada exitosamente.`);
             setErrorDelete('');
-
         } catch (error) {
-            console.error('Error al eliminar la queja:', error);
-            setErrorDelete('Hubo un error al eliminar la queja.');
+            const parsedError = error?.message ? JSON.parse(error.message) : { message: 'Error desconocido.' };
+            console.error('Error al eliminar la queja:', parsedError.message);
+            setErrorDelete(parsedError.message || 'Hubo un error al eliminar la queja.');
         } finally {
             setLoadingDelete(false);
             setModalOpen(false);

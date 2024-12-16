@@ -22,6 +22,7 @@ function ChangeUserView({ children }) {
 
     const logUser = () => {
         setIsUserLogged(!isUserLogged)
+        setModalOpen(false)
         setLoginPage(true)
         if (loginPage) {
             localStorage.removeItem('token_access');
