@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { getAllComplaints } from '../../Services/complaints.service'; // Importa tu servicio
+import { getAllComplaints, deleteComplaint } from '../../Services/complaints.service'; // Importar servicio
 
 const useFilteredComplaints = () => {
     const [filteredComplaints, setFilteredComplaints] = useState([]);
@@ -10,6 +10,12 @@ const useFilteredComplaints = () => {
     const [fechaHasta, setFechaHasta] = useState('');
     const [formRef, setFormRef] = useState(null);
     const [complaints, setComplaints] = useState([]);
+    const [loadingDelete, setLoadingDelete] = useState(false);
+    const [errorDelete, setErrorDelete] = useState(null);
+    const [isModalOpen, setModalOpen] = useState(false);
+    const [selectedFolio, setSelectedFolio] = useState(null);
+    const [isSuccess, setSuccess] = useState(false);
+    const [successMessage, setSuccessMessage] = useState('');
 
     // Función para cargar las quejas
     const applyComplaints = async (setComplaints, setFilteredComplaints, setLoading) => {
@@ -85,6 +91,54 @@ const useFilteredComplaints = () => {
         applyComplaints(setComplaints, setFilteredComplaints, setLoading);
     };
 
+    const handleDelete = (folio) => {
+        setSelectedFolio(folio);
+        setModalOpen(true);
+    };
+
+    const confirmDelete = async () => {
+        try {
+            setLoadingDelete(true);
+            console.log(`Eliminando la queja con folio: ${selectedFolio}`);
+            await deleteComplaint(selectedFolio);
+    
+            // Filtrar la queja eliminada de la lista de quejas
+            const updatedComplaints = complaints.filter(
+                (complaint) => complaint.QuejasFolio !== selectedFolio
+            );
+    
+            // Actualizar el estado de las quejas completas
+            setComplaints(updatedComplaints);
+    
+            // Actualizar el estado de las quejas filtradas
+            setFilteredComplaints(updatedComplaints);
+    
+            setSuccess(true);
+            setSuccessMessage(`Queja con folio ${selectedFolio} eliminada exitosamente.`);
+            setErrorDelete('');
+        } catch (error) {
+            console.error('Error al eliminar la queja:', error.message || 'Error desconocido');
+            setErrorDelete(error.message || 'Hubo un error al eliminar la queja.');
+        } finally {
+            setLoadingDelete(false);
+            setModalOpen(false);
+            setSelectedFolio(null);
+        }
+    };
+
+    const cancelDelete = () => {
+        setModalOpen(false);
+        setSelectedFolio(null);
+    };
+
+    const closeModal = () => {
+        setModalOpen(false);
+        setSuccess(false);
+        setSuccessMessage('');
+        
+        applyComplaints(setComplaints, setFilteredComplaints, setLoadingDelete);
+    };
+
     return {
         filteredComplaints,
         setFilteredComplaints,
@@ -101,8 +155,17 @@ const useFilteredComplaints = () => {
         handleApplyFilters,
         handleClear,
         formRef,
-        setComplaints,
+        complaints,
         applyComplaints,
+        loadingDelete,
+        errorDelete,
+        isModalOpen,
+        isSuccess,
+        successMessage,
+        handleDelete,
+        confirmDelete,
+        cancelDelete,
+        closeModal
     };
 };
 

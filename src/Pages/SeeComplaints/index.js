@@ -6,24 +6,12 @@ import { CustomButton } from '../../Components/Button';
 import { CustomTable } from '../../Components/Table';
 import { CustomModal } from '../../Components/Modal';
 import { useFilteredComplaints } from './filterComplaints';
-import { useDeleteComplaints } from './deleteComplaints';
 import { useTableComplaints } from './tableComplaints';
 import { ESTATUS_OPTIONS } from '../CreateComplaints/dropdownOption';
 import { jsPDF } from 'jspdf'; // Importar jsPDF
 import './SeeComplaints.css';
 
 function SeeComplaints() {
-    const {
-        handleDelete,
-        confirmDelete,
-        cancelDelete,
-        loadingDelete,
-        errorDelete,
-        isModalOpen,
-        isSuccess,
-        closeModal,
-        successMessage
-    } = useDeleteComplaints();
 
     const {
         filteredComplaints,
@@ -39,6 +27,15 @@ function SeeComplaints() {
         handleApplyFilters,
         handleClear,
         formRef,
+        handleDelete,
+        confirmDelete,
+        cancelDelete,
+        loadingDelete,
+        errorDelete,
+        isModalOpen,
+        isSuccess,
+        closeModal,
+        successMessage
     } = useFilteredComplaints();
 
     // Usar el hook personalizado para la tabla
