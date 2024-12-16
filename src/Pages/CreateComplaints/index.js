@@ -57,6 +57,9 @@ function CreateComplaints() {
     return (
         <div className="complaints-container">
             <form ref={formRef} className="complaints-form" onSubmit={handleSubmit}>
+                <CustomText className="form-text-error">
+                    Los campos con un * son opcionales
+                </CustomText>
                 <CustomText id="general-info-title" className="form-section-title">
                     Información General
                 </CustomText>
@@ -228,7 +231,7 @@ function CreateComplaints() {
                     <CustomText className="form-text-error">
                         {errors.QuejasMunId ? errors.QuejasMunId : " "}
                     </CustomText>
-                    <CustomText className="form-text">Localidad</CustomText>
+                    <CustomText className="form-text">Localidad *</CustomText>
                     <CustomText className="form-text">Colonia</CustomText>
                     <CustomInput
                         id="QuejasLocId"
@@ -269,7 +272,7 @@ function CreateComplaints() {
                 </CustomText>
                 <div className="form-group">
                     <CustomText className="form-text">Tipo de Persona</CustomText>
-                    <CustomText className="form-text">Edad</CustomText>
+                    <CustomText className="form-text">Edad *</CustomText>
                     <CustomDropdown
                         id="QuejasTipoPersona"
                         options={TIPOS_PERSONA}
@@ -292,7 +295,7 @@ function CreateComplaints() {
                         {errors.QuejasEdad ? errors.QuejasEdad : " "}
                     </CustomText>
                     <CustomText className="form-section-subtitle">
-                        Género
+                        Género *
                     </CustomText>
                     <div className="radio-group">
                         <CustomText htmlFor="QuejasSexoH">Hombre</CustomText>
@@ -329,8 +332,8 @@ function CreateComplaints() {
                     Resolución de la queja
                 </CustomText>
                 <div className="form-group">
-                    <CustomText className="form-text">Fecha de resolucion</CustomText>
-                    <CustomText className="form-text">Fecha de notificación</CustomText>
+                    <CustomText className="form-text">Fecha de resolucion *</CustomText>
+                    <CustomText className="form-text">Fecha de notificación *</CustomText>
                     <CustomInput
                         id="QuejasFecResolucion"
                         placeholder="Fecha de resolución"
@@ -353,8 +356,8 @@ function CreateComplaints() {
                     <CustomText className="form-text-error">
                         {errors.QuejasFecNotificacion ? errors.QuejasFecNotificacion : " "}
                     </CustomText>
-                    <CustomText className="form-text">Sentido de resolución</CustomText>
-                    <CustomText className="form-text">Número de Penalización</CustomText>
+                    <CustomText className="form-text">Sentido de resolución *</CustomText>
+                    <CustomText className="form-text">Número de Penalización *</CustomText>
                     <CustomDropdown
                         id="QuejasRespuesta"
                         options={RESPUESTA_OPTIONS}
@@ -376,7 +379,7 @@ function CreateComplaints() {
                     <CustomText className="form-text-error">
                         {errors.QuejasNumPenal ? errors.QuejasNumPenal : " "}
                     </CustomText>
-                    <CustomText className="form-text" id="text-alone">Tipo de penalización</CustomText>
+                    <CustomText className="form-text" id="text-alone">Tipo de penalización *</CustomText>
                     <CustomDropdown
                         id="QuejasPenalizacion"
                         options={PENALIZACION_OPTIONS}
