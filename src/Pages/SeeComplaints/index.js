@@ -92,40 +92,76 @@ function SeeComplaints() {
         const marginX = 10;
         const lineSpacing = 8;
 
-        const fields = [
-            { label: 'Folio', value: complaint.Folio },
-            { label: 'Razón Social', value: complaint['Razón Social'] },
-            { label: 'Fecha', value: complaint.Fecha },
-            { label: 'Medio', value: complaint.Medio },
-            { label: 'Estatus', value: complaint.Estatus },
-            { label: 'Estado', value: complaint.Estado },
-            { label: 'Causa', value: complaint.Causa },
-            { label: 'Sector', value: complaint.Sector },
-            { label: 'Número de mes', value: complaint.NoMes },
-            { label: 'Número', value: complaint.Num },
-            { label: 'Nivel AT', value: complaint.NivelAT },
-            { label: 'Producto', value: complaint.Producto },
-            { label: 'PORI', value: complaint.PORI },
-            { label: 'Municipio ID', value: complaint.MunId },
-            { label: 'Localidad ID', value: complaint.LocId },
-            { label: 'Colonia ID', value: complaint.ColId },
-            { label: 'Código Postal', value: complaint.CP },
-            { label: 'Tipo Persona', value: complaint.TipoPersona },
-            { label: 'Sexo', value: complaint.Sexo },
-            { label: 'Edad', value: complaint.Edad },
-            { label: 'Fecha Resolución', value: complaint.FecResolucion },
-            { label: 'Fecha Notificación', value: complaint.FecNotificacion },
-            { label: 'Respuesta', value: complaint.Respuesta },
-            { label: 'Número Penal', value: complaint.NumPenal },
-            { label: 'Penalización', value: complaint.Penalizacion },
+        const sections = [
+            {
+                title: 'Información General',
+                fields: [
+                    { label: 'Razón Social', value: complaint['Razón Social'] },
+                    { label: 'Sector', value: complaint.Sector },
+                    { label: 'Número de mes', value: complaint.NoMes },
+                    { label: 'Número', value: complaint.Num },
+                    { label: 'Folio', value: complaint.Folio }
+                ]
+            },
+            {
+                title: 'Datos de la queja',
+                fields: [
+                    { label: 'Fecha Recepcion', value: complaint.FecRecepcion },
+                    { label: 'Medio de recepción', value: complaint.Medio },
+                    { label: 'Nivel AT', value: complaint.NivelAT },
+                    { label: 'Producto', value: complaint.Producto },
+                    { label: 'Causa', value: complaint.Causa },
+                    { label: 'PORI', value: complaint.PORI },
+                    { label: 'Estatus', value: complaint.Estatus },
+                ]
+            },
+            {
+                title: 'Ubicación',
+                fields: [
+                    { label: 'Entidad Federativa', value: complaint.Estado },
+                    { label: 'Municipio o Alcaldía', value: complaint.MunId },
+                    { label: 'Colonia', value: complaint.ColId },
+                    { label: 'Localidad', value: complaint.LocId },
+                    { label: 'Código Postal', value: complaint.CP }
+                ]
+            },
+            {
+                title: 'Datos del Usuario',
+                fields: [
+                    { label: 'Tipo Persona', value: complaint.TipoPersona },
+                    { label: 'Sexo', value: complaint.Sexo },
+                    { label: 'Edad', value: complaint.Edad },
+                ]
+            },{
+                title: 'Resolución de la Queja',
+                fields: [
+                    { label: 'Fecha Resolución', value: complaint.FecResolucion },
+                    { label: 'Fecha Notificación', value: complaint.FecNotificacion },
+                    { label: 'Sentido de la resolución', value: complaint.Respuesta },
+                    { label: 'Tipo de penalización', value: complaint.Penalizacion },
+                    { label: 'Número de penalización', value: complaint.NumPenal },
+                ]
+            }
         ];
 
-        fields.forEach((field) => {
+        sections.forEach((section) => {
+            // Encabezado de la sección
             labelStyle();
-            doc.text(`${field.label}:`, marginX, cursorY);
-            valueStyle();
-            // Convertir el valor a string para evitar errores
-            doc.text(String(field.value || 'N/A'), marginX + 50, cursorY);
+            doc.setFontSize(14);
+            doc.text(section.title, marginX, cursorY);
+            cursorY += lineSpacing;
+
+            // Campos de la sección
+            section.fields.forEach((field) => {
+                labelStyle();
+                doc.setFontSize(12);
+                doc.text(`${field.label}:`, marginX, cursorY);
+                valueStyle();
+                doc.text(String(field.value || 'N/A'), marginX + 50, cursorY);
+                cursorY += lineSpacing;
+            });
+
+            // Espaciado adicional después de cada sección
             cursorY += lineSpacing;
         });
 
@@ -225,12 +261,12 @@ function SeeComplaints() {
                                 data={tableData.map(complaint => ({
                                     ...complaint,
                                     Folio: (
-                                        <button 
+                                        <CustomButton 
                                             onClick={() => handlePreviewPDF(complaint)}
                                             className="preview-pdf-button"
                                         >
                                             {complaint.Folio}
-                                        </button>
+                                        </CustomButton>
                                     ),
                                 }))} 
                             />

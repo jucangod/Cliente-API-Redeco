@@ -282,6 +282,12 @@ tr:hover {
     color: #b13f51;
 }
 
+.preview-pdf-button{
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+}
+
 @media (max-width: 600px) {
     .filter-input,
     .filter-dropdown {

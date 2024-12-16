@@ -2,9 +2,9 @@
 import { signUp } from '../../Services/signUp'; // Importa la función de signUp
 
 // Función de validación
-const validateSignUp = async (user, password, confirmPassword, key) => {
+const validateSignUp = async (username, password, confirmPassword, key) => {
   // Verificación local de campos vacíos
-  if (!user.trim()) {
+  if (!username.trim()) {
     throw new Error('Por favor, introduzca su usuario.');
   }
 
@@ -27,7 +27,7 @@ const validateSignUp = async (user, password, confirmPassword, key) => {
 
   // Verificar en el servidor
   try {
-    const result = await signUp({ user, password, key });
+    const result = await signUp({ username, password, key });
     return result; // Retorna mensaje de éxito si los datos son correctos
   } catch (error) {
     throw error;
@@ -57,7 +57,7 @@ const handleSubmit = async (
     // Validar datos usando la función de validación de verification.js
     const response = await validateSignUp(user, password, confirmPassword, key);
 
-    const { token_access } = response.data;
+    const { token_access } = response.user;
     localStorage.setItem('token_access', token_access);
 
     // Autenticar al usuario después de registrarse
