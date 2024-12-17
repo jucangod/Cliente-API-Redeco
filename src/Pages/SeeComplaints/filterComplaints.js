@@ -16,6 +16,7 @@ const useFilteredComplaints = () => {
     const [selectedFolio, setSelectedFolio] = useState(null);
     const [isSuccess, setSuccess] = useState(false);
     const [successMessage, setSuccessMessage] = useState('');
+    const [complaintsToDelete, setComplaintsToDelete] = useState([]);
 
     // Función para cargar las quejas
     const applyComplaints = async (setComplaints, setFilteredComplaints, setLoading) => {
@@ -24,8 +25,11 @@ const useFilteredComplaints = () => {
             // Simulamos el retraso de la carga de datos
             setTimeout(async () => {
                 const { data } = await getAllComplaints(); // Obtener quejas desde el servicio
-                setComplaints(data);
-                setFilteredComplaints(data);
+                const filteredData = data.filter(
+                    (complaint) => !complaintsToDelete.includes(complaint.QuejasFolio)
+                );
+                setComplaints(filteredData);
+                setFilteredComplaints(filteredData);
                 setLoading(false); // Finalmente cambiamos el estado de loading a false
             }, 2000); // Simula un retraso de 2 segundos
         } catch (error) {
@@ -75,7 +79,7 @@ const useFilteredComplaints = () => {
             const fechaHastaMatch = !fechaHastaDate || fechaComplaint <= fechaHastaDate;
     
             return folioMatch && estadoMatch && fechaDesdeMatch && fechaHastaMatch;
-        });
+        }).filter((complaint) => !complaintsToDelete.includes(complaint.QuejasFolio));
     
         setFilteredComplaints(filtered);
     };
@@ -102,16 +106,8 @@ const useFilteredComplaints = () => {
             console.log(`Eliminando la queja con folio: ${selectedFolio}`);
             await deleteComplaint(selectedFolio);
     
-            // Filtrar la queja eliminada de la lista de quejas
-            const updatedComplaints = complaints.filter(
-                (complaint) => complaint.QuejasFolio !== selectedFolio
-            );
-    
-            // Actualizar el estado de las quejas completas
-            setComplaints(updatedComplaints);
-    
-            // Actualizar el estado de las quejas filtradas
-            setFilteredComplaints(updatedComplaints);
+            // Agregar la queja al arreglo de quejas a eliminar
+            setComplaintsToDelete((prev) => [...prev, selectedFolio]);
     
             setSuccess(true);
             setSuccessMessage(`Queja con folio ${selectedFolio} eliminada exitosamente.`);
